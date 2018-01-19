@@ -1,0 +1,62 @@
+extends layout
+
+block content
+
+    div(id="editar" onclick="alert(tipo,valores)")
+        p(id="tipo")= tipo
+        p(id="valores")= valores.local
+    script.
+
+        window.onload = function () {
+            document.getElementsById("editar").click
+        }
+        function test (tipo, valores){
+                alert("chega")
+                alert("->"+tipo)
+                alert("--"+valores)
+            var x = tipo
+            if(x === "Cultural"){
+                document.getElementById("editar").innerHTML = ""
+                eCultural(valores)
+            }
+            if(x === "Ideia"){
+                document.getElementById("editar").innerHTML = ""
+                eIdeia(valores)
+            }
+            if (x === "Trabalho Academico") {
+                document.getElementById("divOps").innerHTML = ""
+                etrabalhoAcademico(valores)
+            }
+            if(x === "Atividade Desportiva"){
+                document.getElementById("editar").innerHTML = ""
+                eatividadeDesportiva(valores)
+            }
+            if(x === "Pensamento"){
+                document.getElementById("divOps").innerHTML = ""
+                ePensamento(valores)
+            }
+            if (x === "Cronica") {
+                document.getElementById("divOps").innerHTML = ""
+                eCronica(valores)
+            }
+            if (x === "Receita Culinaria") {
+                document.getElementById("divOps").innerHTML = ""
+                ereceitaCulinaria(valores)
+            }
+            if (x === "Evento") {
+                document.getElementById("divOps").innerHTML = ""
+                eEvento(valores)
+            }
+            if (x === "Transação Monetária") {
+                document.getElementById("divOps").innerHTML = ""
+                etransacaoMonetaria(valores)
+            }
+            if (x === "Álbum Fotográfico") {
+                document.getElementById("divOps").innerHTML = ""
+                ealbumFotografico(valores)
+            }
+            if (x === "Viagem") {
+                document.getElementById("divOps").innerHTML = ""
+                eViagem(valores)
+            }
+        }

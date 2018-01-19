@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  center
+    h1(id="titulo" class="w3-text-white") Registar Atividade
+    p(class="w3-text-grey")=status
+    div(style="width:100%;")
+      form(class="forms.w3-container" action="/registarPen" method="post" enctype="multipart/form-data" id=forms)
+        p
+          label(class="w3-text-grey") *Título
+          input(class="w3-input.w3-border" type="text" name="titulo" placeholder="Título")
+        p
+          label(class="w3-text-grey") *Descrição
+          input(class="w3-input.w3-border" type="text" name="descricao" placeholder="Descrição")
+        p
+          label(class="w3-text-grey") Data
+          input(class="w3-input.w3-border" type="date" name="data" onload="this.valueAsDate = new Date();" value="")
+        p
+          label(class="w3-text-grey") Local
+          input(class="w3-input.w3-border" type="text" name="local" placeholder="Local")
+        p
+          label(class="w3-text-grey") Privado     
+            input(class="w3-check.w3-text-white" type="checkbox" name="privado" placeholder="Privado")
+        p(class="w3-text-white")
+          input(class="w3-btn.w3-teal.w3-round" type="submit" value="registar pensamento")
+    script.
+        var data = new Date();
+        document.getElementById('data').valueAsDate = new Date();

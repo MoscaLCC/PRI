@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  center
+    h1(id="titulo" class="w3-text-white") Registar Atividade
+    p(class="w3-text-grey")=status
+    div(style="width:100%;")
+      form(action="/registar" class="w3-container" method="post" enctype="multipart/form-data" id="forms")
+          p
+            label(class="w3-text-grey") *Título
+            input(type="text" id="titulo" name="titulo" placeholder="Título" class="w3-input w3-border")
+          p
+            label(class="w3-text-grey") *Descrição
+            input(type="text" id="descricao" name="descricao" placeholder="Descrição" class="w3-input w3-border")
+          p
+            label(class="w3-text-grey") Data
+            input(type="date" id="data" name="data" value="" class="w3-input w3-border")
+          p
+            label(class="w3-text-grey") Local
+            input(type="text" id="local" name="local" placeholder="Local" class="w3-input w3-border")
+          p
+            label(class="w3-text-grey") *Duração
+            input(type="number" id="duracao" name="duracao" placeholder="Duração" min="0" class="w3-input w3-border")
+          p
+            label(class="w3-text-grey") Desporto
+            select(id="desporto" name="desporto" placeholder="Desporto" class="w3-input w3-border")
+              each d in desportos
+                option(name="desporto" id=d value=d)=d
+          p
+            label(class="w3-text-grey") Fotografia
+            input(type="file" id="fotografia" name="fotografia" class="w3-input w3-border")
+          p
+            label(class="w3-text-grey") Privado     
+              input(type="checkbox" id="privado" name="privado" placeholder="Privado" class="w3-check w3-text-white")
+          p(class="w3-text-white")
+            input(type="submit" class="w3-btn w3-teal w3-round" value="registar atividade")
+      script.
+        var data = new Date();
+        document.getElementById('data').valueAsDate = new Date();

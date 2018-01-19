@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1(class="w3-text-white") Eu Digital
+  if status
+    p(class="w3-text-white")= status
+  div(style="width:50%;")
+    form(action="/login" class="w3-container w3-card-4" method="post" enctype="multipart/form-data")
+      p
+        label(class="w3-text-grey") Nome de Utilizador
+        input(type="text" id="username" name="username" placeholder="Username" class="w3-input w3-border")
+      p
+        label(class="w3-text-grey") Palavra-Passe
+        input(type="password" id="password" name="password" placeholder="Password" class="w3-input w3-border")
+      p
+        input(type="submit" value="Entrar" class="w3-button w3-round w3-teal")    
+    p
+      center        
+       a(href ='/signup')
+        button(type="submit" class="w3-button w3-teal w3-round") Não tenho conta
+        

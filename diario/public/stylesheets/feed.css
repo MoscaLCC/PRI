@@ -23,8 +23,46 @@ li a:hover:not(.active) {
     color: white;
 }
 
-.fotoContainer{
-    margin-left:20px;
+.fotoContainer {
+    margin-left: 20px;
     margin-bottom: 10px;
     padding: 15px;
     background-color: rgba(209, 238, 238, 0.5);
+}
+
+figure.myfigure{
+    position: relative;
+    border: 8px solid white;
+    width: 200px;
+    height: 200px;
+    box-shadow: 1px 1px 4px black;
+    margin-bottom: 10px;
+}
+
+figure.myfigure img{
+    width: 185px;
+    height: 185px;
+}
+
+figure.myfigure figcaption label input[type="file"] {
+    display: none;
+
+}
+
+figure.myfigure figcaption{
+    opacity: 0;
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    background-color: rgba(0,0,0,.4);
+    color: white;
+    width: 110%;
+    height:110%;
+    padding: 6px;
+    box-sizing: border-box;
+    transition: opacity 1s;
+}
+
+figure.myfigure:hover figcaption{
+    opacity: 1;
+}

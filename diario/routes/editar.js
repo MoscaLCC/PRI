@@ -55,17 +55,16 @@ router.get('/:tipo/:id', function(req, res, next) {
             }
         })
     }else if(tipo === "Atividade Desportiva"){
-        AtividadeDesportiva.find({'_id':req.params.id}).toArray(function(err,docs){
+        AtividadeDesportiva.find({'_id':req.params.id},(function(err,docs){
             if(!err){
-                console.log(docs)
-                res.render('editarAtividade', {tipo:tipo, valores:docs})
+                res.render('editarActDesp', {valores:docs[0]})
             }
             else{
                 var status = "Ocorreu um erro ao remover o evento!"
                 res.redirect('/feed')
             }
         })
-    }else if(tipo === "Pensamento"){
+        )} else if(tipo === "Pensamento"){
         Pensamento.find({'_id':req.params.id}).remove().exec(function(err,docs){
             if(!err){
                 var status = "Evento removido com sucesso!"

@@ -26,11 +26,7 @@ router.post('/',function(req,res,next) {
                 'privado':fields.privado}}
         ).exec(function(err,docs){
             if(err){
-                console.log("alterado com sucesso")
-            }
-            else {
-                console.log(docs)
-                console.log(fields.privado)
+                console.log("Actividade desportiva alterado com sucesso")
             }
         })
 

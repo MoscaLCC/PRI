@@ -33,17 +33,16 @@ router.get('/:tipo/:id', function(req, res, next) {
             }
         })
     }else if(tipo === "Ideia"){
-        Ideia.find({'_id':req.params.id}).remove().exec(function(err,docs){
+        Ideia.find({'_id':req.params.id},(function(err,docs){
             if(!err){
-                var status = "Evento removido com sucesso!"
-                res.redirect('/feed')
+                res.render('editarIdeia',{valores:docs[0]})
             }
             else{
-                var status = "Ocorreu um erro ao remover o evento!"
+                var status = "Ocorreu um erro ao tentar editar a Ideia!"
                 res.redirect('/feed')
             }
         })
-    }else if(tipo === "Trabalho Académico") {
+    )}else if(tipo === "Trabalho Académico") {
         TrabalhoAcademico.find({'_id':req.params.id}).remove().exec(function(err,docs){
             if(!err){
                 var status = "Evento removido com sucesso!"
@@ -60,22 +59,21 @@ router.get('/:tipo/:id', function(req, res, next) {
                 res.render('editarActDesp', {valores:docs[0]})
             }
             else{
-                var status = "Ocorreu um erro ao remover o evento!"
+                var status = "Ocorreu um erro ao tentar editar o evento!"
                 res.redirect('/feed')
             }
         })
-        )} else if(tipo === "Pensamento"){
-        Pensamento.find({'_id':req.params.id}).remove().exec(function(err,docs){
+        )}else if(tipo === "Pensamento"){
+        Pensamento.find({'_id':req.params.id},(function(err,docs){
             if(!err){
-                var status = "Evento removido com sucesso!"
-                res.redirect('/feed')
+                res.render('editarPensamento', {valores:docs[0]})
             }
             else{
-                var status = "Ocorreu um erro ao remover o evento!"
+                var status = "Ocorreu um erro ao tentar editar o evento!"
                 res.redirect('/feed')
             }
         })
-    }else if(tipo === "Cronica") {
+        )}else if(tipo === "Cronica") {
         Cronica.find({'_id':req.params.id}).remove().exec(function(err,docs){
             if(!err){
                 var status = "Evento removido com sucesso!"
@@ -97,18 +95,17 @@ router.get('/:tipo/:id', function(req, res, next) {
                 res.redirect('/feed')
             }
         })
-    }else if(tipo === "Evento") {
-        Evento.find({'_id':req.params.id}).remove().exec(function(err,docs){
-            if(!err){
-                var status = "Evento removido com sucesso!"
-                res.redirect('/feed')
-            }
-            else{
-                var status = "Ocorreu um erro ao remover o evento!"
-                res.redirect('/feed')
-            }
-        })
-    }else if(tipo === "Transação Monetária") {
+    }else if(tipo === "Evento"){
+        Evento.find({'_id':req.params.id},(function(err,docs){
+                if(!err){
+                    res.render('editarEvento',{valores:docs[0]})
+                }
+                else{
+                    var status = "Ocorreu um erro ao tentar editar o Evento!"
+                    res.redirect('/feed')
+                }
+            })
+        )}else if(tipo === "Transação Monetária") {
         TransacaoMonetaria.find({'_id':req.params.id}).remove().exec(function(err,docs){
             if(!err){
                 var status = "Evento removido com sucesso!"

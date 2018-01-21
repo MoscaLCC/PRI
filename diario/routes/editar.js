@@ -22,17 +22,16 @@ router.get('/:tipo/:id', function(req, res, next) {
     var tipo = req.params.tipo
     console.log("tipo: "+tipo + "; id: " + req.params.id)
     if(tipo === "Cultural"){
-        var valores = Cultural.find({'_id':req.params.id}).exec(function(err,docs){
+        Cultural.find({'_id':req.params.id},(function(err,docs){
             if(!err){
-                var status = "Evento removido com sucesso!"
-                res.redirect('/editarAtividade', {tipo:tipo, valores:valores})
+                res.render('editarCultural', {valores:docs[0]})
             }
             else{
-                var status = "Ocorreu um erro ao remover o evento!"
+                var status = "Ocorreu um erro ao tentar editar o evento!"
                 res.redirect('/feed')
             }
         })
-    }else if(tipo === "Ideia"){
+        )}else if(tipo === "Ideia"){
         Ideia.find({'_id':req.params.id},(function(err,docs){
             if(!err){
                 res.render('editarIdeia',{valores:docs[0]})

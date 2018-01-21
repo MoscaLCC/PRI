@@ -27,8 +27,11 @@ router.post('/',function(req,res,next) {
                     }
                 }
             ).exec(function (err, docs) {
-                if (err) {
-                    console.log("evento alterado com sucesso")
+                if(!err){
+                    console.log("Evento alterado com sucesso")
+                }
+                else{
+                    console.log("Ocurreu um erro tentar editar evento")
                 }
             })
             res.redirect('/feed')

@@ -1,0 +1,121 @@
+doctype html
+html
+    head
+        title Editar
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1')
+        link(rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css')
+        link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto')
+        link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/feed.css')
+        style html, body, h1, h2, h3, h4, h5, h6 {font-family: "Roboto", sans-serif}
+
+        script(src='/javascripts/jquery-3.2.1.js')
+
+    body(onload="seletor('"+valores.tipo+"'),privador('"+valores.privado+"')" id="body")
+        // The Grid
+        div(class="w3-row-padding")
+            form(class="w3-container" action="/editarCultural" method="post" enctype="multipart/form-data" id="forms")
+                p
+                input(type="hidden" id="_id" name="_id" value=valores._id readonly="readonly")
+                p
+                label(class="w3-text-grey")
+                    p *Título
+                    input(class="w3-input w3-border" type="text" id="titulo" name="titulo" value=valores.titulo)
+                p
+                label(class="w3-text-grey")
+                    p *Descrição
+                    input(class="w3-input w3-border" type="text" id="descricao" name="descricao" value=valores.descricao)
+                p
+                label(class="w3-text-grey")
+                    p Local
+                    input(class="w3-input w3-border" type="text" id="local" name="local" value=valores.local)
+                p
+                label(class="w3-text-grey")
+                    p Tipo
+                    select(class="w3-input w3-border" id="tipo" name="tipo")
+                        option(name="cinema" id="cinema" value="Cinema")
+                            p Cinema
+                        option(name="musica" id="musica" value="Musica")
+                            p Musica
+                        option(name="teatro" id="teatro" value="Teatro")
+                            p Teatro
+                        option(name="historia" id="historia" value="Historia")
+                            p Historia
+                        option(name="pintura" id="pintura" value="Pintura")
+                            p Pintura
+                        option(name="arte" id="arte" value="Arte")
+                            p Arte
+
+                            - var i=0
+                each foto in valores.fotografias
+                    - i++
+                    p
+                    figure(class="myfigure")
+                        img(class="joint-img" id="img"+ i name="img1" src="/images/upload/"+foto alt="your image")
+                        figcaption
+                            label(class="custom-file-upload")
+                                input(class="joint" type='file' id="imagemu" name="imagemu" accept="images/upload/*")
+                                p Mudar Imagem
+                p
+                label(class="w3-text-grey")
+                    p Privado
+                    input(class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado")
+                p(class="w3-text-white")
+                    input(class="w3-btn w3-teal w3-round" type="submit" value="Guardar Altrações")
+
+        center
+            a(class="w3-button w3-large w3-theme-d4 w3-center" href="/feed" title="voltar")
+                i(class="fa fa-home")
+                | Voltar
+            br
+            // End Left Column
+            // End Grid
+        // End Page Container
+        footer(class="w3-container w3-centered w3-teal w3-center w3-margin-top")
+
+
+        script.
+            function seletor(tipo) {
+                alert(tipo)
+                if(tipo === "Cinema"){
+                    document.getElementById("tipo").options[0].selected = true
+                }
+                else if(tipo === "Musica"){
+                    document.getElementById("tipo").options[1].selected = true
+                }
+                else if (tipo === "Teatro") {
+                    document.getElementById("tipo").options[2].selected = true
+                }
+                else if (tipo === "Historia") {
+                    document.getElementById("tipo").options[3].selected = true
+                }
+                else if (tipo === "Pintura") {
+                    document.getElementById("tipo").options[4].selected = true
+                }
+                else{
+                    document.getElementById("tipo").options[5].selected = true
+                }
+            }
+            function privador(privado) {
+                if(privado){
+                    document.getElementById("privado").checked = true
+                }
+            }
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $(input).next('.joint-img').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(".joint").change(function () {
+                readURL(this);
+            });
+

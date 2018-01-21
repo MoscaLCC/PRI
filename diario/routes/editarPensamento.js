@@ -27,8 +27,11 @@ router.post('/',function(req,res,next) {
                     }
                 }
             ).exec(function (err, docs) {
-                if (err) {
+                if(!err){
                     console.log("Pensamento alterado com sucesso")
+                }
+                else{
+                    console.log("Ocurreu um erro tentar editar Pensamento")
                 }
             })
             res.redirect('/feed')

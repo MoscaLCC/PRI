@@ -35,7 +35,7 @@ router.post('/',function(req,res,next) {
                         descricao: fields.descricao,
                         data: new Date(),
                         privado: fields.privado,
-                        ingredientes: opcoes.map(x => fields[x]),
+                        ingredientes: opcoes.map(x => fields[x])
                     })
                     receita.save(function(err1, doc){
 

@@ -229,7 +229,7 @@ html
                   p=evento.local
                   label(class="w3-text-grey") Privado
                   p=evento.privado
-              else if evento.tipoEvento == "Crónica"
+              else if evento.tipoEvento == "Cronica"
                   h4="Título: " + evento.titulo
                   label(class="w3-text-grey") Descrição
                   p=evento.descricao
@@ -247,15 +247,15 @@ html
               else if evento.tipoEvento == "Receita Culinária"
                   h4="Título: " + evento.titulo
                   label(class="w3-text-grey") Descrição
-                  p=evento.descricao
+                    p=evento.descricao
                   if evento.ingredientes
                   label(class="w3-text-grey") Ingredientes
-                  each ingrediente in evento.ingredientes
-                    p(class="w3-text-balack")=ingrediente
-                    label(class="w3-text-grey") Data      
-                  p=evento.data
+                    each ingrediente in evento.ingredientes
+                        p(class="w3-text-balack")=ingrediente
+                  label(class="w3-text-grey") Data
+                    p=evento.data
                   label(class="w3-text-grey") Privado
-                  p=evento.privado
+                    p=evento.privado
               else if evento.tipoEvento == "Evento"
                   h4="Título: " + evento.titulo
                   label(class="w3-text-grey") Descrição

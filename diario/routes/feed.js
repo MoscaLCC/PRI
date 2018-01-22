@@ -18,6 +18,7 @@ var TransacaoMonetaria = require("../models/transacao_monetaria")
 var AlbumFotografico = require("../models/album_fotografico")
 var Viagem = require("../models/viagem")
 var Cultural = require("../models/cultural")
+var sync = require("synchronize")
 
 var User = require("../models/user")
 /* GET home page. */

@@ -15,9 +15,11 @@
     "mongoose": "^5.0.0",
     "morgan": "~1.9.0",
     "node": "^9.4.0",
+    "node-gyp": "^3.6.2",
     "nodemon": "^1.14.11",
     "pug": "2.0.0-beta11",
     "serve-favicon": "~2.4.5",
+    "synchronize": "^2.0.0",
     "utils": "^0.3.1"
   }
 }

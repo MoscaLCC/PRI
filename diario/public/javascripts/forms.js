@@ -495,7 +495,7 @@ function albumFotografico(){
 function aViagem(){
     document.getElementById('divOps').innerHTML=`
 <div style="width:100%;">
-<form class="w3-container" action="/registarVia" method="post" enctype="multipart/form-data" id="forms">
+<form class="w3-container" action="/registarViagem" method="post" enctype="multipart/form-data" id="forms">
     <p>
         <label class="w3-text-grey">*Título</label>
         <input class="w3-input w3-border" type="text" id="titulo" name="titulo" placeholder="Título"/>
@@ -548,7 +548,6 @@ function aViagem(){
 </div>
     `
 }
-
 
 
 

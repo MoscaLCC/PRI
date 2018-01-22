@@ -44,12 +44,24 @@ html
                                 option(name="desporto" id="Futebol" value="Futebol")
                                     p Futebol
                         p
-                        figure(class="myfigure")
-                            img(class="joint-img" id="img1" name="img1" src="/images/upload/"+valores.fotografia alt="your image")
-                            figcaption
-                                label(class="custom-file-upload")
-                                    input(class="joint" type='file' id="imagemu" name="imagemu" accept="images/upload/*")
-                                    p Mudar Imagem
+                        if valores.fotografia
+                            figure(class="myfigure")
+                                img(class="joint-img" id="img1" name="img1" src="/images/upload/"+valores.fotografia alt="your image")
+                                figcaption
+                                    label(class="custom-file-upload")
+                                        input(class="joint" type='file' id="foto1" name="foto1")
+                                        p Mudar Imagem
+                            input(type="hidden" id="namefoto" name="namefoto" value=valores.fotografia readonly="readonly")
+                            button(id="remove" onclick="removeImg()")
+                        else
+                            figure(class="myfigure")
+                                img(class="joint-img" id="img1" name="img1" src="/images/addimg.png" alt="your image")
+                                figcaption
+                                    label(class="custom-file-upload")
+                                        input(class="joint" type='file' id="foto1" name="foto1")
+                                        p Mudar Imagem
+                            input(type="hidden" id="namefoto" name="namefoto" value=valores.fotografia readonly="readonly")
+                            button(id="remove" onclick="removeImg()")
                         p
                         label(class="w3-text-grey")
                             p Privado
@@ -87,7 +99,7 @@ html
                             var reader = new FileReader();
 
                             reader.onload = function (e) {
-                                $(input).next('.joint-img').attr('src', e.target.result);
+                                $('#img1').attr('src', e.target.result);
                             }
 
                             reader.readAsDataURL(input.files[0]);
@@ -96,5 +108,9 @@ html
 
                     $(".joint").change(function () {
                         readURL(this);
-                    });
+                    })
+                    function removeImg() {
+                        $('#img1').attr('src', "/images/addimg.png")
+                        $('#namefoto').setValue("")
+                    }
 

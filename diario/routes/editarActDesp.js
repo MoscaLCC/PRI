@@ -16,6 +16,21 @@ router.post('/',function(req,res,next) {
             fields.privado = true;
         else fields.privado = false;
 
+
+            if(files.foto1.name != "" || files.foto1.name != "addimg.png" ){
+                var extension = files.foto1.name.split(".")
+                extension = extension[extension.length-1]
+                fields.fotografia = fields._id + "." + extension
+                fs.rename(files.foto1.path, './public/images/upload/' + fields.fotografia, function(err1){
+                    if(!err1){
+                        console.log("Ficheiro recebido e guardado com sucesso")
+                    }
+                    else{
+                        console.log("Ocorreram erros na gravação do ficheiro enviado")
+                    }
+                })
+            }
+
         Atividade.update(
             {'_id':fields._id},
             {$set:{'titulo':fields.titulo,
@@ -23,7 +38,8 @@ router.post('/',function(req,res,next) {
                 'local':fields.local,
                 'duracao':fields.duracao,
                 'desporto': fields.desporto,
-                'privado':fields.privado}}
+                'privado':fields.privado,
+                'fotografia':fields.fotografia}}
         ).exec(function(err,docs){
             if(!err){
                 console.log("Actividade desportiva alterado com sucesso")

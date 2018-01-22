@@ -41,18 +41,17 @@ router.get('/:tipo/:id', function(req, res, next) {
                 res.redirect('/feed')
             }
         })
-    )}else if(tipo === "Trabalho Académico") {
-        TrabalhoAcademico.find({'_id':req.params.id}).remove().exec(function(err,docs){
+        )}else if(tipo === "Trabalho Académico") {
+        TrabalhoAcademico.find({'_id':req.params.id},(function(err,docs){
             if(!err){
-                var status = "Evento removido com sucesso!"
-                res.redirect('/feed')
+                res.render('editarTraAcd', {valores:docs[0]})
             }
             else{
                 var status = "Ocorreu um erro ao editar o evento!"
                 res.redirect('/feed')
             }
         })
-    }else if(tipo === "Atividade Desportiva"){
+        )}else if(tipo === "Atividade Desportiva"){
         AtividadeDesportiva.find({'_id':req.params.id},(function(err,docs){
             if(!err){
                 res.render('editarActDesp', {valores:docs[0]})
@@ -124,18 +123,16 @@ router.get('/:tipo/:id', function(req, res, next) {
             }
         })
     }else if(tipo === "Viagem") {
-        Viagem.find({'_id':req.params.id}).remove().exec(function(err,docs){
+        Viagem.find({'_id':req.params.id},(function(err,docs){
             if(!err){
-                var status = "Evento removido com sucesso!"
-                res.redirect('/feed')
+                res.render('editarViagem', {valores:docs[0]})
             }
             else{
                 var status = "Ocorreu um erro ao editar o evento!"
                 res.redirect('/feed')
             }
         })
-    }
-    else{
+        )}else{
         var status = "Ocorreu um erro ao editar o evento!"
         res.redirect('/feed')
     }

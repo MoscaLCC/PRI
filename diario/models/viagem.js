@@ -11,7 +11,7 @@ var SchemaViagem= new Schema({
     local: {type: String , required: false},
     privado: {type: Boolean , required: true},
     acompanhantes:[{type: String}],
-    album:[{type: String}]
+    fotografias:[{type: String}]
 })
 
 module.exports = mongoose.model('viagens',SchemaViagem)

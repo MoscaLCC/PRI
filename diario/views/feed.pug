@@ -319,10 +319,10 @@ html
                   p=evento.privado
                   if evento.acompanhantes
                     label(class="w3-text-grey") Acompanhantes
-                    each pessoa in evento.acompanhates
+                    each pessoa in evento.acompanhantes
                         p=pessoa
-                  if evento.album
-                    each foto in evento.album
+                  if evento.fotografias
+                    each foto in evento.fotografias
                         h5=foto
                         img(src="/images/upload/"+foto )
           // End Middle Column 

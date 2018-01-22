@@ -27,217 +27,227 @@ router.get('/', function(req, res, next) {
     res.redirect('/login')
   }
     else{
-      var currentUser = req.cookies.online;
-      TiposEventos.find().exec(function(err,docs){
-      if(!err){
+      sync.fiber(function(){
+        var currentUser = req.cookies.online;
+
+        // Ir à base de dados buscar os tipos de eventos disponíveis
         var tipos=[]
-        //eventos =  lista com todos os eventos do currentUser
-        var eventos=[]
-        for(var i=0;i<docs.length;i++)
-          tipos.push(docs[i].nome);
-        
-        User.find({'username': currentUser}).exec((err1,docs1)=>{
-          if(!err1){
-            if(docs1.length>0){
-              var userDoc = docs1[0]
-              var userID = userDoc._id
-              Ideia.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Ideia"
-                    eventos.push(x)
-                  }
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-              })
+        try{
+          var docsTipos = sync.await(TiposEventos.find().exec(sync.defer()))
+          for(var i=0;i<docsTipos.length;i++)
+            tipos.push(docsTipos[i].nome);
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter tipos de eventos: \n"+err+"\n\n");
+          res.render('error', { error:err , message:'Erro ao obter tipos de eventos'});
+          return
+        }
 
-              TrabalhoAcademico.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Trabalho Académico"
-                    eventos.push(x)
-                  }
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-              })
-
-              AtividadeDesportiva.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Atividade Desportiva"
-                    eventos.push(x)
-                  }
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-              })
-
-              Pensamento.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Pensamento"
-                    eventos.push(x)
-                  }
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-              })
-
-              Cronica.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Cronica"
-                    eventos.push(x)
-                  }
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-              })
-
-              ReceitaCulinaria.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Receita Culinária"
-                    eventos.push(x)
-                  }
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-              })
-
-              Evento.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Evento"
-                    eventos.push(x)
-                  }
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-              })
-
-              TransacaoMonetaria.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Transação Monetária"
-                    eventos.push(x)
-                  }
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-              })
-
-              AlbumFotografico.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Álbum Fotográfico"
-                    eventos.push(x)
-                  }
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-              })
-
-              Viagem.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Viagem"
-                    eventos.push(x)
-                  }
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-              })
-
-              Cultural.find({'userId':userID }).exec((err2 , docs2)=>{
-                if(!err2 ){
-                  for(var i=0;i<docs2.length;i++){
-                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                    x.tipoEvento="Cultural"
-                    eventos.push(x)
-                  }
-
-                }
-                else{
-                  console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                  res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                }
-
-                setTimeout(function() {
-                }, 3000);
-                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                res.render('feed',{
-                  user: {
-                    username: currentUser ,
-                    foto: userDoc.foto,
-                    idade: userDoc.idade,
-                    email:userDoc.email,
-                    pnome:userDoc.pnome,
-                    unome:userDoc.unome
-                  },
-                  tipos:tipos,
-                  eventos:eventos
-                })
-              })
-              
-              
-            }
-
-            else{
-              console.log("Tentativa de acesso ao feed de um utilizador que não existe na base de dados");
-              res.clearCookie("online")
-              res.render('error', { message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-            }
-            
+        // Ir à base de dados buscar o ID do utilizador que fez o pedido
+        var userID
+        var userDoc
+        try{
+          var docsUsers = sync.await(User.find({'username': currentUser}).exec(sync.defer()))
+          if(docsUsers.length>0){
+            userDoc = docsUsers[0]
+            userID = userDoc._id
           }
           else{
-
+            console.log("Tentativa de acesso ao feed de um utilizador que não existe na base de dados");
+            res.clearCookie("online")
+            res.render('error', { message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
           }
-        })
-        
-      }
-      else{
-        console.log("Occoreu um erro ao obter tipos de eventos: \n"+err+"\n\n");
-        res.render('error', { error:err , message:'Erro ao obter tipos de eventos'});
-      }
-    })
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter informações sobre o utilizador: \n"+err+"\n\n");
+          res.render('error', { error:err , message:'Erro ao obter informações sobre o utilizador'})
+          return
+        }
 
-    
-  }  
-  
-});
+        //eventos =  lista com todos os eventos do currentUser
+        var eventos=[]
+        try{
+          var docsIdeias = sync.await(Ideia.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsIdeias.length;i++){
+            var x=JSON.parse(JSON.stringify(docsIdeias[i]));
+            x.tipoEvento="Ideia"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+
+        try{
+          var docsAcademicos = sync.await(TrabalhoAcademico.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsAcademicos.length;i++){
+            var x=JSON.parse(JSON.stringify(docsAcademicos[i]));
+            x.tipoEvento="Trabalho Académico"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+
+        try{
+          var docsDesportivas = sync.await(AtividadeDesportiva.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsDesportivas.length;i++){
+            var x=JSON.parse(JSON.stringify(docsDesportivas[i]));
+            x.tipoEvento="Atividade Desportiva"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+
+        try{
+          var docsPensamentos = sync.await(Pensamento.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsPensamentos.length;i++){
+            var x=JSON.parse(JSON.stringify(docsPensamentos[i]));
+            x.tipoEvento="Pensamento"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+
+        try{
+          var docsCronicas = sync.await(Cronica.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsCronicas.length;i++){
+            var x=JSON.parse(JSON.stringify(docsCronicas[i]));
+            x.tipoEvento="Cronica"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+
+        try{
+          var docsReceitas = sync.await(ReceitaCulinaria.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsReceitas.length;i++){
+            var x=JSON.parse(JSON.stringify(docsReceitas[i]));
+            x.tipoEvento="Receita Culinária"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+
+        try{
+          var docsEventos = sync.await(Evento.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsEventos.length;i++){
+            var x=JSON.parse(JSON.stringify(docsEventos[i]));
+            x.tipoEvento="Evento"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+        
+        try{
+          var docsTransacoes = sync.await(TransacaoMonetaria.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsTransacoes.length;i++){
+            var x=JSON.parse(JSON.stringify(docsTransacoes[i]));
+            x.tipoEvento="Transação Monetária"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+
+
+
+
+
+
+
+
+
+
+
+        try{
+          var docsAlbuns = sync.await(AlbumFotografico.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsAlbuns.length;i++){
+            var x=JSON.parse(JSON.stringify(docsAlbuns[i]));
+            x.tipoEvento="Álbum Fotográfico"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+
+        try{
+          var docsViagens = sync.await(Viagem.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsViagens.length;i++){
+            var x=JSON.parse(JSON.stringify(docsViagens[i]));
+            x.tipoEvento="Viagem"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+
+        try{
+          var docsCulturais = sync.await(Cultural.find({'userId':userID }).exec(sync.defer()))
+          for(var i=0;i<docsCulturais.length;i++){
+            var x=JSON.parse(JSON.stringify(docsCulturais[i]));
+            x.tipoEvento="Cultural"
+            eventos.push(x)
+          }
+        }
+        catch(err){
+          console.log("Occoreu um erro ao obter eventos da base de dados: \r\n"+err+"\r\n\r\n");
+          res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+          return
+        }
+
+     
+        eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+        res.render('feed',{
+          user: {
+            username: currentUser ,
+            foto: userDoc.foto,
+            idade: userDoc.idade,
+            email:userDoc.email,
+            pnome:userDoc.pnome,
+            unome:userDoc.unome
+          },
+          tipos:tipos,
+          eventos:eventos
+        })
+      })
+    }    
+})
+
 /*
 router.post('/',function(req,res,next) {
   var form= new formidable.IncomingForm();

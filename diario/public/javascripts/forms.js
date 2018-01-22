@@ -110,7 +110,7 @@ function atividadeDesportiva(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar atividade"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Atividade Desportiva"/>
     </p>
 </form>
 <script>
@@ -162,7 +162,7 @@ function trabalhoAcademico(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar trabalho academico"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Trabalho Académico"/>
     </p>
 </form>
 <script>
@@ -212,7 +212,7 @@ function aCultural(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar atividade Cultural"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Atividade Cultural"/>
     </p>
 </form>
 <script>
@@ -243,7 +243,7 @@ function aIdeia(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar ideia"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Ideia"/>
     </p>
 </form>
 <script>
@@ -274,7 +274,7 @@ function aPensamento(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar pensamento"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Pensamento"/>
     </p>
 </form>
 <script>
@@ -313,7 +313,7 @@ function aCronica(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar atividade"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Crónica"/>
     </p>
 </form>
 <script>
@@ -349,7 +349,7 @@ function receitaCulinaria(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar atividade"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Receita Culinária"/>
     </p>
 </form>
 <script>
@@ -381,7 +381,7 @@ function aEvento(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar atividade"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Evento"/>
     </p>
 </form>
 <script>
@@ -424,7 +424,7 @@ function transacaoMonetaria(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar atividade"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Transação"/>
     </p>
 </form>
 <script>
@@ -481,7 +481,7 @@ function albumFotografico(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar album"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Álbum"/>
     </p>
 </form>
 <script>
@@ -539,7 +539,7 @@ function aViagem(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="registar pensamento"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Pensamento"/>
     </p>
 </form>
 <script>

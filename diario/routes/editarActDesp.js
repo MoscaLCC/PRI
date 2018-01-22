@@ -16,8 +16,10 @@ router.post('/',function(req,res,next) {
             fields.privado = true;
         else fields.privado = false;
 
+        console.log(files)
 
-            if(files.foto1.name != "" || files.foto1.name != "addimg.png" ){
+
+            if(files.foto1.name != "" && files.foto1.name != "addimg.png" ){
                 var extension = files.foto1.name.split(".")
                 extension = extension[extension.length-1]
                 fields.fotografia = fields._id + "." + extension
@@ -29,6 +31,33 @@ router.post('/',function(req,res,next) {
                         console.log("Ocorreram erros na gravação do ficheiro enviado")
                     }
                 })
+                Atividade.update(
+                    {'_id':fields._id},
+                    {$set:{'fotografia':fields.fotografia}}
+                ).exec(function(err,docs){
+                    if(!err){
+                        console.log("Actividade desportiva alterado com sucesso")
+                    }
+                    else{
+                        console.log("Ocurreu um erro tentar editar Ideia")
+                    }
+                })
+
+            }
+            else{
+                if(fields.namefoto == ""){
+                    Atividade.update(
+                        {'_id':fields._id},
+                        {$unset:{'fotografia':1}}
+                    ).exec(function(err,docs){
+                        if(!err){
+                            console.log("Actividade desportiva alterado com sucesso")
+                        }
+                        else{
+                            console.log("Ocurreu um erro tentar editar Ideia")
+                        }
+                    })
+                }
             }
 
         Atividade.update(
@@ -38,8 +67,8 @@ router.post('/',function(req,res,next) {
                 'local':fields.local,
                 'duracao':fields.duracao,
                 'desporto': fields.desporto,
-                'privado':fields.privado,
-                'fotografia':fields.fotografia}}
+                'privado':fields.privado
+                }}
         ).exec(function(err,docs){
             if(!err){
                 console.log("Actividade desportiva alterado com sucesso")

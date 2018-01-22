@@ -52,7 +52,7 @@ html
                                         input(class="joint" type='file' id="foto1" name="foto1")
                                         p Mudar Imagem
                             input(type="hidden" id="namefoto" name="namefoto" value=valores.fotografia readonly="readonly")
-                            button(id="remove" onclick="removeImg()")
+                            input(type="button" id="remove" onclick="removeImg()" value="Remover Imagem")
                         else
                             figure(class="myfigure")
                                 img(class="joint-img" id="img1" name="img1" src="/images/addimg.png" alt="your image")
@@ -60,8 +60,8 @@ html
                                     label(class="custom-file-upload")
                                         input(class="joint" type='file' id="foto1" name="foto1")
                                         p Mudar Imagem
-                            input(type="hidden" id="namefoto" name="namefoto" value=valores.fotografia readonly="readonly")
-                            button(id="remove" onclick="removeImg()")
+                            input(type="hidden" id="namefoto" name="namefoto" value="" readonly="readonly")
+                            input(type="button" id="remove" onclick="removeImg()" value="Remover Imagem")
                         p
                         label(class="w3-text-grey")
                             p Privado

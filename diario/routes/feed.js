@@ -32,10 +32,13 @@ router.get('/', function(req, res, next) {
 
         // Ir à base de dados buscar os tipos de eventos disponíveis
         var tipos=[]
+        var OpTipos=[]
         try{
           var docsTipos = sync.await(TiposEventos.find().exec(sync.defer()))
-          for(var i=0;i<docsTipos.length;i++)
+          for(var i=0;i<docsTipos.length;i++){
             tipos.push(docsTipos[i].nome);
+            OpTipos.push(docsTipos[i].nome)
+          }
         }
         catch(err){
           console.log("Occoreu um erro ao obter tipos de eventos: \n"+err+"\n\n");
@@ -178,16 +181,6 @@ router.get('/', function(req, res, next) {
           return
         }
 
-
-
-
-
-
-
-
-
-
-
         try{
           var docsAlbuns = sync.await(AlbumFotografico.find({'userId':userID }).exec(sync.defer()))
           for(var i=0;i<docsAlbuns.length;i++){
@@ -242,7 +235,8 @@ router.get('/', function(req, res, next) {
             unome:userDoc.unome
           },
           tipos:tipos,
-          eventos:eventos
+          eventos:eventos,
+          OpTipos:OpTipos
         })
       })
     }    

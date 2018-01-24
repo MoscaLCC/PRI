@@ -122,52 +122,31 @@ html
             div(class="w3-col m12")
               div(class="w3-card w3-round w3-white")
                 div(class="w3-container w3-padding")
-                  p(class="w3-text-grey")=status    
+                  p(class="w3-text-grey")   
                   h6(class="w3-opacity") Novo Evento
                   select(class="" name="tipoEvento" id="tipoEvento" onchange='apresentaForm()')
                     option(selected disabled) Tipo de Evento
-                    each x in tipos
+                    each x in OpTipos
                       option= x
                   
                   div(class="w3-container" id="divOps")
-                  p=status
-
-          each evento in eventos
-            div(class="w3-container w3-teal w3-margin-left w3-margin-right w3-margin-top")
-              table
-                tr
-                  td(style="width:80%")
-                    h5=evento.tipoEvento
-                  td
-                    button(class="w3-button" onclick="editarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Editar
-                  td
-                    button(class="w3-button" onclick="eliminarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Eliminar
-            
-            div(class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right")
-              if eventos.tam==0
-                h5 Não tem eventos
-                break
-              if evento.tipoEvento=="Atividade Desportiva"
-                h4="Título: "+evento.titulo
-                label(class="w3-text-grey") Descrição
-                p=evento.descricao
-                label(class="w3-text-grey") Data
-                p=evento.data
-                label(class="w3-text-grey") Local
-                p=evento.local
-                label(class="w3-text-grey") Privado
-                p=evento.privado
-                label(class="w3-text-grey") Duração
-                p=evento.duracao
-                label(class="w3-text-grey") Desporto
-                p=evento.desporto
-                if evento.fotografia
-                  label(class="w3-text-grey") Fotografia
-                      div(class="w3-row-padding w3-margin-top")
-                        div(class="w3-card w3-half")
-                          img(src="/images/upload/"+evento.fotografia style="width:100%")
-              else if evento.tipoEvento == "Trabalho Académico"
-                  h4="Título: " + evento.titulo
+                center
+                  h3=status
+          if eventos!=undefined
+            each evento in eventos
+              div(class="w3-container w3-teal w3-margin-left w3-margin-right w3-margin-top")
+                table
+                  tr
+                    td(style="width:80%")
+                      h5=evento.tipoEvento
+                    td
+                      button(class="w3-button" onclick="editarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Editar
+                    td
+                      button(class="w3-button" onclick="eliminarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Eliminar
+              
+              div(class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right")
+                if evento.tipoEvento=="Atividade Desportiva"
+                  h4="Título: "+evento.titulo
                   label(class="w3-text-grey") Descrição
                   p=evento.descricao
                   label(class="w3-text-grey") Data
@@ -176,87 +155,37 @@ html
                   p=evento.local
                   label(class="w3-text-grey") Privado
                   p=evento.privado
-                  label(class="w3-text-grey") UC
-                  p=evento.uc
-                  if evento.docente
-                  label(class="w3-text-grey") Docente
-                    p=evento.docente
-                  if evento.ficheiros
-                  label(class="w3-text-grey") Ficheiros
-                      each ficheiro in evento.ficheiros
-                        a(href="/images/upload/"+ ficheiro)
-                            p=ficheiro
-                  p=evento.resultado
-              else if evento.tipoEvento=="Cultural"
-                h4="Título: " + evento.titulo
-                label(class="w3-text-grey") Descrição
-                p=evento.descricao
-                label(class="w3-text-grey") Data
-                p=evento.data
-                label(class="w3-text-grey") Local
-                p=evento.local
-                label(class="w3-text-grey") Privado
-                p=evento.privado
-                label(class="w3-text-grey") Tipo
-                p=evento.tipo
-                
-                if evento.fotografias
-                  label(class="w3-text-grey") Fotografias
-                  div(class="w3-row-padding w3-margin-top")
-                    each fotografia in evento.fotografias
-                      div(class="w3-third")
-                        div(class="w3-card")
-                          img(src="/images/upload/"+fotografia style="width:100%")
-
-
-              else if evento.tipoEvento == "Ideia"
-                  h4="Título: " + evento.titulo
-                  label(class="w3-text-grey") Descrição
-                  p=evento.descricao
-                  label(class="w3-text-grey") Data
-                  p=evento.data
-                  label(class="w3-text-grey") Local
-                  p=evento.local
-                  label(class="w3-text-grey") Privado
-                  p=evento.privado
-              else if evento.tipoEvento == "Pensamento"
-                  h4="Título: " + evento.titulo
-                  label(class="w3-text-grey") Descrição
-                  p=evento.descricao
-                  label(class="w3-text-grey") Data
-                  p=evento.data
-                  label(class="w3-text-grey") Local
-                  p=evento.local
-                  label(class="w3-text-grey") Privado
-                  p=evento.privado
-              else if evento.tipoEvento == "Cronica"
-                  h4="Título: " + evento.titulo
-                  label(class="w3-text-grey") Descrição
-                  p=evento.descricao
-                  label(class="w3-text-grey") Data
-                  p=evento.data
-                  label(class="w3-text-grey") Local
-                  p=evento.local
-                  label(class="w3-text-grey") Privado
-                  p=evento.privado
-                  if evento.ficheiros
-                  label(class="w3-text-grey") Ficheiros
-                      each ficheiro in evento.ficheiros
-                        a(href = "/images/upload/" + ficheiro)
-                            p=ficheiro
-              else if evento.tipoEvento == "Receita Culinária"
-                  h4="Título: " + evento.titulo
-                  label(class="w3-text-grey") Descrição
+                  label(class="w3-text-grey") Duração
+                  p=evento.duracao
+                  label(class="w3-text-grey") Desporto
+                  p=evento.desporto
+                  if evento.fotografia
+                    label(class="w3-text-grey") Fotografia
+                        div(class="w3-row-padding w3-margin-top")
+                          div(class="w3-card w3-half")
+                            img(src="/images/upload/"+evento.fotografia style="width:100%")
+                else if evento.tipoEvento == "Trabalho Académico"
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
                     p=evento.descricao
-                  if evento.ingredientes
-                  label(class="w3-text-grey") Ingredientes
-                    each ingrediente in evento.ingredientes
-                        p(class="w3-text-balack")=ingrediente
-                  label(class="w3-text-grey") Data
+                    label(class="w3-text-grey") Data
                     p=evento.data
-                  label(class="w3-text-grey") Privado
+                    label(class="w3-text-grey") Local
+                    p=evento.local
+                    label(class="w3-text-grey") Privado
                     p=evento.privado
-              else if evento.tipoEvento == "Evento"
+                    label(class="w3-text-grey") UC
+                    p=evento.uc
+                    if evento.docente
+                    label(class="w3-text-grey") Docente
+                      p=evento.docente
+                    if evento.ficheiros
+                    label(class="w3-text-grey") Ficheiros
+                        each ficheiro in evento.ficheiros
+                          a(href="/images/upload/"+ ficheiro)
+                              p=ficheiro
+                    p=evento.resultado
+                else if evento.tipoEvento=="Cultural"
                   h4="Título: " + evento.titulo
                   label(class="w3-text-grey") Descrição
                   p=evento.descricao
@@ -264,67 +193,139 @@ html
                   p=evento.data
                   label(class="w3-text-grey") Local
                   p=evento.local
-                  label(class="w3-text-grey") Privado
-                  p=evento.privado
-              else if evento.tipoEvento == "Transação Monetária"
-                  h4="Título: " + evento.titulo
-                  label(class="w3-text-grey") Descrição
-                  p=evento.descricao
-                  label(class="w3-text-grey") Data
-                  p=evento.data
                   label(class="w3-text-grey") Privado
                   p=evento.privado
                   label(class="w3-text-grey") Tipo
-                      p=evento.tipo
-                  label(class="w3-text-grey") Montante
-                  p=evento.montante
-                  label(class="w3-text-grey") Interveniente
-                  p=evento.interveniente
-              else if evento.tipoEvento == "Álbum Fotográfico"
-                  h4="Título: " + evento.titulo
-                  label(class="w3-text-grey") Descrição
-                  p=evento.descricao
-                  label(class="w3-text-grey") Data
-                  p=evento.data
-                  label(class="w3-text-grey") Local
-                  p=evento.local
-                  label(class="w3-text-grey") Privado
-                  p=evento.privado
+                  p=evento.tipo
+                  
                   if evento.fotografias
                     label(class="w3-text-grey") Fotografias
-                    each fotografia in evento.fotografias
-                      div(class="w3-row-padding w3-margin-top")
-                        div(class="w3-card w3-half")
-                          img(src="/images/upload/" + fotografia.nome style="width:100%")
-                      if fotografia.descricao
-                        label(class="w3-text-grey") Descrição 
-                        p=fotografia.descricao
-                      label(class="w3-text-grey") Local    
-                      p=fotografia.local
-                      if fotografia.pessoas
-                        label(class="w3-text-grey") Pessoas
-                        each pessoa in fotografia.pessoas
+                    div(class="w3-row-padding w3-margin-top")
+                      each fotografia in evento.fotografias
+                        div(class="w3-third")
+                          div(class="w3-card")
+                            img(src="/images/upload/"+fotografia style="width:100%")
+
+
+                else if evento.tipoEvento == "Ideia"
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    label(class="w3-text-grey") Data
+                    p=evento.data
+                    label(class="w3-text-grey") Local
+                    p=evento.local
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                else if evento.tipoEvento == "Pensamento"
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    label(class="w3-text-grey") Data
+                    p=evento.data
+                    label(class="w3-text-grey") Local
+                    p=evento.local
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                else if evento.tipoEvento == "Cronica"
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    label(class="w3-text-grey") Data
+                    p=evento.data
+                    label(class="w3-text-grey") Local
+                    p=evento.local
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                    if evento.ficheiros
+                    label(class="w3-text-grey") Ficheiros
+                        each ficheiro in evento.ficheiros
+                          a(href = "/images/upload/" + ficheiro)
+                              p=ficheiro
+                else if evento.tipoEvento == "Receita Culinária"
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    if evento.ingredientes
+                    label(class="w3-text-grey") Ingredientes
+                      each ingrediente in evento.ingredientes
+                          p(class="w3-text-black")=ingrediente
+                    label(class="w3-text-grey") Data
+                    p=evento.data
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                else if evento.tipoEvento == "Evento"
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    label(class="w3-text-grey") Data
+                    p=evento.data
+                    label(class="w3-text-grey") Local
+                    p=evento.local
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                else if evento.tipoEvento == "Transação Monetária"
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    label(class="w3-text-grey") Data
+                    p=evento.data
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                    label(class="w3-text-grey") Tipo
+                        p=evento.tipo
+                    label(class="w3-text-grey") Montante
+                    p=evento.montante
+                    label(class="w3-text-grey") Interveniente
+                    p=evento.interveniente
+                else if evento.tipoEvento == "Álbum Fotográfico"
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    label(class="w3-text-grey") Data
+                    p=evento.data
+                    label(class="w3-text-grey") Local
+                    p=evento.local
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                    if evento.fotografias
+                      label(class="w3-text-grey") Fotografias
+                      each fotografia in evento.fotografias
+                        div(class="w3-row-padding w3-margin-top")
+                          div(class="w3-card w3-half")
+                            img(src="/images/upload/" + fotografia.nome style="width:100%")
+                        if fotografia.descricao
+                          label(class="w3-text-grey") Descrição 
+                          p=fotografia.descricao
+                        label(class="w3-text-grey") Local    
+                        p=fotografia.local
+                        if fotografia.pessoas
+                          label(class="w3-text-grey") Pessoas
+                          each pessoa in fotografia.pessoas
+                            p=pessoa
+                else if evento.tipoEvento == "Viagem"
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    label(class="w3-text-grey") Data Início
+                    p=evento.datainicio
+                    label(class="w3-text-grey") Data Fim
+                    p=evento.datafim
+                    label(class="w3-text-grey") Local
+                    p=evento.local
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                    if evento.acompanhantes
+                      label(class="w3-text-grey") Acompanhantes
+                      each pessoa in evento.acompanhantes
                           p=pessoa
-              else if evento.tipoEvento == "Viagem"
-                  h4="Título: " + evento.titulo
-                  label(class="w3-text-grey") Descrição
-                  p=evento.descricao
-                  label(class="w3-text-grey") Data Início
-                  p=evento.datainicio
-                  label(class="w3-text-grey") Data Fim
-                  p=evento.datafim
-                  label(class="w3-text-grey") Local
-                  p=evento.local
-                  label(class="w3-text-grey") Privado
-                  p=evento.privado
-                  if evento.acompanhantes
-                    label(class="w3-text-grey") Acompanhantes
-                    each pessoa in evento.acompanhantes
-                        p=pessoa
-                  if evento.fotografias
-                    each foto in evento.fotografias
-                        h5=foto
-                        img(src="/images/upload/"+foto )
+                    if evento.fotografias
+                      each foto in evento.fotografias
+                          h5=foto
+                          img(src="/images/upload/"+foto )
+          else
+            div(class="w3-container")
+              h1 Nao existem eventos!
           // End Middle Column 
         // Right Column 
         div(class="w3-col m2")
@@ -334,7 +335,11 @@ html
               | Pesquisar
             div(id="Demo1" class="w3-hide w3-container")
               form(class="w3-container" action="/pesquisarCat" method="post" enctype="multipart/form-data")
-                input(type="text" placeholder="categoria Atividade" class="w3-input w3-border" id="pesquisa" name="pesquisa")
+                select(class="" name="pesquisa" id="tipoEvento")
+                    option(selected disabled) Tipo de Evento
+                    each x in OpTipos
+                      option= x
+                  
                 input(type="submit" class="w3-btn w3-teal w3-round" value="Pesquisar")  
               
               

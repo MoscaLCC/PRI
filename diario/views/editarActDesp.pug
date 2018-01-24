@@ -100,6 +100,7 @@ html
 
                             reader.onload = function (e) {
                                 $('#img1').attr('src', e.target.result);
+                                $('#namefoto').attr('value',e.target.result)
                             }
 
                             reader.readAsDataURL(input.files[0]);
@@ -111,6 +112,6 @@ html
                     })
                     function removeImg() {
                         $('#img1').attr('src', "/images/addimg.png")
-                        $('#namefoto').setValue("")
+                        $('#namefoto').attr('value','')
                     }
 

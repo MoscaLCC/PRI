@@ -59,65 +59,6 @@ html
               p
                 i(class="fa fa-address-card w3-text-theme")="   "+user.pnome +" "+ user.unome
           br
-          // Accordion 
-          //-
-            div(class="w3-card w3-round")
-              div(class="w3-white")
-                button(class="w3-button w3-block w3-theme-l1 w3-left-align" onclick="myFunction('Demo1')")
-                  i(class="fa fa-circle-o-notch fa-fw w3-margin-right")
-                  | My Groups
-                div(id="Demo1" class="w3-hide w3-container")
-                  p Some text  
-                button(class="w3-button w3-block w3-theme-l1 w3-left-align" onclick="myFunction('Demo2')")
-                  i(class="fa fa-calendar-check-o fa-fw w3-margin-right")
-                  | My Events
-                div(id="Demo2" class="w3-hide w3-container")
-                  p Some other text  
-                button(class="w3-button w3-block w3-theme-l1 w3-left-align" onclick="myFunction('Demo3')")
-                  i(class="fa fa-users fa-fw w3-margin-right")
-                  | My Photos
-                div(id="Demo3" class="w3-hide w3-container")
-                  div(class="w3-row-padding")
-                    br
-                    div(class="w3-half")
-                      img(class="w3-margin-bottom" src="/w3images/lights.jpg" style="width:100%")
-                    div(class="w3-half")
-                      img(class="w3-margin-bottom" src="/w3images/nature.jpg" style="width:100%")
-                    div(class="w3-half")
-                      img(class="w3-margin-bottom" src="/w3images/mountains.jpg" style="width:100%")
-                    div(class="w3-half")
-                      img(class="w3-margin-bottom" src="/w3images/forest.jpg" style="width:100%")
-                    div(class="w3-half")
-                      img(class="w3-margin-bottom" src="/w3images/nature.jpg" style="width:100%")
-                    div(class="w3-half")
-                      img(class="w3-margin-bottom" src="/w3images/fjords.jpg" style="width:100%")
-            br
-          // Interests 
-          //-
-            div(class="w3-card w3-round w3-white w3-hide-small")
-              div(class="w3-container")
-                p Interests
-                p
-                  span(class="w3-tag w3-small w3-theme-d5") News
-                  span(class="w3-tag w3-small w3-theme-d4") W3Schools
-                  span(class="w3-tag w3-small w3-theme-d3") Labels
-                  span(class="w3-tag w3-small w3-theme-d2") Games
-                  span(class="w3-tag w3-small w3-theme-d1") Friends
-                  span(class="w3-tag w3-small w3-theme") Games
-                  span(class="w3-tag w3-small w3-theme-l1") Friends
-                  span(class="w3-tag w3-small w3-theme-l2") Food
-                  span(class="w3-tag w3-small w3-theme-l3") Design
-                  span(class="w3-tag w3-small w3-theme-l4") Art
-                  span(class="w3-tag w3-small w3-theme-l5") Photos
-            br
-          // Alert Box 
-          //-
-            div(class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small")
-              span(class="w3-button w3-theme-l3 w3-display-topright" onclick="this.parentElement.style.display='none'")
-                i(class="fa fa-remove")
-              p
-                strong Hey!
-              p People are looking at your profile. Find out who 
           // End Left Column 
         // Middle Column 
         div(class="w3-col m7")
@@ -126,12 +67,8 @@ html
               div(class="w3-card w3-round w3-white")
                 div(class="w3-container w3-padding")
                   p(class="w3-text-grey")   
-                  h6(class="w3-opacity") Novo Evento
-                  select(class="" name="tipoEvento" id="tipoEvento" onchange='apresentaForm()')
-                    option(selected disabled) Tipo de Evento
-                    each x in OpTipos
-                      option= x
-                  
+                  center
+                    h1 Feed Público  
                   div(class="w3-container" id="divOps")
                 center
                   h3=status
@@ -143,9 +80,7 @@ html
                     td(style="width:80%")
                       h5=evento.tipoEvento
                     td
-                      button(class="w3-button" onclick="editarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Editar
-                    td
-                      button(class="w3-button" onclick="eliminarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Eliminar
+                      h5(style="text-align:left")="User: "+evento.user
               
               div(class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right")
                 if evento.tipoEvento=="Atividade Desportiva"

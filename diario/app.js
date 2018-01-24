@@ -41,6 +41,7 @@ var pesquisa = require('./routes/pesquisarCat')
 var perfil = require('./routes/perfil')
 var eliminar = require('./routes/eliminar')
 var editar = require('./routes/editar')
+var outrasPublicacoes= require('./routes/outras_publicacoes')
 var app = express();
 
 // view engine setup
@@ -93,6 +94,7 @@ app.use('/registarReceita', receita)
 app.use('/registarAlbum', album)
 app.use('/eliminar', eliminar)
 app.use('/editar',editar)
+app.use('/publicacoes',outrasPublicacoes)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

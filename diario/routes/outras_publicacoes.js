@@ -60,7 +60,6 @@ router.get('/', function(req, res, next) {
                 var x=users[i]._id
                 
                 x.user=users[i].username
-                console.log(JSON.stringify(x.user))
                 usersID.push(x)
 
             }

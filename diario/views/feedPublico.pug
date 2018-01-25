@@ -68,10 +68,10 @@ html
                 div(class="w3-container w3-padding")
                   p(class="w3-text-grey")   
                   center
-                    h1 Feed Público  
+                    h1(class="w3-text-green") Feed Público  
                   div(class="w3-container" id="divOps")
                 center
-                  h3=status
+                  h3(class="w3-text-red")=status
           if eventos!=undefined
             -var count=1
             each evento in eventos
@@ -82,7 +82,13 @@ html
                     td(style="width:80%")
                       button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento
                     td(class="w3-right")
-                      h6(class="w3-text")="User:  "+evento.user
+                      if evento.user==user.username
+                        td
+                          button(class="w3-button" onclick="editarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Editar
+                        td
+                          button(class="w3-button" onclick="eliminarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Eliminar
+                      else
+                        h6(class="w3-text")="User:  "+evento.user
               div(class="w3-container w3-card w3-hide w3-white w3-round w3-margin-left w3-margin-right" id=idDiv)
                 if evento.tipoEvento=="Atividade Desportiva"
                     h4="Título: "+evento.titulo

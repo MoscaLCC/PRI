@@ -200,7 +200,7 @@ router.post('/',function(req,res,next) {
                             })   
                         })
                     }
-                    if(categoria == "Receita Culinaria"){
+                    if(categoria == "Receita Culinária"){
                         console.log("entrou 4")
                         var tipos=[];
                         var eventos=[];
@@ -522,7 +522,7 @@ router.post('/',function(req,res,next) {
                             })   
                         })
                     }
-                    if(categoria == "Trabalho Academico"){
+                    if(categoria == "Trabalho Académico"){
                         
                         var tipos=[];
                         var eventos=[];

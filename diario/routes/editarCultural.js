@@ -17,17 +17,33 @@ router.post('/',function(req,res,next) {
             fields.privado = true;
         else fields.privado = false;
 
-            Cultural.update(
-                {'_id':fields._id},
-                {$unset:{'fotografias':1}}
-            ).exec(function(err,docs){
-                if(!err){
-                    console.log("Cultural limpo de fotografias")
+
+        if (fs.existsSync(images_dir)) {
+                var removidos = Object.keys(fields)
+            console.log("removidos => " + removidos)
+                var soremovidos = removidos.filter(x => x.startsWith("removido"))
+            console.log("soremovidos => " + soremovidos)
+                var remocoes = soremovidos.map(x => fields[x])
+            console.log("remocoes => " + remocoes)
+
+                for (var rm in remocoes) {
+                    curPath = images_dir + remocoes[rm]
+                    fs.unlinkSync(curPath);
                 }
-                else{
-                    console.log("Ocurreu um erro tentar limpar fotografias")
-                }
-            })
+        }
+        else { console.log("erro ao encontrar a pasta das imagens") }
+
+        Cultural.update(
+            {'_id':fields._id},
+            {$unset:{'fotografias':1}}
+        ).exec(function(err,docs){
+            if(!err){
+                console.log("Cultural limpo de fotografias")
+            }
+            else{
+                console.log("Ocurreu um erro tentar limpar fotografias")
+            }
+        })
 
         var lista = Object.keys(fields)
         var opcoes = lista.filter( x => x.startsWith("namefoto"))
@@ -52,7 +68,6 @@ router.post('/',function(req,res,next) {
         for(x in files){
             i++
             if(x.startsWith("foto")){
-                i++
                 console.log("nome da foto: " + files[x].name)
                 console.log("caminho da foto: " + files[x].path)
                 if(files[x].name != ""){
@@ -60,8 +75,9 @@ router.post('/',function(req,res,next) {
                     extension = extension[extension.length-1]
                     console.log("valor = " + i)
                     var data = new Date()
-                    console.log(data.toDateString())
-                    var novoNome = fields._id + "-" + data.toDateString() + "." + extension
+                    var novadata = data.toISOString().split(':').join('-')
+                    novadata = novadata.split('.').join('-')
+                    var novoNome = fields._id + "-" + novadata + "-" + i + "." + extension
                     var fenviado=files[x].path
                     var fnovo=images_dir+novoNome
                     fs.rename(files[x].path, fnovo, function(err3){

@@ -56,11 +56,13 @@ router.post('/',function(req,res,next) {
                     var extension = files[x].name.split(".")
                     extension = extension[extension.length-1]
                       var data = new Date()
-                    var novoNome = doc._id + "-" + data.toString() + "." + extension
+                      var novadata = data.toISOString().split(':').join('-')
+                      novadata = novadata.split('.').join('-')
+                    var novoNome = doc._id + "-" + novadata + "-" + i +"." + extension
                       evento_cultural.fotografias.push(novoNome)
                     var fenviado=files[x].path
                     var fnovo=images_dir+novoNome
-                      cosole.log(fnovo)
+                      console.log(fnovo)
                     fs.rename(files[x].path, fnovo, function(err3){
                       if(!err3){
                         console.log("Ficheiro recebido e guardado com sucesso")

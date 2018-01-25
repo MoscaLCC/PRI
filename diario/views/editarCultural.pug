@@ -20,6 +20,8 @@ html
                 p
                 input(type="hidden" id="_id" name="_id" value=valores._id readonly="readonly")
                 p
+                div(id="removidos")
+                p
                 label(class="w3-text-grey")
                     p *Título
                     input(class="w3-input w3-border" type="text" id="titulo" name="titulo" value=valores.titulo)
@@ -68,7 +70,7 @@ html
                 input(type="button" class="w3-btn w3-teal" onclick="addfile()" value="Adicionar Fotografia")
                 p
                 label(class="w3-text-grey")
-                    p Privado
+                p Privado
                     input(class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado")
                 p(class="w3-text-white")
                     input(class="w3-btn w3-teal w3-round" type="submit" value="Guardar Altrações")
@@ -127,7 +129,8 @@ html
 
                     reader.onload = function (e) {
                         $('#'+input1).attr('src', e.target.result);
-                        $('#'+input2).attr('value', '')
+                        listRem(input2)
+                        $('#'+input2).attr('value',"")
                     }
 
                 reader.readAsDataURL(input3.files[0]);
@@ -141,12 +144,27 @@ html
                 alert(numFiles)
                 if(numFiles <= 1){
                     $('#'+input1).attr('src', "/images/addimg.png")
-                    $('#'+input2).attr('value','')
+                    listRem(input2)
+                    $('#'+input2).attr('value',"")
                 }
                 else{
+                    listRem(input2)
+                    alert("faze")
                     $('#'+input3).remove()
                     //renomear()
                 }
+            }
+            function listRem(idname) {
+                alert("Chega listRem")
+                var numFiles = $('#removidos').children().length + 1
+                alert(numFiles)
+                alert(idname)
+                var valor = $('#'+ idname).val()
+                alert(valor)
+                if(valor != ""){
+                    $('#removidos').append(`<input type="hidden" id="removido` + numFiles + `" name="removido` + numFiles + `" value=` + valor + ` readonly="readonly"/>`)
+                }
+
             }
             function addfile() {
                 alert("chega")
@@ -176,4 +194,3 @@ html
                     </div>`)
                 }
             }
-

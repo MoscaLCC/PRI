@@ -197,6 +197,7 @@ function aCultural(){
             <option name="tipo" id="Historia" value="hostoria">História</option>
             <option name="tipo" id="Pintura" value="pintura">Pintura</option>         
             <option name="tipo" id="Arte" value="arte">Arte</option>
+            <option name="tipo" id="Outros" value="outros">Outros</option>
         </select>
     </p>
     <p>

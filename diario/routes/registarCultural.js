@@ -45,7 +45,7 @@ router.post('/',function(req,res,next) {
           evento_cultural.save(function(err2, doc){
             if(!err2){
               // iterar sobre imagens e renomear os ficheiros
-              var i=0;
+              var i=0
               evento_cultural.fotografias = []
               for(x in files){
                 i++
@@ -55,10 +55,12 @@ router.post('/',function(req,res,next) {
                   if(files[x].name != ""){
                     var extension = files[x].name.split(".")
                     extension = extension[extension.length-1]
-                    var novoNome = doc._id + "-" + i + "." + extension
-                    evento_cultural.fotografias.push(novoNome)
+                      var data = new Date()
+                    var novoNome = doc._id + "-" + data.toString() + "." + extension
+                      evento_cultural.fotografias.push(novoNome)
                     var fenviado=files[x].path
                     var fnovo=images_dir+novoNome
+                      cosole.log(fnovo)
                     fs.rename(files[x].path, fnovo, function(err3){
                       if(!err3){
                         console.log("Ficheiro recebido e guardado com sucesso")

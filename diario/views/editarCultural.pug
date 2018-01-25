@@ -105,8 +105,12 @@ html
                 }
             }
             function privador(privado) {
-                if(privado){
+                
+                if(privado === 'true'){
                     document.getElementById("privado").checked = true
+                }
+                else{
+                    document.getElementById("privado").checked = false
                 }
             }
             function readURL(input1, input2, input3) {

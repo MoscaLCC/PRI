@@ -1,2 +1,0 @@
-cenas novas -- atenção que não é só sair .. pk a ligação ao servidor continua ativa .. 
-e não é por a passwor estar mal ou o usename que o obriga a sair só sai se ja estiver online 

@@ -24,7 +24,7 @@ html
         a(class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="/perfil" title="Account Settings")
           i(class="fa fa-user")
           |    Perfil
-        a(class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="/publicacoes" title="Outras Publicações")
+        a(class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="/feedPublico" title="Outras Publicações")
           i(class="fa fa-globe")
           |    Outras Publicações
         a(class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-right w3-hover-white" href="/logout" title="Account Settings") Logout
@@ -134,20 +134,22 @@ html
                   
                   div(class="w3-container" id="divOps")
                 center
-                  h3=status
+                  h3(id="status")=status
           if eventos!=undefined
+            -var count=1
             each evento in eventos
+              -var idDiv="act"+count
               div(class="w3-container w3-teal w3-margin-left w3-margin-right w3-margin-top")
                 table
                   tr
                     td(style="width:80%")
-                      h5=evento.tipoEvento
+                      button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento
                     td
                       button(class="w3-button" onclick="editarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Editar
                     td
                       button(class="w3-button" onclick="eliminarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Eliminar
               
-              div(class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right")
+              div(class="w3-container w3-card w3-hide w3-white w3-round w3-margin-left w3-margin-right" id=idDiv)
                 if evento.tipoEvento=="Atividade Desportiva"
                   h4="Título: "+evento.titulo
                   label(class="w3-text-grey") Descrição
@@ -200,9 +202,8 @@ html
                   p=evento.privado
                   label(class="w3-text-grey") Tipo
                   p=evento.tipo
-                  
                   if evento.fotografias
-                    label(class="w3-text-grey") Fotografias
+                  label(class="w3-text-grey") Fotografias
                     div(class="w3-row-padding w3-margin-top")
                       each fotografia in evento.fotografias
                         div(class="w3-third")
@@ -296,7 +297,7 @@ html
                       each fotografia in evento.fotografias
                         div(class="w3-row-padding w3-margin-top")
                           div(class="w3-card w3-half")
-                            img(src="/images/upload/" + fotografia.nome style="width:100%")
+                            img(src="/images/upload/" + fotografia.nome style="width:30%")
                         if fotografia.descricao
                           label(class="w3-text-grey") Descrição 
                           p=fotografia.descricao
@@ -323,9 +324,12 @@ html
                       each pessoa in evento.acompanhantes
                           p=pessoa
                     if evento.fotografias
+                      label(class="w3-text-grey") Fotografias
+                      div(class="w3-row-padding w3-margin-top")
                       each foto in evento.fotografias
-                          h5=foto
-                          img(src="/images/upload/"+foto )
+                          img(src="/images/upload/"+foto style="width:30%")
+              -count++             
+                          
           else
             div(class="w3-container")
               h1 Nao existem eventos!
@@ -420,52 +424,71 @@ html
         obj.style.height = obj.scrollHeight + 'px';
        
       }
+      function showAct(id){
+        var x = document.getElementById(id);
+        if(x.className.indexOf("w3-hide")>=0) 
+         x.className = x.className.replace("w3-hide","w3-show");
+         else
+           x.className = x.className.replace("w3-show","w3-hide");
+  
+      }
       function apresentaForm(){
         //setIframe(document.getElementById("divOps"))
         var x = document.getElementById("tipoEvento").options[document.getElementById("tipoEvento").selectedIndex].text
 
         if(x === "Cultural"){
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             aCultural()
         }
         if(x === "Ideia"){
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             aIdeia()
         }
-        if (x === "Trabalho Academico") {
+        if (x === "Trabalho Académico") {
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             trabalhoAcademico()
         }
         if(x === "Atividade Desportiva"){
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             atividadeDesportiva()
         }
         if(x === "Pensamento"){
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             aPensamento()
         }
-        if (x === "Cronica") {
+        if (x === "Crónica") {
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             aCronica()
         }
-        if (x === "Receita Culinaria") {
+        if (x === "Receita Culinária") {
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             receitaCulinaria()
         }
         if (x === "Evento") {
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             aEvento()
         }
         if (x === "Transação Monetária") {
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             transacaoMonetaria()
         }
         if (x === "Álbum Fotográfico") {
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             albumFotografico()
         }
         if (x === "Viagem") {
             document.getElementById("divOps").innerHTML = ""
+            document.getElementById("status").innerHTML=""
             aViagem()
         }
       }

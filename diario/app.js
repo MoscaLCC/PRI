@@ -42,7 +42,7 @@ var pesquisaPub = require('./routes/pesquisarCatPub')
 var perfil = require('./routes/perfil')
 var eliminar = require('./routes/eliminar')
 var editar = require('./routes/editar')
-var outrasPublicacoes= require('./routes/outras_publicacoes')
+var feedPublico= require('./routes/feedPublico')
 var app = express();
 
 // view engine setup
@@ -98,7 +98,7 @@ app.use('/registarReceita', receita)
 app.use('/registarAlbum', album)
 app.use('/eliminar', eliminar)
 app.use('/editar',editar)
-app.use('/publicacoes',outrasPublicacoes)
+app.use('/feedPublico',feedPublico)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

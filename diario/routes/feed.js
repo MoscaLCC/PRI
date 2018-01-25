@@ -223,7 +223,7 @@ router.get('/', function(req, res, next) {
           return
         }
 
-     
+        if(eventos.length!=0){
         eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
         res.render('feed',{
           user: {
@@ -238,6 +238,24 @@ router.get('/', function(req, res, next) {
           eventos:eventos,
           OpTipos:OpTipos
         })
+        }
+        else{
+          eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+          res.render('feed',{
+            status:"Ainda não foram criados eventos",
+            user: {
+              username: currentUser ,
+              foto: userDoc.foto,
+              idade: userDoc.idade,
+              email:userDoc.email,
+              pnome:userDoc.pnome,
+              unome:userDoc.unome
+            },
+            tipos:tipos,
+            eventos:eventos,
+            OpTipos:OpTipos
+          })
+        }
       })
     }    
 })

@@ -24,7 +24,7 @@ html
         a(class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="/perfil" title="Account Settings")
           i(class="fa fa-user")
           |    Perfil
-        a(class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="/publicacoes" title="Outras Publicações")
+        a(class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="/feedPublico" title="Outras Publicações")
           i(class="fa fa-globe")
           |    Outras Publicações
         a(class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-right w3-hover-white" href="/logout" title="Account Settings") Logout
@@ -73,75 +73,77 @@ html
                 center
                   h3=status
           if eventos!=undefined
+            -var count=1
             each evento in eventos
+              -var idDiv="act"+count
               div(class="w3-container w3-teal w3-margin-left w3-margin-right w3-margin-top")
                 table
                   tr
                     td(style="width:80%")
-                      h5=evento.tipoEvento
+                      button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento
                     td(class="w3-right")
-                      h5(class="w3-text")="User:  "+evento.user
-              div(class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right")
+                      h6(class="w3-text")="User:  "+evento.user
+              div(class="w3-container w3-card w3-hide w3-white w3-round w3-margin-left w3-margin-right" id=idDiv)
                 if evento.tipoEvento=="Atividade Desportiva"
-                  h4="Título: "+evento.titulo
-                  label(class="w3-text-grey") Descrição
-                  p=evento.descricao
-                  label(class="w3-text-grey") Data
-                  p=evento.data
-                  label(class="w3-text-grey") Local
-                  p=evento.local
-                  label(class="w3-text-grey") Privado
-                  p=evento.privado
-                  label(class="w3-text-grey") Duração
-                  p=evento.duracao
-                  label(class="w3-text-grey") Desporto
-                  p=evento.desporto
-                  if evento.fotografia
-                    label(class="w3-text-grey") Fotografia
-                        div(class="w3-row-padding w3-margin-top")
-                          div(class="w3-card w3-half")
-                            img(src="/images/upload/"+evento.fotografia style="width:100%")
+                    h4="Título: "+evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    label(class="w3-text-grey") Data
+                    p=evento.data
+                    label(class="w3-text-grey") Local
+                    p=evento.local
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                    label(class="w3-text-grey") Duração
+                    p=evento.duracao
+                    label(class="w3-text-grey") Desporto
+                    p=evento.desporto
+                    if evento.fotografia
+                      label(class="w3-text-grey") Fotografia
+                          div(class="w3-row-padding w3-margin-top")
+                            div(class="w3-card w3-half")
+                              img(src="/images/upload/"+evento.fotografia style="width:100%")
                 else if evento.tipoEvento == "Trabalho Académico"
-                  h4="Título: " + evento.titulo
-                  label(class="w3-text-grey") Descrição
-                  p=evento.descricao
-                  label(class="w3-text-grey") Data
-                  p=evento.data
-                  label(class="w3-text-grey") Local
-                  p=evento.local
-                  label(class="w3-text-grey") Privado
-                  p=evento.privado
-                  label(class="w3-text-grey") UC
-                  p=evento.uc
-                  if evento.docente
-                  label(class="w3-text-grey") Docente
-                    p=evento.docente
-                  if evento.ficheiros
-                  label(class="w3-text-grey") Ficheiros
-                      each ficheiro in evento.ficheiros
-                        a(href="/images/upload/"+ ficheiro)
-                            p=ficheiro
-                  p=evento.resultado
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    label(class="w3-text-grey") Data
+                    p=evento.data
+                    label(class="w3-text-grey") Local
+                    p=evento.local
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                    label(class="w3-text-grey") UC
+                    p=evento.uc
+                    if evento.docente
+                    label(class="w3-text-grey") Docente
+                      p=evento.docente
+                    if evento.ficheiros
+                    label(class="w3-text-grey") Ficheiros
+                        each ficheiro in evento.ficheiros
+                          a(href="/images/upload/"+ ficheiro)
+                              p=ficheiro
+                    p=evento.resultado
                 else if evento.tipoEvento=="Cultural"
-                  h4="Título: " + evento.titulo
-                  label(class="w3-text-grey") Descrição
-                  p=evento.descricao
-                  label(class="w3-text-grey") Data
-                  p=evento.data
-                  label(class="w3-text-grey") Local
-                  p=evento.local
-                  label(class="w3-text-grey") Privado
-                  p=evento.privado
-                  label(class="w3-text-grey") Tipo
-                  p=evento.tipo
-                  
-                  if evento.fotografias
-                    label(class="w3-text-grey") Fotografias
-                    div(class="w3-row-padding w3-margin-top")
-                      each fotografia in evento.fotografias
-                        div(class="w3-third")
-                          div(class="w3-card")
-                            img(src="/images/upload/"+fotografia style="width:100%")
+                    h4="Título: " + evento.titulo
+                    label(class="w3-text-grey") Descrição
+                    p=evento.descricao
+                    label(class="w3-text-grey") Data
+                    p=evento.data
+                    label(class="w3-text-grey") Local
+                    p=evento.local
+                    label(class="w3-text-grey") Privado
+                    p=evento.privado
+                    label(class="w3-text-grey") Tipo
+                    p=evento.tipo
+                    
+                    if evento.fotografias
+                      label(class="w3-text-grey") Fotografias
+                      div(class="w3-row-padding w3-margin-top")
+                        each fotografia in evento.fotografias
+                          div(class="w3-third")
+                            div(class="w3-card")
+                              img(src="/images/upload/"+fotografia style="width:100%")
 
 
                 else if evento.tipoEvento == "Ideia"
@@ -258,8 +260,10 @@ html
                           p=pessoa
                     if evento.fotografias
                       each foto in evento.fotografias
-                          h5=foto
-                          img(src="/images/upload/"+foto )
+                        div(class="w3-row-padding w3-margin-top")
+                        each foto in evento.fotografias
+                          img(src="/images/upload/"+foto style="width:30%")
+              -count++ 
           else
             div(class="w3-container")
               h1 Nao existem eventos!
@@ -267,9 +271,10 @@ html
         // Right Column 
         div(class="w3-col m2")
           div(class="w3-white")
-            button(class="w3-button w3-block w3-theme-l1 w3-left-align" onclick="myFunction('Demo1')")
-              i(class="fa fa-search fa-fw w3-margin-right")
-              | Pesquisar Feed Público
+            button(class="w3-button w3-theme-l1 w3-left-align" onclick="myFunction('Demo1')")
+              div(class="w3-white w3-left-align")
+              i(class="fa fa-search fa-fw ")
+              |Pesquisa feed público
             div(id="Demo1" class="w3-hide w3-container")
               form(class="w3-container" action="/pesquisarCatPub" method="post" enctype="multipart/form-data")
                 select(class="" name="pesquisa" id="tipoEvento")
@@ -354,6 +359,15 @@ html
         obj.style.height = obj.scrollHeight + 'px';
        
       }
+      function showAct(id){
+        var x = document.getElementById(id);
+        if(x.className.indexOf("w3-hide")>=0) 
+         x.className = x.className.replace("w3-hide","w3-show");
+         else
+           x.className = x.className.replace("w3-show","w3-hide");
+  
+      }
+
       function apresentaForm(){
         //setIframe(document.getElementById("divOps"))
         var x = document.getElementById("tipoEvento").options[document.getElementById("tipoEvento").selectedIndex].text

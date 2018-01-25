@@ -539,7 +539,7 @@ function aViagem(){
         </label>
     </p>
     <p class="w3-text-white">
-        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Pensamento"/>
+        <input class="w3-btn w3-teal w3-round" type="submit" value="Registar Viagem"/>
     </p>
 </form>
 <script>

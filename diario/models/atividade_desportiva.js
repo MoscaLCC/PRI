@@ -11,7 +11,6 @@ var SchemaAtividadeDesportiva= new Schema({
     privado: {type: Boolean , required: true},
     duracao: {type: String, required:true},
     desporto:{type: String , required: true},
-    descricao:{type: String , required: true},
     fotografia:{type: String , required: false}
 })
 

@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var passport = require('passport')
 var mongoose = require("mongoose")
 var utils=require("utils")
-
 mongoose.connect("mongodb://user:pass@ds129926.mlab.com:29926/eudigital")
 mongoose.Promise = global.Promise
 var dbGlobal = mongoose.connection
@@ -55,16 +54,8 @@ app.set('view engine', 'pug');
 //app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(passport.initialize());
-app.use(passport.session());
 
-///////////////PASSPORT CONFIG////////////////////////////
-/*
-passport.use(new LocalStrategy(users.authenticate()));
-passport.serializeUser(users.serializeUser());
-passport.deserializeUser(users.deserializeUser());
-*/
-///////////////PASSPORT CONFIG////////////////////////////
+
 
 app.use((req,res,next)=>{
   req.db=dbGlobal

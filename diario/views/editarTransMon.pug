@@ -72,8 +72,11 @@ html
                 }
             }
             function privador(privado) {
-                if(privado){
+                if(privado === 'true'){
                     document.getElementById("privado").checked = true
+                }
+                else{
+                    document.getElementById("privado").checked = false
                 }
             }
 

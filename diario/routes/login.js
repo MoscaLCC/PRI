@@ -6,7 +6,6 @@ var user = require("../models/user")
 var formidable = require("formidable")
 var mongoose = require("mongoose")
 var passport = require("passport")
-var FacebookStrategy = require('passport-facebook').Strategy;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

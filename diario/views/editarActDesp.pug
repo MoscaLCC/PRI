@@ -81,37 +81,40 @@ html
 
 
             script.
-                    function seletor(desporto) {
-                        if(desporto === "Futebol"){
-                            document.getElementById("desporto").options[1].selected = true
-                        }
-                        else{
-                            document.getElementById("desporto").options[0].selected = true
-                        }
+                function seletor(desporto) {
+                    if(desporto === "Futebol"){
+                        document.getElementById("desporto").options[1].selected = true
                     }
-                    function privador(privado) {
-                        if(privado){
-                            document.getElementById("privado").checked = true
-                        }
+                    else{
+                        document.getElementById("desporto").options[0].selected = true
                     }
-                    function readURL(input) {
-                        if (input.files && input.files[0]) {
-                            var reader = new FileReader();
+                }
+                function privador(privado) {
+                    if(privado === 'true'){
+                        document.getElementById("privado").checked = true
+                    }
+                    else{
+                        document.getElementById("privado").checked = false
+                    }
+                }
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
 
-                            reader.onload = function (e) {
-                                $('#img1').attr('src', e.target.result);
-                                $('#namefoto').attr('value',e.target.result)
-                            }
-
-                            reader.readAsDataURL(input.files[0]);
+                        reader.onload = function (e) {
+                            $('#img1').attr('src', e.target.result);
+                            $('#namefoto').attr('value',e.target.result)
                         }
-                    }
 
-                    $(".joint").change(function () {
-                        readURL(this);
-                    })
-                    function removeImg() {
-                        $('#img1').attr('src', "/images/addimg.png")
-                        $('#namefoto').attr('value','')
+                        reader.readAsDataURL(input.files[0]);
                     }
+                }
+
+                $(".joint").change(function () {
+                    readURL(this);
+                })
+                function removeImg() {
+                    $('#img1').attr('src', "/images/addimg.png")
+                    $('#namefoto').attr('value','')
+                }
 

@@ -58,9 +58,9 @@ html
                                     img(class="joint-img" id="img"+ i name="img1" src="/images/upload/"+foto alt="your image")
                                     figcaption
                                         label(class="custom-file-upload")
-                                            input(class="joint" type='file' id="imagemu" name="imagemu" accept="images/upload/*" onchange="readURL('img"+i+"', 'namefoto"+i+"', this)")
+                                            input(class="joint" type='file' id="foto" + i name="foto" + i accept="images/upload/*" onchange="readURL('img"+i+"', 'namefoto"+i+"', this)")
                                             p Mudar Imagem
-                                input(type="hidden" class="namefoto" id="namefoto" + i name="namefoto" + i value=valores.fotografia readonly="readonly")
+                                input(type="hidden" class="namefoto" id="namefoto" + i name="namefoto" + i value=foto readonly="readonly")
                                 input(type="button" class="remover" onclick="removeImg('img"+i+"','namefoto"+i+"','fotog"+i+"')" id="remove" value="Remover Imagem")
                 p
                 input(type="button" class="w3-btn w3-teal" onclick="addfile()" value="Adicionar Fotografia")
@@ -122,7 +122,7 @@ html
 
                     reader.onload = function (e) {
                         $('#'+input1).attr('src', e.target.result);
-                        $('#'+input2).attr('value',e.target.result)
+                        $('#'+input2).attr('value', '')
                     }
 
                 reader.readAsDataURL(input3.files[0]);

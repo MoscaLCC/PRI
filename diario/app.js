@@ -55,6 +55,16 @@ app.set('view engine', 'pug');
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+<<<<<<< HEAD
+=======
+///////////////PASSPORT CONFIG////////////////////////////
+/*
+passport.use(new LocalStrategy(users.authenticate()));
+passport.serializeUser(users.serializeUser());
+passport.deserializeUser(users.deserializeUser());
+*/
+///////////////PASSPORT CONFIG////////////////////////////
+>>>>>>> 9dbac234f4c56362f548f8464a4256c297c66d83
 
 app.use((req,res,next)=>{
   req.db=dbGlobal

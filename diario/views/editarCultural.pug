@@ -150,7 +150,21 @@ html
                     var nomeador2= "img" + numFiles
                     var nomeador3 = "foto" + numFiles
                     var nomeador4 = "namefoto" + numFiles
-                    $("#fotografias").append('<div id='+nomeador+'><p></p><figure class = "myfigure"><img class = "joint-img" id='+ nomeador2 + ' name='+ nomeador2 +' src="/images/addimg.png" alt="your image"/><figcaption ><label class = "custom-file-upload" ><input class= "joint" type="file" id='+nomeador3+' name = '+nomeador3+' accept = "images/upload/*" onchange="readURL("'+ nomeador2+ '", "'+ nomeador4 +'", this)" /><p> Mudar Imagem </p> </label> </figcaption> </figure> <input type = "hidden" id = '+ nomeador4 +' name = '+ nomeador4 +' value = "" readonly = "readonly" /><input type = "button" class  = "remover" onclick = "removeImg("'+ nomeador2 +'" ,"' + nomeador4 + '","' + nomeador3 + '") id ="remove" value ="Remover Imagem" /></div>')
+                    $("#fotografias").append(`
+                    <div id="`+nomeador+`">
+                        <p></p>
+                        <figure class = "myfigure">
+                        <img class = "joint-img" id="`+ nomeador2 + `" name="`+ nomeador2 +`" src="/images/addimg.png" alt="your image"/>
+                        <figcaption >
+                            <label class = "custom-file-upload" >
+                                <input class= "joint" type="file" id="`+nomeador3+`" name ="`+nomeador3+`" accept = "images/upload/*" onchange="readURL('`+ nomeador2+ `', '`+ nomeador4 +`', this)" />
+                                <p> Mudar Imagem </p>
+                            </label>
+                        </figcaption>
+                        </figure>
+                        <input type = "hidden" id ="`+ nomeador4 +`" name ="`+ nomeador4 +`" value ="" readonly = "readonly" />
+                        <input type = "button" class="remover" onclick="removeImg('`+ nomeador2 +`','` + nomeador4 + `','` + nomeador3 + `') id="remove" value="Remover Imagem" />
+                    </div>`)
                 }
             }
 

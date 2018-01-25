@@ -54,6 +54,12 @@ router.get('/', function(req, res, next) {
           currentUser = req.cookies.online;          
           var userDoc= sync.await(User.find({"username":currentUser}).exec(sync.defer()))
           userLogado=userDoc[0]
+          
+          //Calculo da Idade//
+          var ageDifMs = Date.now() - userLogado.dataNascimento.getTime();
+          var ageDate = new Date(ageDifMs);
+          userLogado.idade=Math.abs(ageDate.getUTCFullYear() - 1970);
+
           users= sync.await(User.find().exec(sync.defer()))        
           if(users.length!=0){
             for(var i=0;i<users.length;i++){

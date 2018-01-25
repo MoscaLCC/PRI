@@ -51,6 +51,10 @@ router.post('/',function(req,res,next) {
             if(!err1){
                 if(docs1.length>0){
                 var userDoc = docs1[0]
+                //Calculo da Idade//
+                var ageDifMs = Date.now() - userDoc.dataNascimento.getTime();
+                var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                userDoc.idade=Math.abs(ageDate.getUTCFullYear() - 1970);
                 var userID = userDoc._id
                     if(categoria == "Cultural"){
                         console.log("entrou 1")

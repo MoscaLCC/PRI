@@ -50,6 +50,10 @@ router.post('/',function(req,res,next) {
             User.find({'username':currentUser}).exec((err2,docsUsers)=>{
                 if(docsUsers.length>0){
                     userDoc = docsUsers[0]
+                    //Calculo da Idade//
+                    var ageDifMs = Date.now() - userDoc.dataNascimento.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    userDoc.idade=Math.abs(ageDate.getUTCFullYear() - 1970);
                     userID = userDoc._id
                   }
             })

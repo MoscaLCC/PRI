@@ -18,6 +18,11 @@ router.post('/',function(req,res,next) {
     // verificar se todos os campos obrigatorios foram preenchidos
     var requiredFields = Object.keys(user.schema.tree).filter(x => user.schema.tree[x].required ===true)
     var emptyField = false
+    console.log(fields)
+    var data_partida=fields.dataNascimento.split('-');
+    var dataAux=new Date(data_partida[0], data_partida[1]-1, data_partida[2]); 
+    fields.dataNascimento=dataAux
+ 
     for(f in requiredFields){
       if(fields[requiredFields[f]] === undefined)
         emptyField=true
@@ -42,7 +47,7 @@ router.post('/',function(req,res,next) {
               
               newUser.username = fields.username
               newUser.password = fields.password
-              newUser.idade = fields.idade
+              newUser.dataNascimento = fields.dataNascimento
               newUser.email = fields.email
               newUser.pnome = fields.pnome
               newUser.unome = fields.unome

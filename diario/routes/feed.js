@@ -54,6 +54,11 @@ router.get('/', function(req, res, next) {
           if(docsUsers.length>0){
             userDoc = docsUsers[0]
             userID = userDoc._id
+            //Calculo da Idade//
+            var ageDifMs = Date.now() - userDoc.dataNascimento.getTime();
+            var ageDate = new Date(ageDifMs); // miliseconds from epoch
+            userDoc.idade=Math.abs(ageDate.getUTCFullYear() - 1970);
+           
           }
           else{
             console.log("Tentativa de acesso ao feed de um utilizador que não existe na base de dados");

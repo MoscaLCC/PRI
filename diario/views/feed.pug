@@ -54,7 +54,7 @@ html
               p
                 i(class="fa fa-envelope w3-text-theme")="   "+ user.email
               p
-                i(class="fa fa-birthday-cake w3-text-theme")="   "+user.idade + " anos"
+                i(class="fa fa-birthday-cake w3-text-theme")= user.idade
               p
                 i(class="fa fa-address-card w3-text-theme")="   "+user.pnome +" "+ user.unome
           br
@@ -76,6 +76,8 @@ html
                 center
                   h3(class="w3-text-red" id="status")=status
           if eventos!=undefined
+            div(class="w3-container w3-center")
+              button(class="w3-btn w3-teal" onclick='showAllAct()' id="colapseAct" ) Expandir Atividades  
             -var count=1
             each evento in eventos
               -var idDiv="act"+count
@@ -83,7 +85,7 @@ html
                 table
                   tr
                     td(style="width:80%")
-                      button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento
+                      button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento+"  : "+ evento.titulo  
                     td
                       button(class="w3-button" onclick="editarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Editar
                     td
@@ -320,6 +322,7 @@ html
         
         
     script.
+      var aberto=false
       function myFunction(id) {
           var x = document.getElementById(id);
           if (x.className.indexOf("w3-show") == -1) {
@@ -350,6 +353,24 @@ html
          else
            x.className = x.className.replace("w3-show","w3-hide");
   
+      }
+      function showAllAct(){
+        $('div[id^=act]').each(function(barra) {
+            if(aberto){
+              if(this.className.indexOf("w3-hide")==-1){
+                 this.className = this.className.replace("w3-show","w3-hide"); 
+              }
+            }
+            else{
+              if(this.className.indexOf("w3-hide")>=0){
+                 this.className = this.className.replace("w3-hide","w3-show"); 
+              }
+            }
+          })
+          if(aberto) $("#colapseAct").text("Expandir Atividades")
+          else
+          $("#colapseAct").text("Esconder Atividades")
+          aberto=((aberto)?false:true);
       }
       function apresentaForm(){
         //setIframe(document.getElementById("divOps"))

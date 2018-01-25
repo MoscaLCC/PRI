@@ -59,9 +59,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 ///////////////PASSPORT CONFIG////////////////////////////
+/*
 passport.use(new LocalStrategy(users.authenticate()));
 passport.serializeUser(users.serializeUser());
 passport.deserializeUser(users.deserializeUser());
+*/
 ///////////////PASSPORT CONFIG////////////////////////////
 
 app.use((req,res,next)=>{

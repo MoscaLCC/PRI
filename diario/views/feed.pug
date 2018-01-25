@@ -168,26 +168,26 @@ html
                           div(class="w3-card w3-half")
                             img(src="/images/upload/"+evento.fotografia style="width:100%")
                 else if evento.tipoEvento == "Trabalho Académico"
-                    h4="Título: " + evento.titulo
-                    label(class="w3-text-grey") Descrição
-                    p=evento.descricao
-                    label(class="w3-text-grey") Data
-                    p=evento.data
-                    label(class="w3-text-grey") Local
-                    p=evento.local
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
-                    label(class="w3-text-grey") UC
-                    p=evento.uc
-                    if evento.docente
-                    label(class="w3-text-grey") Docente
-                      p=evento.docente
-                    if evento.ficheiros
+                  h4="Título: " + evento.titulo
+                  label(class="w3-text-grey") Descrição
+                  p=evento.descricao
+                  label(class="w3-text-grey") Data
+                  p=evento.data
+                  label(class="w3-text-grey") Local
+                  p=evento.local
+                  label(class="w3-text-grey") Privado
+                  p=evento.privado
+                  label(class="w3-text-grey") UC
+                  p=evento.uc
+                  if evento.docente
+                  label(class="w3-text-grey") Docente
+                    p=evento.docente
+                  if evento.ficheiros
                     label(class="w3-text-grey") Ficheiros
-                        each ficheiro in evento.ficheiros
-                          a(href="/images/upload/"+ ficheiro)
-                              p=ficheiro
-                    p=evento.resultado
+                      each ficheiro in evento.ficheiros
+                        a(href="/images/upload/"+ ficheiro)
+                            p=ficheiro
+                  p=evento.resultado
                 else if evento.tipoEvento=="Cultural"
                   h4="Título: " + evento.titulo
                   label(class="w3-text-grey") Descrição

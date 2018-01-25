@@ -52,13 +52,16 @@ router.post('/',function(req,res,next) {
         for(x in files){
             i++
             if(x.startsWith("foto")){
+                i++
                 console.log("nome da foto: " + files[x].name)
                 console.log("caminho da foto: " + files[x].path)
                 if(files[x].name != ""){
                     var extension = files[x].name.split(".")
                     extension = extension[extension.length-1]
                     console.log("valor = " + i)
-                    var novoNome = fields._id + "-" + i + "." + extension
+                    var data = new Date()
+                    console.log(data.toDateString())
+                    var novoNome = fields._id + "-" + data.toDateString() + "." + extension
                     var fenviado=files[x].path
                     var fnovo=images_dir+novoNome
                     fs.rename(files[x].path, fnovo, function(err3){

@@ -4,6 +4,7 @@ var bodyParser = require("body-parser")
 var user = require("../models/user")
 var formidable = require("formidable")
 var fs = require('fs')
+var passport = require('passport')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('registarUser', { title: 'Registar utilizador'});

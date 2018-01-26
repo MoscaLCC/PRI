@@ -5,7 +5,6 @@ var cookieParser = require("cookie-parser")
 var user = require("../models/user")
 var formidable = require("formidable")
 var mongoose = require("mongoose")
-var passport = require("passport")
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

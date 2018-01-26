@@ -2,7 +2,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var passport = require('passport')
 var mongoose = require("mongoose")
 var utils=require("utils")
 mongoose.connect("mongodb://user:pass@ds129926.mlab.com:29926/eudigital")

@@ -9,7 +9,7 @@ var SchemaAlbumFotografico= new Schema({
     data: {type: Date , required: true},
     local: {type: String , required: false},
     privado: {type: Boolean , required: true},
-    fotografias: [
+    fotografias:[
                     {
                         nome: {type: String},
                         descricao: {type: String},

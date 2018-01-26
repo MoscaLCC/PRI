@@ -1,239 +1,135 @@
-Ontologia Animais
-conceitos  { animal[numero:int,grandioso:bool,curiosidade:string,imagem:string,pergunta:string,resposta:string],
-			 vertebrado,
-			 	mamifero,ave,reptil,anfibeo,peixe,
-			 invertebrado,
-			 	inseto,crustaceo,aracnideo,molusco,equinodermo,cnidario,
-			 categoria,
-			 estatuto_conservacao
-}
-individuos { rapidos,resistentes,mortiferos,espertos,temidos,estranhos,sorrateiros,ruidosos,vistosos,pouco_preocupante,quase_ameacado,vulneravel,em_perigo,
-aguia_das_filipinas,abelha_cuco,abelha_europeia,abutre_do_egipto,bufalo_africano,camarao_pistola_alpheus,elefante_africano,lagosta_boxeadora,leao_africano,leopardo,mamba_preta,morcego_da_fruta_de_nariz_de_tubo_comum,passaro_de_cabeca_encarnada,peixe_sapo_ostra,ra_de_olhos_vermelhos,ra_tartaruga,ra_verde_das_arvores,rinoceronte_negro,sapo_corrobore_do_sul
-}
-relacoes   { tem_categoria,tem_estatuto }
+Ontologia EuDigital
+conceitos  { utilizador	[
+							username:string,
+							password:string,
+							dataNascimento:string,
+							email:string,
+							pnome:string,
+							unome:string,
+							sexo:string,
+							foto:string
+						],
+			"Atividade Desportiva"	[
+										titulo:string,
+										descricao:string,
+										data:string,
+										local:string,
+										privado:bool,
+										duracao:string,
+										desporto:string,
+										fotografia:string
+									],
+			"Trabalho Académico"	[
+										titulo:string,
+										descricao:string,
+										data:string,
+										local:string,
+										privado:bool,
+										uc:string,
+										docente:string,
+										resultado:string,
+										ficheiros:listaString
+									],
+			"Cultural"	[
+							titulo:string,
+							descricao:string,
+							data:string,
+							local:string,
+							privado:bool,
+							tipo:string,
+							fotografias:listaString
+						],
+			"Ideia"	[
+						titulo:string,
+						descricao:string,
+						data:string,
+						local:string,
+						privado:bool
+					],
+			"Pensamento"[
+							titulo:string,
+							descricao:string,
+							data:string,
+							local:string,
+							privado:bool
+						],
+			"Cronica"	[
+							titulo:string,
+							descricao:string,
+							data:string,
+							local:string,
+							privado:bool
+						],
+			"Receita Culinária"	[
+									titulo:string,
+									descricao:string,
+									data:string,
+									local:string,
+									privado:bool,
+									ingredientes:listaString
+								],
+			"Evento"[
+						titulo:string,
+						descricao:string,
+						data:string,
+						local:string,
+						privado:bool
+					],
+			"Transação Monetária"	[
+										titulo:string,
+										descricao:string,
+										data:string,
+										local:string,
+										privado:bool,
+										interveniente:string,
+										tipo:string,
+										montante:string
+									],
+			"Álbum Fotográfico"	[
+									titulo:string,
+									descricao:string,
+									data:string,
+									local:string,
+									privado:bool
+								],
+			"Viagem"[
+						titulo:string,
+						descricao:string,
+						datainicio:string,
+						datafim:string,
+						local:string,
+						privado:bool,
+						acompanhantes:listaString,
+						fotografias:listaString
+					]
+			}
+individuos { samuel, ad1 }
+relacoes   { tem }
 triplosC   {
-	vertebrado =is-a=> animal;
-	invertebrado =is-a=> animal;
-	animal =tem_categoria=> categoria;
-	animal =tem_estatuto=> estatuto_conservacao;
-
-	mamifero =is-a=> vertebrado;
-	ave =is-a=> vertebrado;
-	reptil =is-a=> vertebrado;
-	anfibeo =is-a=> vertebrado;
-	peixe =is-a=> vertebrado;
-
-	inseto =is-a=> invertebrado;
-	crustaceo =is-a=> invertebrado;
-	aracnideo =is-a=> invertebrado;
-	molusco =is-a=> invertebrado;
-	equinodermo =is-a=> invertebrado;
-	cnidario =is-a=> invertebrado;
+	
 }
 triplosM {
-	pouco_preocupante =iof=> estatuto_conservacao;
-	quase_ameacado =iof=> estatuto_conservacao;
-	vulneravel =iof=> estatuto_conservacao;
-	em_perigo =iof=> estatuto_conservacao;
-
-    rapidos =iof=> categoria;
-	resistentes =iof=> categoria;
-	mortiferos =iof=> categoria;
-	espertos =iof=> categoria;
-	temidos =iof=> categoria;
-	estranhos =iof=> categoria;
-	sorrateiros =iof=> categoria;
-	ruidosos =iof=> categoria;
-	vistosos =iof=> categoria;
-
-	aguia_das_filipinas =iof=> ave[numero=55,
-								   grandioso=nao,
-								   curiosidade="Esta é uma das águias mais ameaçadas do planeta.",
-								   imagem="aguia_das_filipinas.jpg",
-								   pergunta="Qual a estratégia de caça desta ave?",
-								   resposta="Quando caça aos pares, uma águia atrai a presa e a outra ataca por trás."];
-    
-    abelha_cuco =iof=> inseto[numero=83,
-								   grandioso=nao,
-								   curiosidade="A abelha cuco não constrói colmeias, como habitualmente outras abelhas fazem.",
-								   imagem="abelha_cuco.jpg",
-								   pergunta="Onde é que este animal coloca os seus ovos?",
-								   resposta="Parasita os ninhos de outras abelhas para colocar os seus próprios ovos(ou seja, é cleptoparasítica)."];
-
-	abelha_europeia =iof=> inseto[numero=59,
-								   grandioso=nao,
-								   curiosidade="Esta espécie reconhece os animais da sua colónia através do cheiro.",
-								   imagem="abelha_europeia.jpg",
-								   pergunta="Como é que esta abelha defende a sua colónia?",
-								   resposta="Quando atacada, liberta um sinal químico(feromonas) para que as outras abelhas fiquem agitadas e preparadas para atacar."];
-
-	abutre_do_egipto =iof=> ave[numero=44,
-								   grandioso=nao,
-								   curiosidade="O casal faz o ninho usando galhos e pêlo de animais.",
-								   imagem="abutre_do_egipto.jpg",
-								   pergunta="De que forma é que o abutre-do-egipto come um ovo de avestruz?",
-								   resposta="Para partir a casca espessa do ovo, utiliza pedras que apanha com o bico."];
-
-	bufalo_africano =iof=> mamifero[numero=13,
-								   grandioso=sim,
-								   curiosidade="Um clã de leões pode ser facilmente afastado por uma manada de búfalos.",
-								   imagem="bufalo_africano.jpg",
-								   pergunta="O que faz o búfalo-africano para se defender?",
-								   resposta="Utiliza os seus largos cornos em fortes investidas."];
-
-	camarao_pistola_alpheus =iof=> crustaceo[numero=96,
-								   grandioso=nao,
-								   curiosidade="Atordoa a presa com um som de estalo quando bate as suas pinças.",
-								   imagem="camarao_pistola_alpheus.jpg",
-								   pergunta="A que se deve o nome deste camarão?",
-								   resposta="As suas grandes pinças estalam quando fecham e fazem um ruído alto e agudo, como o de uma pistola."];
-
-	elefante_africano =iof=> mamifero[numero=86,
-								   grandioso=sim,
-								   curiosidade="A tromba de um elefante não é mais do que um grande nariz para cheirar, respirar, beber e ainda para apanhar coisas.",
-								   imagem="elefante_africano.jpg",
-								   pergunta="Como se defende o elefante?",
-								   resposta="O elefante-africano utiliza a tromba para vocalizar sons muito altos, assustando os predadores e colocando-os em fuga."];
-
-	lagosta_boxeadora =iof=> crustaceo[numero=6,
-								   grandioso=nao,
-								   curiosidade="Esta espécie contrói túneis em forma de 'U' no solo e usa-os para levar as presas que caça.",
-								   imagem="lagosta_boxeadora.jpg",
-								   pergunta="O que faz esta lagosta para apanhar a sua presa?",
-								   resposta="Atinge a presa a grande velocidade com as suas fortes pinças."];
-
-	leao_africano =iof=> mamifero[numero=4,
-								   grandioso=sim,
-								   curiosidade="O rugido de um leão africano pode ser ouvido a 8km de distância.",
-								   imagem="leao_africano.jpg",
-								   pergunta="Que velocidade pode atingir?",
-								   resposta="Pode correr até 50km/h, mas apenas em pequenas investidas."];
-
-	leopardo =iof=> mamifero[numero=78,
-								   grandioso=sim,
-								   curiosidade="O leopardo é um forte nadador e sente-se bastante à vontade dentro de água, onde por vezes se alimenta de peixes ou caranguejos.",
-								   imagem="leopardo.jpg",
-								   pergunta="Onde esconde o leopardo as suas presas?",
-								   resposta="O leopardo sobe facilmente às árvores e é lá que esconde as suas presas, para que não sejam comidas por outros carnívoros."];
-
-	mamba_preta =iof=> reptil[numero=1,
-								   grandioso=nao,
-								   curiosidade="É por causa da sua imponente boca preta que esta cobra se chama assim.",
-								   imagem="mamba_preta.jpg",
-								   pergunta="O que torna esta serpente tão especial?",
-								   resposta="Em África, é a cobra venenosa mais comprida e rápida."];
-
-	morcego_da_fruta_de_nariz_de_tubo_comum =iof=> mamifero[numero=64,
-								   grandioso=nao,
-								   curiosidade="Durante o dia, este morcego descansa nos troncos das árvores ou pendurado nos ramos.",
-								   imagem="morcego_da_fruta_de_nariz_de_tubo_comum.jpg",
-								   pergunta="Como é que o morcego encontra comida à noite?",
-								   resposta="Fareja frutos doces e flores com a ajuda do nariz em forma de tubo."];
-
-	passaro_de_cabeca_encarnada =iof=> ave[numero=103,
-								   grandioso=nao,
-								   curiosidade="Para cantar, o macho abre o bico todo e põe a língua de fora.",
-								   imagem="passaro_de_cabeca_encarnada.jpg",
-								   pergunta="Que movimentos de dança faz esta ave?",
-								   resposta="Abana-se para os lados e mexe-se para cima e para baixo. Até parece que dança o 'moonwalk' do Michael Jackson."];
-
-	peixe_sapo_ostra =iof=> peixe[numero=29,
-								   grandioso=nao,
-								   curiosidade="Quando ameaçado, o peixe-sapo-ostra incha, parecendo muito maior.",
-								   imagem="peixe_sapo_ostra.jpg",
-								   pergunta="O que torna o peixe-sapo-ostra mortífero?",
-								   resposta="Os espinhos que possui podem injetar veneno."];
-
-	ra_de_olhos_vermelhos =iof=> anfibeo[numero=108,
-								   grandioso=nao,
-								   curiosidade="Esta rã consegue camuflar-se completamente nas folhas das árvores.",
-								   imagem="ra_de_olhos_vermelhos.jpg",
-								   pergunta="Por que motivo tem esta rã umas cores tão vivas?",
-								   resposta="Para intimidar os seus predadores."];
-
-	ra_tartaruga =iof=> anfibeo[numero=70,
-								   grandioso=nao,
-								   curiosidade="Os ovos desta rã desenvolvem-se em pequenas rãs e não em girinos, como é natural nos anfíbios.",
-								   imagem="ra_tartaruga.jpg",
-								   pergunta="A que se deve o nome desta rã?",
-								   resposta="Deve-se ao facto de parecer uma tartaruga, mas sem carapaça."];
-
-	ra_verde_das_arvores =iof=> anfibeo[numero=39,
-								   grandioso=nao,
-								   curiosidade="A rã-verde produz um muco com que limpa as próprias patas e que a ajuda a trepar.",
-								   imagem="ra_verde_das_arvores.jpg",
-								   pergunta="Como é que esta rã mostra o seu canto?",
-								   resposta="Por vezes, senta-se num tubo de drenagem ou numa caleira para amplificar o som da sua chamada."];
-
-	rinoceronte_negro =iof=> mamifero[numero=15,
-								   grandioso=sim,
-								   curiosidade="Os chifres do rinoceronte-negro crescem até 8cm por ano e podem chegar até aos 1,30m de comprimento!",
-								   imagem="rinoceronte_negro.jpg",
-								   pergunta="Que truques usa o rinoceronte para se proteger do sol e dos insetos?",
-								   resposta="Consegue passar muito tempo dentro de água e esfrega-se na lama, criando uma cobertura repelente e de proteção contra o sol."];
-
-	sapo_corrobore_do_sul =iof=> anfibeo[numero=27,
-								   grandioso=nao,
-								   curiosidade="Em vez de saltar como um sapo, o sapo-corrobore-do-sul caminha como um lagarto.",
-								   imagem="sapo_corrobore_do_sul.jpg",
-								   pergunta="Para que servem as cores brilhantes deste sapo?",
-								   resposta="Para avisar os predadores que é venenoso."];
-
-	
+	samuel=iof=>utilizador	[
+								username="samuel",
+								password="password",
+								dataNascimento="1996-05-17",
+								email="samuel@email.com",
+								pnome="Samuel",
+								unome="Ferreira",
+								sexo="masculino",
+								foto=""
+							];
+	ad1=iof=>"Atividade Desportiva"[
+									titulo="Fui jogar à bola",
+									descricao="lesionei-me",
+									data="2018-01-25",
+									local="Braga",
+									privado=false,
+									duracao="60",
+									desporto="Futebol",
+									fotografia=""
+								];
 }	
 triplosI {
-    aguia_das_filipinas=tem_categoria=>temidos;
-    aguia_das_filipinas=tem_estatuto=>em_perigo;
-
-    abelha_cuco =tem_categoria=> mortiferos;
-
-	abelha_europeia =tem_categoria=> temidos;
-
-	abutre_do_egipto =tem_categoria=> espertos;
-	abutre_do_egipto =tem_estatuto=> em_perigo;
-
-	bufalo_africano =tem_categoria=> resistentes;
-	bufalo_africano =tem_estatuto=> pouco_preocupante;
-
-	camarao_pistola_alpheus =tem_categoria=> ruidosos;
-
-	elefante_africano =tem_categoria=> ruidosos;
-	elefante_africano =tem_estatuto=> vulneravel;
-
-	lagosta_boxeadora =tem_categoria=> rapidos;
-	
-
-	leao_africano =tem_categoria=> rapidos;
-	leao_africano =tem_estatuto=> vulneravel;
-
-	leopardo =tem_categoria=> sorrateiros;
-	leopardo =tem_estatuto=> vulneravel;
-
-	mamba_preta =tem_categoria=> rapidos;
-	mamba_preta =tem_estatuto=> pouco_preocupante;
-
-	morcego_da_fruta_de_nariz_de_tubo_comum =tem_categoria=> estranhos;
-	morcego_da_fruta_de_nariz_de_tubo_comum =tem_estatuto=> pouco_preocupante;
-
-	passaro_de_cabeca_encarnada =tem_categoria=> vistosos;
-	passaro_de_cabeca_encarnada =tem_estatuto=> pouco_preocupante;
-
-	peixe_sapo_ostra =tem_categoria=> mortiferos;
-	peixe_sapo_ostra =tem_estatuto=> pouco_preocupante;
-
-	ra_de_olhos_vermelhos =tem_categoria=> vistosos;
-	ra_de_olhos_vermelhos =tem_estatuto=> pouco_preocupante;
-
-	ra_tartaruga =tem_categoria=> estranhos;
-	ra_tartaruga =tem_estatuto=> pouco_preocupante;
-
-	ra_verde_das_arvores =tem_categoria=> espertos;
-	ra_verde_das_arvores =tem_estatuto=> pouco_preocupante;
-
-	rinoceronte_negro =tem_categoria=> resistentes;
-	rinoceronte_negro =tem_estatuto=> vulneravel;
-
-	sapo_corrobore_do_sul =tem_categoria=> mortiferos;
-	sapo_corrobore_do_sul =tem_estatuto=> em_perigo;
-
+	samuel=tem=>ad1;
 }.

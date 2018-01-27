@@ -24,27 +24,30 @@ router.post('/',function(req,res,next) {
       if(fields.privado === "on")
         fields.privado = true;
       else fields.privado = false;
-      
-      var currentUser = req.cookies.online;
-      User.find({'username':req.cookies.online }).exec((err1,docs)=>{
-        if(!err1){
-          userID = docs[0]._id
-          var ativDesp = new Ad({
-            userId : userID,
-            titulo:fields.titulo,
-            descricao: fields.descricao,
-            data: new Date(),
-            local: fields.local,
-            privado: fields.privado,
-            duracao: fields.duracao,
-            desporto: fields.desporto,
-          })
+
+            var currentUser = req.cookies.online;
+            User.find({'username':req.cookies.online }).exec((err1,docs)=>{
+                if(!err1){
+                userID = docs[0]._id
+                var ativDesp = new Ad({
+                    userId : userID,
+                    titulo:fields.titulo,
+                    descricao: fields.descricao,
+                    data: new Date(),
+                    local: fields.local,
+                    privado: fields.privado,
+                    duracao: fields.duracao,
+                    desporto: fields.desporto,
+                })
           ativDesp.save(function(err1, doc){
             if(!err1){
               if(files.fotografia.name != ""){
                 var extension = files.fotografia.name.split(".")
                 extension = extension[extension.length-1]
-                ativDesp.fotografia = doc._id + "." + extension
+                  var data = new Date()
+                  var novadata = data.toISOString().split(':').join('-')
+                  novadata = novadata.split('.').join('-')
+                ativDesp.fotografia = doc._id + "-"+ novadata +"." + extension
                 fs.rename(files.fotografia.path, './public/images/upload/' + ativDesp.fotografia, function(err1){
                   if(!err1){
                     ativDesp.save(function(err2,doc2){

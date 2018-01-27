@@ -22,6 +22,8 @@ html
                 p
                 input(type="hidden" id="_id" name="_id" value=valores._id readonly="readonly")
                 p
+                    div(id="removidos")
+                p
                 label(class="w3-text-grey")
                     p *Título
                     input(class="w3-input w3-border" type="text" id="titulo" name="titulo" value=valores.titulo)
@@ -53,16 +55,21 @@ html
                     input(type="button" onclick='rmop("")' value="Remover")
 
                 p
-                - var i=0
-                each foto in valores.fotografias
-                    - i++
-                    p
-                    figure(class="myfigure")
-                        img(class="joint-img" id="img" + i name="img1" src="/images/upload/" + foto alt="your image")
-                        figcaption
-                            label(class="custom-file-upload")
-                                input(class="joint" type='file' id="imagemu" name="imagemu" accept="images/upload/*")
-                                p Mudar Imagem
+                if valores.fotografias
+                    - var i=0
+                    div(id="fotografias")
+                        each foto in valores.fotografias
+                            - i++
+                            div(id="fotog" + i)
+                                p
+                                figure(class="myfigure")
+                                    img(class="joint-img" id="img" + i name="img1" src="/images/upload/" + foto alt="your image")
+                                    figcaption
+                                        label(class="custom-file-upload")
+                                            input(class="joint" type='file' id="foto" + i name="foto" + i accept="images/upload/*" onchange="readURL('img" + i + "', 'namefoto" + i + "', this)")
+                                            p Mudar Imagem
+                                input(type="hidden" class="namefoto" id="namefoto" + i name="namefoto" + i value=foto readonly="readonly")
+                                input(type="button" class="remover" onclick="removeImg('img" + i + "','namefoto" + i + "','fotog" + i + "')" id="remove" value="Remover Imagem")
                 p
                 label(class="w3-text-grey")
                     p Privado
@@ -83,22 +90,85 @@ html
 
         script.
             function privador(privado) {
-                if (privado) {
+
+                if (privado === 'true') {
                     document.getElementById("privado").checked = true
                 }
+                else {
+                    document.getElementById("privado").checked = false
+                }
             }
-            function readURL(input) {
-                if (input.files && input.files[0]) {
+            function readURL(input1, input2, input3) {
+                alert(input1)
+                alert(input2)
+                alert(input3)
+                if (input3.files && input3.files[0]) {
                     var reader = new FileReader();
 
                     reader.onload = function (e) {
-                        $(input).next('.joint-img').attr('src', e.target.result);
+                        $('#' + input1).attr('src', e.target.result);
+                        listRem(input2)
+                        $('#' + input2).attr('value', "")
                     }
 
-                    reader.readAsDataURL(input.files[0]);
+                    reader.readAsDataURL(input3.files[0]);
                 }
             }
+            function removeImg(input1, input2, input3) {
+                alert(input1)
+                alert(input2)
+                alert(input3)
+                var numFiles = $('#fotografias').children().length
+                alert(numFiles)
+                if (numFiles <= 1) {
+                    $('#' + input1).attr('src', "/images/addimg.png")
+                    listRem(input2)
+                    $('#' + input2).attr('value', "")
+                }
+                else {
+                    listRem(input2)
+                    alert("faze")
+                    $('#' + input3).remove()
+                    //renomear()
+                }
+            }
+            function listRem(idname) {
+                alert("Chega listRem")
+                var numFiles = $('#removidos').children().length + 1
+                alert(numFiles)
+                alert(idname)
+                var valor = $('#' + idname).val()
+                alert(valor)
+                if (valor != "") {
+                    $('#removidos').append(`<input type="hidden" id="removido` + numFiles + `" name="removido` + numFiles + `" value=` + valor + ` readonly="readonly"/>`)
+                }
 
-            $(".joint").change(function () {
-                readURL(this);
-            });
+            }
+            function addfile() {
+                alert("chega")
+                var numFiles = $('#fotografias').children().length + 1
+                if (numFiles > 6) {
+                    alert("Impossível adicionar, é impossível carregar mais que 6 ficheiros!!");
+                }
+                else {
+                    var nomeador = "fotog" + numFiles
+                    var nomeador2 = "img" + numFiles
+                    var nomeador3 = "foto" + numFiles
+                    var nomeador4 = "namefoto" + numFiles
+                    $("#fotografias").append(`
+                            <div id="`+nomeador+`">
+                            <p></p>
+                            <figure class = "myfigure">
+                            <img class = "joint-img" id="`+ nomeador2 + `" name="`+ nomeador2 +`" src="/images/addimg.png" alt="your image"/>
+                            <figcaption >
+                            <label class = "custom-file-upload" >
+                            <input class= "joint" type="file" id="`+nomeador3+`" name ="`+nomeador3+`" accept = "images/upload/*" onchange="readURL('`+ nomeador2+ `', '`+ nomeador4 +`', this)" />
+                            <p> Mudar Imagem </p>
+                            </label>
+                            </figcaption>
+                            </figure>
+                            <input type = "hidden" id ="`+ nomeador4 +`" name ="`+ nomeador4 +`" value ="" readonly = "readonly" />
+                            <input type = "button" class="remover" onclick="removeImg('`+ nomeador2 +`','` + nomeador4 + `','` + nomeador3 + `') id="remove" value="Remover Imagem" />
+                                </div>`)
+                            }
+                        }

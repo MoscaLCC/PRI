@@ -20,7 +20,10 @@ router.post('/',function(req,res,next) {
             if(files.foto1.name != "" && fields.namefoto != "" ){
                 var extension = files.foto1.name.split(".")
                 extension = extension[extension.length-1]
-                fields.fotografia = fields._id + "." + extension
+                var data = new Date()
+                var novadata = data.toISOString().split(':').join('-')
+                novadata = novadata.split('.').join('-')
+                fields.fotografia = fields._id + "-" + novadata + "." + extension
                 fs.rename(files.foto1.path, './public/images/upload/' + fields.fotografia, function(err1){
                     if(!err1){
                         console.log("Ficheiro recebido e guardado com sucesso")
@@ -56,6 +59,11 @@ router.post('/',function(req,res,next) {
                         }
                     })
                 }
+            }
+
+            if(fields.removido!=""){
+                curPath = images_dir + fields.removido
+                fs.unlinkSync(curPath);
             }
 
         Atividade.update(

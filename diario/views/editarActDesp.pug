@@ -52,7 +52,8 @@ html
                                         input(class="joint" type='file' id="foto1" name="foto1")
                                         p Mudar Imagem
                             input(type="hidden" id="namefoto" name="namefoto" value=valores.fotografia readonly="readonly")
-                            input(type="button" id="remove" onclick="removeImg()" value="Remover Imagem")
+                            input(type="hidden" id="removido" name="removido" value="" readonly="readonly")
+                            input(type="button" id="remove" onclick="removeImg("+ valores.fotografia +")" value="Remover Imagem")
                         else
                             figure(class="myfigure")
                                 img(class="joint-img" id="img1" name="img1" src="/images/addimg.png" alt="your image")
@@ -61,7 +62,7 @@ html
                                         input(class="joint" type='file' id="foto1" name="foto1")
                                         p Mudar Imagem
                             input(type="hidden" id="namefoto" name="namefoto" value="" readonly="readonly")
-                            input(type="button" id="remove" onclick="removeImg()" value="Remover Imagem")
+                            input(type="button" id="remove" onclick="removeImg2()" value="Remover Imagem")
                         p
                         label(class="w3-text-grey")
                             p Privado
@@ -113,8 +114,14 @@ html
                 $(".joint").change(function () {
                     readURL(this);
                 })
-                function removeImg() {
+                function removeImg(nome) {
                     $('#img1').attr('src', "/images/addimg.png")
                     $('#namefoto').attr('value','')
+                    $('#removido').attr('value', nome)
                 }
+                function removeImg2() {
+                    $('#img1').attr('src', "/images/addimg.png")
+                    $('#namefoto').attr('value', '')
+                }
+
 

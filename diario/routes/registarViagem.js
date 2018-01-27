@@ -61,7 +61,10 @@ router.post('/',function(req,res,next) {
                                 if(files[x].name != ""){
                                     var extension = files[x].name.split(".")
                                     extension = extension[extension.length-1]
-                                    var novoNome = doc._id + "-" + i + "." + extension
+                                    var data = new Date()
+                                    var novadata = data.toISOString().split(':').join('-')
+                                    novadata = novadata.split('.').join('-')
+                                    var novoNome = doc._id + "-"+novadata +"-" + i + "." + extension
                                     viagem.fotografias.push(novoNome)
                                     var fenviado=files[x].path
                                     var fnovo=images_dir+novoNome

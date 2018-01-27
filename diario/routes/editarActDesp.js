@@ -7,6 +7,7 @@ var fs = require('fs')
 /* GET home page. */
 
 router.post('/',function(req,res,next) {
+    var images_dir = './public/images/upload/'
     var form= new formidable.IncomingForm();
     var status=""
 
@@ -62,7 +63,7 @@ router.post('/',function(req,res,next) {
             }
 
             if(fields.removido!=""){
-                curPath = images_dir + fields.removido
+                var curPath = images_dir + fields.removido
                 fs.unlinkSync(curPath);
             }
 

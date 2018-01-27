@@ -45,7 +45,7 @@ html
                         input(class="w3-input w3-border" type="text" id="local" name="local" value=valores.local)
                 p
                 label(class="w3-text-grey")
-                    p Ingredientes
+                    p Acompanhantes
                     div(id="opcoes")
                         - var i=0
                         each acompanhante in valores.acompanhantes
@@ -70,6 +70,8 @@ html
                                             p Mudar Imagem
                                 input(type="hidden" class="namefoto" id="namefoto" + i name="namefoto" + i value=foto readonly="readonly")
                                 input(type="button" class="remover" onclick="removeImg('img" + i + "','namefoto" + i + "','fotog" + i + "')" id="remove" value="Remover Imagem")
+                p
+                    input(type="button" class="w3-btn w3-teal" onclick="addfile()" value="Adicionar Ficheiro")
                 p
                 label(class="w3-text-grey")
                     p Privado
@@ -146,8 +148,9 @@ html
             }
             function addfile() {
                 alert("chega")
-                var numFiles = $('#fotografias').children().length + 1
-                if (numFiles > 6) {
+                var numFiles = $('#fotografias').children().length + 6
+                alert(numFiles)
+                if (numFiles > 13) {
                     alert("Impossível adicionar, é impossível carregar mais que 6 ficheiros!!");
                 }
                 else {

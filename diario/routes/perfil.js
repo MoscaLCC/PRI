@@ -36,6 +36,94 @@ router.get('/', function(req, res, next) {
         else{
             console.log("Utilizador não existe")
         }   
-});
 })
+})
+
+router.post('/',function(req,res,next) {
+    var images_dir = './public/images/upload/'
+    var form= new formidable.IncomingForm();
+    var status=""
+
+    form.parse(req,function(err,fields,files) {
+        if(!err){
+            if(fields.privado === "on")
+                fields.privado = true;
+            else fields.privado = false;
+
+            console.log(files)
+            if(files.foto1.name != "" && fields.namefoto != "" ){
+                var extension = files.foto1.name.split(".")
+                extension = extension[extension.length-1]
+                var data = new Date()
+                var novadata = data.toISOString().split(':').join('-')
+                novadata = novadata.split('.').join('-')
+                fields.fotografia = fields._id + "-" + novadata + "." + extension
+                fs.rename(files.foto1.path, './public/images/upload/' + fields.fotografia, function(err1){
+                    if(!err1){
+                        console.log("Ficheiro recebido e guardado com sucesso")
+                    }
+                    else{
+                        console.log("Ocorreram erros na gravação do ficheiro enviado")
+                    }
+                })
+                User.update(
+                    {'username':fields.username},
+                    {$set:{'foto':fields.fotografia}}
+                ).exec(function(err,docs){
+                    if(!err){
+                        console.log("Actividade desportiva alterado com sucesso")
+                    }
+                    else{
+                        console.log("Ocurreu um erro tentar editar Ideia")
+                    }
+                })
+
+            }
+            else{
+                if(fields.namefoto == ""){
+                    User.update(
+                        {'username':fields.username},
+                        {$unset:{'foto':1}}
+                    ).exec(function(err,docs){
+                        if(!err){
+                            console.log("perfil alterado com sucesso")
+                        }
+                        else{
+                            console.log("Ocurreu um erro tentar editar perfil")
+                        }
+                    })
+                }
+            }
+
+            if(fields.removido!=""){
+                var curPath = images_dir + fields.removido
+                fs.unlinkSync(curPath);
+            }
+
+            User.update(
+                {'username':fields.username},
+                {$set:{'email': fields.email,
+                    'password': fields.password}}).exec(function(err,docs){
+                if(!err){
+                    console.log("Perfil alterado com sucesso")
+                }
+                else{
+                    console.log("Ocurreu um erro tentar editar o perfil")
+                }
+            })
+
+
+
+            res.redirect('/feed')
+        }else {
+            console.log("Ocurreo um erro ao tentar editar o Perfil")
+            res.redirect('/feed')
+        }
+    })
+})
+
+
 module.exports = router;
+
+
+

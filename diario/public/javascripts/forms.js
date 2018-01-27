@@ -39,7 +39,7 @@ function addFoto() {
     $('#fotos').append(`
     <div class="fotoContainer">
         <label class="w3-text-grey">Foto</label>
-        <input type="file" name="` + nomeador + `" id="` + nomeador + `" class="w3-input w3-border"/>
+        <input type="file" name="` + nomeador + `" id="` + nomeador + `" class="w3-input w3-border" accept=".jpg, .jpeg, .png"/>
         <p>
             <label class="w3-text-grey">Nome</label>
             <input class="w3-input w3-border" type="text" id="nome` + nomeador + `" name="nome` + nomeador + `" placeholder="Nome"/>
@@ -55,7 +55,7 @@ function addFoto() {
         <p>
             <label class="w3-text-grey">Pessoas</label>
             <div id="`+nomeador+`opcoes">
-                <input class="w3-input w3-border" type="text" id="`+ nomeador + `opcao1" name="`+nomeador+`opcao1"/>
+                <input class="w3-input w3-border" type="text" id="`+ nomeador + `opcao1" name="`+nomeador+`opcao1" accept=".jpg, .jpeg, .png"/>
             </div>
             <input type="button" onclick="addop('`+nomeador+`')" value="Adicionar"/>
             <input type="button" onclick="rmop('`+nomeador+`')" value="Remover"/> 
@@ -203,7 +203,7 @@ function aCultural(){
     <p>
         <label class="w3-text-grey">Fotografias</label>
         <div id="ficheiros">
-            <input class="w3-input w3-border" type="file" id="ficheiro1" name="ficheiro1"/>
+            <input class="w3-input w3-border" type="file" id="ficheiro1" name="ficheiro1" accept=".jpg, .jpeg, .png"/>
         </div>
         <input type="button" onclick='addfile()' value="Adicionar"/>
         <input type="button" onclick='rmfile()' value="Remover"/>
@@ -451,7 +451,7 @@ function albumFotografico(){
     <div id="fotos">
         <div class="fotoContainer">
             <label class='w3-text-grey'>Foto</label>
-            <input type="file" name='foto1' id='foto1' class='w3-input w3-border'/>
+            <input type="file" name='foto1' id='foto1' class='w3-input w3-border' accept=".jpg, .jpeg, .png"/>
             <p>
                 <label class='w3-text-grey'>Nome</label>
                 <input class='w3-input w3-border' type='text' id='nomefoto1' name='nomefoto1' placeholder='Nome'/>
@@ -528,7 +528,7 @@ function aViagem(){
     <p>
         <label class="w3-text-grey">Fotografias</label>
         <div id="ficheiros" name="ficheiros">
-            <input class="w3-input w3-border" type="file" id="ficheiro1" name="ficheiro1"/>
+            <input class="w3-input w3-border" type="file" id="ficheiro1" name="ficheiro1" accept=".jpg, .jpeg, .png"/>
         </div>
         </br>
         </hr>

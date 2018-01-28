@@ -33,6 +33,7 @@ router.post('/',function(req,res,next) {
             console.log(JSON.stringify(fields))
             var currentUser = req.cookies.online;
             var categoria = fields.pesquisa;
+            var key = fields.key;
             TiposEventos.find().sort({data:-1}).exec((err2 , docs2)=>{
                 if(!err2 ){
                 for(var i=0;i<docs2.length;i++){
@@ -68,10 +69,11 @@ router.post('/',function(req,res,next) {
                         console.log("DOC--->"+docs1[doc])
                     }
 
-                    if(categoria == "Cultural"){
+                    if(categoria == "Cultural"|| key!=""){
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Cultural");
                         Cultural.find().sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -86,7 +88,9 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                    if(categoria == "Cultural" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }
@@ -113,11 +117,12 @@ router.post('/',function(req,res,next) {
                             })    
                         })
                     }
-                    if(categoria == "Pensamento"){
+                    if(categoria == "Pensamento" || key!=""){
                         console.log("entrou 2")
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Pensamento");
                         Pensamento.find().sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -132,7 +137,10 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                     opcoes = x.keys.filter( y => y=== key)
+                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }
@@ -159,11 +167,12 @@ router.post('/',function(req,res,next) {
                         })
                     }
                     
-                    if(categoria == "Atividade Desportiva"){
+                    if(categoria == "Atividade Desportiva" || key!=""){
                         console.log("entrou 3")
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Atividade Desportiva");
                         AtividadeDesportiva.find().sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -178,7 +187,10 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                    opcoes = x.keys.filter( y => y=== key)
+                                    if(categoria == "Atividade Desportiva" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }
@@ -204,11 +216,12 @@ router.post('/',function(req,res,next) {
                             })   
                         })
                     }
-                    if(categoria == "Receita Culinária"){
+                    if(categoria == "Receita Culinária" || key!=""){
                         console.log("entrou 4")
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Receita Culinária");
                         ReceitaCulinaria.find().sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -223,7 +236,10 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                    opcoes = x.keys.filter( y => y=== key)
+                                    if(categoria == "Receita Culinária" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }
@@ -249,11 +265,12 @@ router.post('/',function(req,res,next) {
                             })     
                         })
                     }
-                    if(categoria == "Transação Monetária"){
+                    if(categoria == "Transação Monetária" || key!=""){
                         console.log("Entrou 5")
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Transação Monetária");
                         TransacaoMonetaria.find().sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -268,7 +285,10 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                    opcoes = x.keys.filter( y => y=== key)
+                                    if(categoria == "Transação Monetária" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }
@@ -297,12 +317,13 @@ router.post('/',function(req,res,next) {
                            
                         })
                     }
-                    if(categoria == "Viagem"){
+                    if(categoria == "Viagem" || key!=""){
 
                         Viagem.find().sort({data:-1}).exec((err2 , docs2)=>{
                             var tipos=[];
                             var eventos=[];
                             var status="";
+                            var opcoes = []
                             if(!err2 ){
                                 if(docs2.length==0){status="Não foram encontrados resultados"}
                                 for(var i=0;i<docs2.length;i++){
@@ -315,7 +336,10 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                    opcoes = x.keys.filter( y => y=== key)
+                                    if(categoria == "Viagem" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }
@@ -342,11 +366,12 @@ router.post('/',function(req,res,next) {
                         })
                     }
 
-                    if(categoria == "Álbum Fotográfico"){
+                    if(categoria == "Álbum Fotográfico" || key!=""){
    
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Álbum Fotográfico");
                         AlbumFotografico.find().sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -361,7 +386,10 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                    opcoes = x.keys.filter( y => y=== key)
+                                    if(categoria == "Álbum Fotográfico" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }
@@ -388,11 +416,12 @@ router.post('/',function(req,res,next) {
                         })
                     }
 
-                    if(categoria == "Evento"){
+                    if(categoria == "Evento" || key!=""){
 
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Evento");
                         Evento.find().sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -407,7 +436,10 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                    opcoes = x.keys.filter( y => y=== key)
+                                    if(categoria == "Evento" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }
@@ -434,11 +466,12 @@ router.post('/',function(req,res,next) {
                         })
                     }
 
-                    if(categoria == "Ideia"){
+                    if(categoria == "Ideia" || key!=""){
                         
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Ideia");
                         Ideia.find().sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -453,7 +486,11 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                    opcoes = x.keys.filter( y => y=== key)
+                                    console.log("Opcoes =>" + opcoes)
+                                    if(categoria == "Ideia" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }
@@ -481,11 +518,12 @@ router.post('/',function(req,res,next) {
                     }
 
 
-                    if(categoria == "Cronica"){
+                    if(categoria == "Cronica" || key!=""){
                         
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Cronica");
                         Cronica.find().sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -500,7 +538,10 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                    opcoes = x.keys.filter( y => y=== key)
+                                    if(categoria == "Cronica" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }
@@ -526,11 +567,12 @@ router.post('/',function(req,res,next) {
                             })   
                         })
                     }
-                    if(categoria == "Trabalho Académico"){
+                    if(categoria == "Trabalho Académico" || key!=""){
                         
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Trabalho Academico");
                         TrabalhoAcademico.find().sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -545,7 +587,10 @@ router.post('/',function(req,res,next) {
                                             break
                                         }
                                     }
-                                    eventos.push(x)
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(categoria == "Trabalho Académico" || opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
                                 }
             
                             }

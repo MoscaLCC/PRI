@@ -10,6 +10,8 @@ var SchemaTransacaoMonetaria= new Schema({
     privado: {type: Boolean , required: true},
     interveniente: {type: String, required:true},
     tipo: {type: String, required:true},
+    comentarios:[{type: String}],
+    keys:[{type: String}],
     montante:{type: String , required: true},
 })
 

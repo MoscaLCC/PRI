@@ -24,7 +24,7 @@ router.post('/',function(req,res,next) {
 
             var lista = Object.keys(fields)
             var opcoes = lista.filter( x => x.startsWith("opcao"))
-
+            var hashtags = fields.keys.split(" ")
             var currentUser = req.cookies.online;
             User.find({'username':req.cookies.online }).exec((err1,docs)=>{
                 if(!err1){
@@ -34,6 +34,7 @@ router.post('/',function(req,res,next) {
                         titulo:fields.titulo,
                         descricao: fields.descricao,
                         data: new Date(),
+                        keys: hashtags,
                         privado: fields.privado,
                         ingredientes: opcoes.map(x => fields[x])
                     })

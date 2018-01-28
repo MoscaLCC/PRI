@@ -36,14 +36,17 @@ router.post('/',function(req,res,next) {
                 var lista = Object.keys(fields)
                 var opcoes = lista.filter( x => x.startsWith("opcao"))
 
+                var hashtags = fields.keys.split(" ")
 
                 var viagem = new Via({
                     userId : userID,
                     titulo:fields.titulo,
                     descricao: fields.descricao,
+                    data: new Date(),
                     datainicio: fields.datainicio,
                     datafim: fields.datafim,
                     local: fields.local,
+                    keys: hashtags,
                     privado: fields.privado,
                     acompanhantes:opcoes.map(x => fields[x])
                     // fotos: fields.fotografia

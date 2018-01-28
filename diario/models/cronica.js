@@ -9,6 +9,8 @@ var SchemaCronica= new Schema({
     data: {type: Date , required: true},
     local: {type: String , required: false},
     privado: {type: Boolean , required: true},
+    comentarios:[{type: String}],
+    keys:[{type: String}],
     ficheiros:[{type: String}]
 })
 

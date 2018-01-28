@@ -11,9 +11,19 @@ html
     link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     script(type='text/javascript' src='/javascripts/forms.js')
     script(src='/javascripts/jquery-3.2.1.js')
+    script(src='/javascripts/jquery-ui-1.10.1.custom.min.js', type='text/javascript')
     style html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   body(class="w3-theme-l5")
-    // Navbar 
+    - function prettyDate(dateString){
+        //if it's already a date object and not a string you don't need this line:
+        - var date = new Date(dateString);
+        - var d = date.getDate();
+        - var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        - var m = monthNames[date.getMonth()];
+        - var y = date.getFullYear();
+        - return d+'-'+m+'-'+y
+    - }
+    // Navbar
     div(class="w3-top")
       div(class="w3-bar w3-theme-d2 w3-left-align w3-large")
         a(class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" onclick="openNav()")
@@ -39,7 +49,7 @@ html
     div(class="w3-container w3-content" style="max-width:1400px;margin-top:80px")
       // The Grid 
       div(class="w3-row")
-        // Left Column 
+        // Left Column
         div(class="w3-col m3")
           // Profile 
           div(class="w3-card w3-round w3-white")
@@ -58,8 +68,8 @@ html
               p
                 i(class="fa fa-address-card w3-text-theme")="   "+user.pnome +" "+ user.unome
           br
-          // End Left Column 
-        // Middle Column 
+          // End Left Column
+        // Middle Column
         div(class="w3-col m7")
           div(class="w3-row-padding")
             div(class="w3-col m12")
@@ -84,8 +94,10 @@ html
               div(class="w3-container w3-teal w3-margin-left w3-margin-right w3-margin-top")
                 table
                   tr
-                    td(style="width:80%")
-                      button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento+"  : "+ evento.titulo  
+                    td(style="width:50%")
+                      button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento+"  : "+ evento.titulo
+                    td(style="width:30%")
+                      h6=prettyDate(evento.data)
                     td
                       button(class="w3-button" onclick="editarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Editar
                     td
@@ -97,7 +109,7 @@ html
                   label(class="w3-text-grey") Descrição
                   p=evento.descricao
                   label(class="w3-text-grey") Data
-                  p=evento.data
+                  p=prettyDate(prettyDate(evento.data))
                   label(class="w3-text-grey") Local
                   p=evento.local
                   label(class="w3-text-grey") Privado
@@ -111,12 +123,34 @@ html
                         div(class="w3-row-padding w3-margin-top")
                           div(class="w3-card w3-half")
                             img(src="/images/upload/"+evento.fotografia style="width:100%")
+                  div(class="w3-container w3-blue-light")
+                      h1 Comentarios
+
+                  div(class="w3-container")
+                      if evento.comentarios
+                          each comentario in evento.comentarios
+                              table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                  td
+                                      p=comentario
+                  div(class="w3-container w3-blue-light")
+                      p
+                  table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                      td
+                          form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                              input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                              input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                              font(face="arial" size="3" color="#0057AE")
+                                  b Comente aqui:
+                              br
+                              textarea(name="comentario" id="comentario" style="width:100%")
+                              br
+                              input(type="submit" value="Comentar")
                 else if evento.tipoEvento == "Trabalho Académico"
                   h4="Título: " + evento.titulo
                   label(class="w3-text-grey") Descrição
                   p=evento.descricao
                   label(class="w3-text-grey") Data
-                  p=evento.data
+                  p=prettyDate(evento.data)
                   label(class="w3-text-grey") Local
                   p=evento.local
                   label(class="w3-text-grey") Privado
@@ -132,12 +166,34 @@ html
                         a(href="/images/upload/"+ ficheiro)
                             p=ficheiro
                   p=evento.resultado
+                  div(class="w3-container w3-blue-light")
+                      h1 Comentarios
+
+                  div(class="w3-container")
+                      if evento.comentarios
+                          each comentario in evento.comentarios
+                              table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                  td
+                                      p=comentario
+                  div(class="w3-container w3-blue-light")
+                      p
+                  table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                      td
+                          form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                              input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                              input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                              font(face="arial" size="3" color="#0057AE")
+                                  b Comente aqui:
+                              br
+                              textarea(name="comentario" id="comentario" style="width:100%")
+                              br
+                              input(type="submit" value="Comentar")
                 else if evento.tipoEvento=="Cultural"
                   h4="Título: " + evento.titulo
                   label(class="w3-text-grey") Descrição
                   p=evento.descricao
                   label(class="w3-text-grey") Data
-                  p=evento.data
+                  p=prettyDate(evento.data)
                   label(class="w3-text-grey") Local
                   p=evento.local
                   label(class="w3-text-grey") Privado
@@ -151,34 +207,98 @@ html
                         div(class="w3-third")
                           div(class="w3-card")
                             img(src="/images/upload/"+fotografia style="width:100%")
+                  div(class="w3-container w3-blue-light")
+                      h1 Comentarios
 
-
+                  div(class="w3-container")
+                      if evento.comentarios
+                          each comentario in evento.comentarios
+                              table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                  td
+                                      p=comentario
+                  div(class="w3-container w3-blue-light")
+                      p
+                  table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                      td
+                          form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                              input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                              input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                              font(face="arial" size="3" color="#0057AE")
+                                  b Comente aqui:
+                              br
+                              textarea(name="comentario" id="comentario" style="width:100%")
+                              br
+                              input(type="submit" value="Comentar")
                 else if evento.tipoEvento == "Ideia"
                     h4="Título: " + evento.titulo
                     label(class="w3-text-grey") Descrição
                     p=evento.descricao
                     label(class="w3-text-grey") Data
-                    p=evento.data
+                    p=prettyDate(evento.data)
                     label(class="w3-text-grey") Local
                     p=evento.local
                     label(class="w3-text-grey") Privado
                     p=evento.privado
+                    div(class="w3-container w3-blue-light")
+                        h1 Comentarios
+
+                    div(class="w3-container")
+                        if evento.comentarios
+                            each comentario in evento.comentarios
+                                table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                    td
+                                        p=comentario
+                    div(class="w3-container w3-blue-light")
+                        p
+                    table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                        td
+                            form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                                input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                                input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                                font(face="arial" size="3" color="#0057AE")
+                                    b Comente aqui:
+                                br
+                                textarea(name="comentario" id="comentario" style="width:100%")
+                                br
+                                input(type="submit" value="Comentar")
                 else if evento.tipoEvento == "Pensamento"
                     h4="Título: " + evento.titulo
                     label(class="w3-text-grey") Descrição
                     p=evento.descricao
                     label(class="w3-text-grey") Data
-                    p=evento.data
+                    p=prettyDate(evento.data)
                     label(class="w3-text-grey") Local
                     p=evento.local
                     label(class="w3-text-grey") Privado
                     p=evento.privado
+                    div(class="w3-container w3-blue-light")
+                        h1 Comentarios
+
+                    div(class="w3-container")
+                        if evento.comentarios
+                            each comentario in evento.comentarios
+                                table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                    td
+                                        p=comentario
+                    div(class="w3-container w3-blue-light")
+                        p
+                    table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                        td
+                            form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                                input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                                input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                                font(face="arial" size="3" color="#0057AE")
+                                    b Comente aqui:
+                                br
+                                textarea(name="comentario" id="comentario" style="width:100%")
+                                br
+                                input(type="submit" value="Comentar")
                 else if evento.tipoEvento == "Cronica"
                     h4="Título: " + evento.titulo
                     label(class="w3-text-grey") Descrição
                     p=evento.descricao
                     label(class="w3-text-grey") Data
-                    p=evento.data
+                    p=prettyDate(evento.data)
                     label(class="w3-text-grey") Local
                     p=evento.local
                     label(class="w3-text-grey") Privado
@@ -188,6 +308,28 @@ html
                         each ficheiro in evento.ficheiros
                           a(href = "/images/upload/" + ficheiro)
                               p=ficheiro
+                    div(class="w3-container w3-blue-light")
+                        h1 Comentarios
+
+                    div(class="w3-container")
+                        if evento.comentarios
+                            each comentario in evento.comentarios
+                                table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                    td
+                                        p=comentario
+                    div(class="w3-container w3-blue-light")
+                        p
+                    table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                        td
+                            form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                                input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                                input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                                font(face="arial" size="3" color="#0057AE")
+                                    b Comente aqui:
+                                br
+                                textarea(name="comentario" id="comentario" style="width:100%")
+                                br
+                                input(type="submit" value="Comentar")
                 else if evento.tipoEvento == "Receita Culinária"
                     h4="Título: " + evento.titulo
                     label(class="w3-text-grey") Descrição
@@ -197,25 +339,69 @@ html
                       each ingrediente in evento.ingredientes
                           p(class="w3-text-black")=ingrediente
                     label(class="w3-text-grey") Data
-                    p=evento.data
+                    p=prettyDate(evento.data)
                     label(class="w3-text-grey") Privado
                     p=evento.privado
+                    div(class="w3-container w3-blue-light")
+                        h1 Comentarios
+
+                    div(class="w3-container")
+                        if evento.comentarios
+                            each comentario in evento.comentarios
+                                table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                    td
+                                        p=comentario
+                    div(class="w3-container w3-blue-light")
+                        p
+                    table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                        td
+                            form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                                input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                                input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                                font(face="arial" size="3" color="#0057AE")
+                                    b Comente aqui:
+                                br
+                                textarea(name="comentario" id="comentario" style="width:100%")
+                                br
+                                input(type="submit" value="Comentar")
                 else if evento.tipoEvento == "Evento"
                     h4="Título: " + evento.titulo
                     label(class="w3-text-grey") Descrição
                     p=evento.descricao
                     label(class="w3-text-grey") Data
-                    p=evento.data
+                    p=prettyDate(evento.data)
                     label(class="w3-text-grey") Local
                     p=evento.local
                     label(class="w3-text-grey") Privado
                     p=evento.privado
+                    div(class="w3-container w3-blue-light")
+                        h1 Comentarios
+
+                    div(class="w3-container")
+                        if evento.comentarios
+                            each comentario in evento.comentarios
+                                table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                    td
+                                        p=comentario
+                    div(class="w3-container w3-blue-light")
+                        p
+                    table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                        td
+                            form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                                input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                                input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                                font(face="arial" size="3" color="#0057AE")
+                                    b Comente aqui:
+                                br
+                                textarea(name="comentario" id="comentario" style="width:100%")
+                                br
+                                input(type="submit" value="Comentar")
                 else if evento.tipoEvento == "Transação Monetária"
                     h4="Título: " + evento.titulo
                     label(class="w3-text-grey") Descrição
                     p=evento.descricao
                     label(class="w3-text-grey") Data
-                    p=evento.data
+                    p=prettyDate(evento.data)
                     label(class="w3-text-grey") Privado
                     p=evento.privado
                     label(class="w3-text-grey") Tipo
@@ -224,12 +410,34 @@ html
                     p=evento.montante
                     label(class="w3-text-grey") Interveniente
                     p=evento.interveniente
+                    div(class="w3-container w3-blue-light")
+                        h1 Comentarios
+
+                    div(class="w3-container")
+                        if evento.comentarios
+                            each comentario in evento.comentarios
+                                table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                    td
+                                        p=comentario
+                    div(class="w3-container w3-blue-light")
+                        p
+                    table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                        td
+                            form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                                input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                                input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                                font(face="arial" size="3" color="#0057AE")
+                                    b Comente aqui:
+                                br
+                                textarea(name="comentario" id="comentario" style="width:100%")
+                                br
+                                input(type="submit" value="Comentar")
                 else if evento.tipoEvento == "Álbum Fotográfico"
                     h4="Título: " + evento.titulo
                     label(class="w3-text-grey") Descrição
                     p=evento.descricao
                     label(class="w3-text-grey") Data
-                    p=evento.data
+                    p=prettyDate(evento.data)
                     label(class="w3-text-grey") Local
                     p=evento.local
                     label(class="w3-text-grey") Privado
@@ -249,14 +457,37 @@ html
                           label(class="w3-text-grey") Pessoas
                           each pessoa in fotografia.pessoas
                             p=pessoa
+                    div(class="w3-container w3-blue-light")
+                        h1 Comentarios
+
+                    div(class="w3-container")
+                        if evento.comentarios
+                            each comentario in evento.comentarios
+                                table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                    td
+                                        p=comentario
+                    div(class="w3-container w3-blue-light")
+                        p
+                    table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                        td
+                            form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                                input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                                input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                                font(face="arial" size="3" color="#0057AE")
+                                    b Comente aqui:
+                                br
+                                p
+                                textarea(name="comentario" id="comentario" style="width:100%")
+                                br
+                                input(type="submit" value="Comentar")
                 else if evento.tipoEvento == "Viagem"
                     h4="Título: " + evento.titulo
                     label(class="w3-text-grey") Descrição
                     p=evento.descricao
                     label(class="w3-text-grey") Data Início
-                    p=evento.datainicio
+                    p=prettyDate(evento.datainicio)
                     label(class="w3-text-grey") Data Fim
-                    p=evento.datafim
+                    p=prettyDate(evento.datafim)
                     label(class="w3-text-grey") Local
                     p=evento.local
                     label(class="w3-text-grey") Privado
@@ -270,6 +501,28 @@ html
                       div(class="w3-row-padding w3-margin-top")
                       each foto in evento.fotografias
                           img(src="/images/upload/"+foto style="width:30%")
+                    div(class="w3-container w3-blue-light")
+                        h1 Comentarios
+
+                    div(class="w3-container")
+                        if evento.comentarios
+                            each comentario in evento.comentarios
+                                table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                                    td
+                                        p=comentario
+                    div(class="w3-container w3-blue-light")
+                        p
+                    table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
+                        td
+                            form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                                input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                                input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                                font(face="arial" size="3" color="#0057AE")
+                                    b Comente aqui:
+                                br
+                                textarea(name="comentario" id="comentario" style="width:100%")
+                                br
+                                input(type="submit" value="Comentar")
               -count++             
                           
           else
@@ -284,11 +537,14 @@ html
               | Pesquisar
             div(id="Demo1" class="w3-hide w3-container")
               form(class="w3-container" action="/pesquisarCat" method="post" enctype="multipart/form-data")
+                p
                 select(class="" name="pesquisa" id="tipoEvento")
                     option(selected disabled) Tipo de Evento
                     each x in OpTipos
                       option= x
-                  
+                p
+                input(type="text" name="key" pattern="#[a-zA-Z0-9]+" placeholder="hashtag")
+                p
                 input(type="submit" class="w3-btn w3-teal w3-round" value="Pesquisar")  
               
               

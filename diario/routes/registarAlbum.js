@@ -20,7 +20,7 @@ router.post('/',function(req,res,next) {
     if(!err){
       console.log(JSON.stringify(fields))
       console.log("Ficheiros" + JSON.stringify(files))
-      
+        var hashtags = fields.keys.split(" ")
       if(fields.privado === "on")
         fields.privado = true;
       else fields.privado = false;
@@ -36,6 +36,7 @@ router.post('/',function(req,res,next) {
             userId : userID,
             titulo:fields.titulo,
             descricao: fields.descricao,
+              keys: hashtags,
             data: new Date(),
             local: fields.local,
             privado: fields.privado,

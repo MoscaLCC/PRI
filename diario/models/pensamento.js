@@ -8,6 +8,8 @@ var SchemaPensamento= new Schema({
     descricao: {type: String , required: true, max: 100},
     data: {type: Date , required: true},
     local: {type: String , required: false},
+    comentarios:[{type: String}],
+    keys:[{type: String}],
     privado: {type: Boolean , required: true},
 })
 

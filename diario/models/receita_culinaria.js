@@ -8,6 +8,8 @@ var SchemaReceitaCulinaria= new Schema({
     descricao: {type: String , required: true, max: 100},
     data: {type: Date , required: true},
     privado: {type: Boolean , required: true},
+    comentarios:[{type: String}],
+    keys:[{type: String}],
     ingredientes:[{type: String}]
 })
 

@@ -33,6 +33,7 @@ router.post('/',function(req,res,next) {
             console.log(JSON.stringify(fields))
             var currentUser = req.cookies.online;
             var categoria = fields.pesquisa;
+            var key = fields.key;
             TiposEventos.find().sort({data:-1}).exec((err2 , docs2)=>{
                 if(!err2 ){
                 for(var i=0;i<docs2.length;i++){
@@ -56,11 +57,12 @@ router.post('/',function(req,res,next) {
                 var ageDate = new Date(ageDifMs); // miliseconds from epoch
                 userDoc.idade=Math.abs(ageDate.getUTCFullYear() - 1970);
                 var userID = userDoc._id
-                    if(categoria == "Cultural"){
+                    if(categoria == "Cultural"|| key!=""){
                         console.log("entrou 1")
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Cultural");
                         Cultural.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -69,7 +71,10 @@ router.post('/',function(req,res,next) {
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 console.log("conteudo do "+ x);
                                 x.tipoEvento="Cultural"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }
@@ -95,11 +100,12 @@ router.post('/',function(req,res,next) {
                             })    
                         })
                     }
-                    if(categoria == "Pensamento"){
+                    if(categoria == "Pensamento"|| key!=""){
                         console.log("entrou 2")
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Pensamento");
                         Pensamento.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -108,7 +114,10 @@ router.post('/',function(req,res,next) {
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 console.log("conteudo do "+ x);
                                 x.tipoEvento="Pensamento"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }
@@ -135,11 +144,12 @@ router.post('/',function(req,res,next) {
                         })
                     }
                     
-                    if(categoria == "Atividade Desportiva"){
+                    if(categoria == "Atividade Desportiva"|| key!=""){
                         console.log("entrou 3")
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Atividade Desportiva");
                         AtividadeDesportiva.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -148,7 +158,10 @@ router.post('/',function(req,res,next) {
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 console.log("conteudo do "+ x);
                                 x.tipoEvento="Atividade Desportiva"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }
@@ -174,11 +187,12 @@ router.post('/',function(req,res,next) {
                             })   
                         })
                     }
-                    if(categoria == "Receita Culinária"){
+                    if(categoria == "Receita Culinária"|| key!=""){
                         console.log("entrou 4")
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Receita Culinária");
                         ReceitaCulinaria.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -187,7 +201,10 @@ router.post('/',function(req,res,next) {
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 console.log("conteudo do "+ x);
                                 x.tipoEvento="Receita Culinária"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }
@@ -213,11 +230,12 @@ router.post('/',function(req,res,next) {
                             })     
                         })
                     }
-                    if(categoria == "Transação Monetária"){
+                    if(categoria == "Transação Monetária"|| key!=""){
                         console.log("Entrou 5")
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Transação Monetária");
                         TransacaoMonetaria.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -226,7 +244,10 @@ router.post('/',function(req,res,next) {
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 console.log("conteudo do "+ x);
                                 x.tipoEvento="Transação Monetária"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }
@@ -255,12 +276,13 @@ router.post('/',function(req,res,next) {
                            
                         })
                     }
-                    if(categoria == "Viagem"){
+                    if(categoria == "Viagem"|| key!=""){
 
                         Viagem.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             var tipos=[];
                             var eventos=[];
                             var status="";
+                            var opcoes = []
                             if(!err2 ){
                                 if(docs2.length==0){status="Não foram encontrados resultados"}
                             for(var i=0;i<docs2.length;i++){
@@ -268,7 +290,10 @@ router.post('/',function(req,res,next) {
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 console.log("conteudo do "+ x);
                                 x.tipoEvento="Viagem"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }
@@ -295,11 +320,12 @@ router.post('/',function(req,res,next) {
                         })
                     }
 
-                    if(categoria == "Álbum Fotográfico"){
+                    if(categoria == "Álbum Fotográfico"|| key!=""){
    
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Álbum Fotográfico");
                         AlbumFotografico.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -308,7 +334,10 @@ router.post('/',function(req,res,next) {
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 console.log("conteudo do "+ x);
                                 x.tipoEvento="Álbum Fotográfico"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }
@@ -335,11 +364,12 @@ router.post('/',function(req,res,next) {
                         })
                     }
 
-                    if(categoria == "Evento"){
+                    if(categoria == "Evento"|| key!=""){
 
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Evento");
                         Evento.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -348,7 +378,10 @@ router.post('/',function(req,res,next) {
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 console.log("conteudo do "+ x);
                                 x.tipoEvento="Evento"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }
@@ -375,11 +408,12 @@ router.post('/',function(req,res,next) {
                         })
                     }
 
-                    if(categoria == "Ideia"){
+                    if(categoria == "Ideia"|| key!=""){
                         
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Ideia");
                         Ideia.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -388,7 +422,10 @@ router.post('/',function(req,res,next) {
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 console.log("conteudo do "+ x);
                                 x.tipoEvento="Ideia"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }
@@ -416,11 +453,12 @@ router.post('/',function(req,res,next) {
                     }
 
 
-                    if(categoria == "Crónica"){
+                    if(categoria == "Crónica"|| key!=""){
                         
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Cronica");
                         Cronica.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -428,7 +466,10 @@ router.post('/',function(req,res,next) {
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 x.tipoEvento="Cronica"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }
@@ -454,11 +495,12 @@ router.post('/',function(req,res,next) {
                             })   
                         })
                     }
-                    if(categoria == "Trabalho Académico"){
+                    if(categoria == "Trabalho Académico"|| key!=""){
                         
                         var tipos=[];
                         var eventos=[];
                         var status="";
+                        var opcoes = []
                         tipos.push("Trabalho Academico");
                         TrabalhoAcademico.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
                             if(!err2 ){
@@ -466,7 +508,10 @@ router.post('/',function(req,res,next) {
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
                                 x.tipoEvento="Trabalho Academico"
-                                eventos.push(x)
+                                opcoes = x.keys.filter( y => y=== key)
+                                if(categoria == "Pensamento" || opcoes.length>0 ) {
+                                    eventos.push(x)
+                                }
                             }
             
                             }

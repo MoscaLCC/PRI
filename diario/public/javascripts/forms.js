@@ -15,7 +15,7 @@ function rmfile() {
     }
 }
 function addop(node) {
-    var numOps = $('#'+node + 'opcoes').children().length +1 
+    var numOps = $('#'+node + 'opcoes').children().length +1
     if(numOps > 15){ alert("Impossível Aadicionar, é impossível carregar mais que 15 opções!!"); }
     else{
         var nomeador = node + "opcao" + numOps
@@ -106,6 +106,10 @@ function atividadeDesportiva(){
         <input class="w3-input w3-border" type="file" id="fotografia" name="fotografia"/>
     </p>
     <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+    </p>
+    <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
         </label>
     </p>
@@ -155,6 +159,10 @@ function trabalhoAcademico(){
         </div>
         <input type="button" onclick="addfile()" value="Adicionar"/>
         <input type="button" onclick="rmfile()" value="Remover"/>
+    </p>
+    <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
     </p>
     <p>
         <label class="w3-text-grey">Privado
@@ -209,6 +217,10 @@ function aCultural(){
         <input type="button" onclick='rmfile()' value="Remover"/>
     </p>
     <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+    </p>
+    <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
         </label>
     </p>
@@ -240,6 +252,10 @@ function aIdeia(){
         <input class="w3-input w3-border" type="text" id="local" name="local" placeholder="Local"/>
     </p>
     <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+    </p>
+    <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
         </label>
     </p>
@@ -269,6 +285,10 @@ function aPensamento(){
     <p>
         <label class="w3-text-grey">Local</label>
         <input class="w3-input w3-border" type="text" id="local" name="local" placeholder="Local"/>
+    </p>
+    <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -310,6 +330,10 @@ function aCronica(){
         <input type="button" onclick='rmfile()' value="Remover"/>
     </p>
     <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+    </p>
+    <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
         </label>
     </p>
@@ -346,6 +370,10 @@ function receitaCulinaria(){
         <input type="button" onclick='rmop("")' value="Remover"/>
     </p>
     <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+    </p>
+    <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
         </label>
     </p>
@@ -376,6 +404,10 @@ function aEvento(){
     <p>
         <label class="w3-text-grey">Local</label>
         <input class="w3-input w3-border" type="text" id="local" name="local" placeholder="Local"/>
+    </p>
+    <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -419,6 +451,10 @@ function transacaoMonetaria(){
     <p>
         <label class="w3-text-grey">Interveniente</label>
         <input class="w3-input w3-border" type="text" id="interveniente" name="interveniente" placeholder="Interveniente"/>
+    </p>
+    <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -478,6 +514,10 @@ function albumFotografico(){
     <input type="button" onclick="addFoto()" value="Adicionar fotografia"/>
     <input type="button" onclick="rmFoto()" value="Remover fotografia"/>
     <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+    </p>
+    <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
         </label>
     </p>
@@ -534,6 +574,10 @@ function aViagem(){
         </hr>
         <input type="button" onclick='addfile()' value="Adicionar"/>
         <input type="button" onclick='rmfile()' value="Remover"/>
+    </p>
+    <p>
+        <label class="w3-text-grey">HashTags '#'</label>
+        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>

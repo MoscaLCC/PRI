@@ -21,7 +21,7 @@ router.post('/',function(req,res,next) {
             if(fields.privado === "on")
                 fields.privado = true;
             else fields.privado = false;
-
+            var hashtags = fields.keys.split(" ")
             var currentUser = req.cookies.online;
             User.find({'username':req.cookies.online }).exec((err1,docs)=>{
                 if(!err1){
@@ -29,6 +29,7 @@ router.post('/',function(req,res,next) {
                     var ideia = new Ide({
                         userId : userID,
                         titulo:fields.titulo,
+                        keys: hashtags,
                         descricao: fields.descricao,
                         data: new Date(),
                         local: fields.local,

@@ -31,7 +31,7 @@ router.post('/',function(req,res,next) {
 
                     // fazer teste se existe ficheiros(ns) para upload
                     // asdasd
-
+                var hashtags = fields.keys.split(" ")
                     var trabalho_academico = new TRA({
                         userId : userID,
                         titulo:fields.titulo,
@@ -40,6 +40,7 @@ router.post('/',function(req,res,next) {
                         local: fields.local,
                         privado: fields.privado,
                         uc: fields.uc,
+                        keys: hashtags,
                         docente:fields.docente,
                         resultado:fields.resultado
 

@@ -11,6 +11,8 @@ var SchemaTrabalhoAcademico= new Schema({
     privado: {type: Boolean , required: true},
     uc: {type: String, required:true},
     docente:{type: String},
+    comentarios:[{type: String}],
+    keys:[{type: String}],
     resultado:{type: String , required: true},
     ficheiros:[{type: String}]
 })

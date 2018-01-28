@@ -42,6 +42,7 @@ var perfil = require('./routes/perfil')
 var eliminar = require('./routes/eliminar')
 var editar = require('./routes/editar')
 var feedPublico= require('./routes/feedPublico')
+var comentario = require('./routes/comentario')
 var app = express();
 
 // view engine setup
@@ -86,6 +87,7 @@ app.use('/editarTransMon', editarTransMon)
 app.use('/editarRecCul', editarRecCul)
 app.use('/editarPensamento', editarPensaento)
 app.use('/registarEve', evento)
+app.use('/comentario', comentario)
 app.use('/editarCultural', editarCultural)
 app.use('/editarIdeia', editarIdeia)
 app.use('/editarActDesp', editarActDesp)

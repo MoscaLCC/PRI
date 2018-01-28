@@ -22,6 +22,7 @@ router.post('/',function(req,res,next) {
                 fields.privado = true;
             else fields.privado = false;
 
+            var hashtags = fields.keys.split(" ")
             var currentUser = req.cookies.online;
             User.find({'username':req.cookies.online }).exec((err1,docs)=>{
                 if(!err1){
@@ -32,6 +33,7 @@ router.post('/',function(req,res,next) {
                         descricao: fields.descricao,
                         data: new Date(),
                         privado: fields.privado,
+                        keys: hashtags,
                         interveniente: fields.interveniente,
                         tipo: fields.tipo,
                         montante: fields.montante

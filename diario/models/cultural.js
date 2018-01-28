@@ -10,6 +10,8 @@ var SchemaCultural= new Schema({
     local: {type: String , required: false},
     privado: {type: Boolean , required: true},
     tipo: {type: String, required:true},
+    comentarios:[{type: String}],
+    keys:[{type: String}],
     fotografias:[{type: String}]
 })
 

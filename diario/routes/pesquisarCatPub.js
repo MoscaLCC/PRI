@@ -55,12 +55,12 @@ router.post('/',function(req,res,next) {
                     if(docs1.length > 0){
                         for(var user in docs1){
                             if(docs1[user].username === currentUser){
-                                userDoc = docs1[0]
+                                userDoc = docs1[user]
                             //Calculo da Idade//
-                            ageDifMs = Date.now() - userDoc.dataNascimento.getTime();
-                            ageDate = new Date(ageDifMs); // miliseconds from epoch
-                            userDoc.idade=Math.abs(ageDate.getUTCFullYear() - 1970);
-                            userID = userDoc._id
+                                ageDifMs = Date.now() - userDoc.dataNascimento.getTime();
+                                ageDate = new Date(ageDifMs); // miliseconds from epoch
+                                userDoc.idade=Math.abs(ageDate.getUTCFullYear() - 1970);
+                                userID = userDoc._id
                             }
                             usersList.push(docs1[user])
                         }

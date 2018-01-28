@@ -57,7 +57,7 @@ router.post('/',function(req,res,next) {
                 var data = new Date()
                 var novadata = data.toISOString().split(':').join('-')
                 novadata = novadata.split('.').join('-')
-                fields.fotografia = fields._id + "-" + novadata + "." + extension
+                fields.fotografia = "fp-" + req.cookies.online + "." + extension
                 fs.rename(files.foto1.path, './public/images/upload/' + fields.fotografia, function(err1){
                     if(!err1){
                         console.log("Ficheiro recebido e guardado com sucesso")

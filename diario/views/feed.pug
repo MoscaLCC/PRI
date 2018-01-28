@@ -85,7 +85,7 @@ html
                   div(class="w3-container" id="divOps")
                 center
                   h3(class="w3-text-red" id="status")=status
-          if eventos!=undefined
+          if eventos!=undefined && eventos.length>0
             div(class="w3-container w3-center")
               button(class="w3-btn w3-teal" onclick='showAllAct()' id="colapseAct" ) Expandir Atividades  
             -var count=1
@@ -95,7 +95,7 @@ html
                 table
                   tr
                     td(style="width:50%")
-                      button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento+"  : "+ evento.titulo
+                      button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento+"  : "+( (evento.titulo.length>30)?(evento.titulo.substring(0,30)+"..."):evento.titulo)
                     td(style="width:30%")
                       h6=prettyDate(evento.data)
                     td
@@ -110,8 +110,9 @@ html
                   p=evento.descricao
                   label(class="w3-text-grey") Data
                   p=prettyDate(prettyDate(evento.data))
-                  label(class="w3-text-grey") Local
-                  p=evento.local
+                  if evento.local
+                        label(class="w3-text-grey") Local
+                        p=evento.local
                   label(class="w3-text-grey") Privado
                   p=evento.privado
                   label(class="w3-text-grey") Duração
@@ -151,8 +152,9 @@ html
                   p=evento.descricao
                   label(class="w3-text-grey") Data
                   p=prettyDate(evento.data)
-                  label(class="w3-text-grey") Local
-                  p=evento.local
+                  if evento.local
+                        label(class="w3-text-grey") Local
+                        p=evento.local
                   label(class="w3-text-grey") Privado
                   p=evento.privado
                   label(class="w3-text-grey") UC
@@ -194,8 +196,9 @@ html
                   p=evento.descricao
                   label(class="w3-text-grey") Data
                   p=prettyDate(evento.data)
-                  label(class="w3-text-grey") Local
-                  p=evento.local
+                  if evento.local
+                        label(class="w3-text-grey") Local
+                        p=evento.local
                   label(class="w3-text-grey") Privado
                   p=evento.privado
                   label(class="w3-text-grey") Tipo
@@ -235,8 +238,9 @@ html
                     p=evento.descricao
                     label(class="w3-text-grey") Data
                     p=prettyDate(evento.data)
-                    label(class="w3-text-grey") Local
-                    p=evento.local
+                    if evento.local
+                        label(class="w3-text-grey") Local
+                        p=evento.local
                     label(class="w3-text-grey") Privado
                     p=evento.privado
                     div(class="w3-container w3-blue-light")
@@ -267,8 +271,9 @@ html
                     p=evento.descricao
                     label(class="w3-text-grey") Data
                     p=prettyDate(evento.data)
-                    label(class="w3-text-grey") Local
-                    p=evento.local
+                    if evento.local
+                        label(class="w3-text-grey") Local
+                        p=evento.local
                     label(class="w3-text-grey") Privado
                     p=evento.privado
                     div(class="w3-container w3-blue-light")
@@ -299,8 +304,9 @@ html
                     p=evento.descricao
                     label(class="w3-text-grey") Data
                     p=prettyDate(evento.data)
-                    label(class="w3-text-grey") Local
-                    p=evento.local
+                    if evento.local
+                        label(class="w3-text-grey") Local
+                        p=evento.local
                     label(class="w3-text-grey") Privado
                     p=evento.privado
                     if evento.ficheiros
@@ -370,8 +376,9 @@ html
                     p=evento.descricao
                     label(class="w3-text-grey") Data
                     p=prettyDate(evento.data)
-                    label(class="w3-text-grey") Local
-                    p=evento.local
+                    if evento.local
+                        label(class="w3-text-grey") Local
+                        p=evento.local
                     label(class="w3-text-grey") Privado
                     p=evento.privado
                     div(class="w3-container w3-blue-light")
@@ -438,8 +445,9 @@ html
                     p=evento.descricao
                     label(class="w3-text-grey") Data
                     p=prettyDate(evento.data)
-                    label(class="w3-text-grey") Local
-                    p=evento.local
+                    if evento.local
+                        label(class="w3-text-grey") Local
+                        p=evento.local
                     label(class="w3-text-grey") Privado
                     p=evento.privado
                     if evento.fotografias
@@ -451,8 +459,9 @@ html
                         if fotografia.descricao
                           label(class="w3-text-grey") Descrição 
                           p=fotografia.descricao
-                        label(class="w3-text-grey") Local    
-                        p=fotografia.local
+                        if fotografia.local
+                            label(class="w3-text-grey") Local    
+                            p=fotografia.local
                         if fotografia.pessoas
                           label(class="w3-text-grey") Pessoas
                           each pessoa in fotografia.pessoas
@@ -488,8 +497,9 @@ html
                     p=prettyDate(evento.datainicio)
                     label(class="w3-text-grey") Data Fim
                     p=prettyDate(evento.datafim)
-                    label(class="w3-text-grey") Local
-                    p=evento.local
+                    if evento.local
+                        label(class="w3-text-grey") Local
+                        p=evento.local
                     label(class="w3-text-grey") Privado
                     p=evento.privado
                     if evento.acompanhantes
@@ -525,9 +535,7 @@ html
                                 input(type="submit" value="Comentar")
               -count++             
                           
-          else
-            div(class="w3-container")
-              h1 Nao existem eventos!
+        
           // End Middle Column 
         // Right Column 
         div(class="w3-col m2")
@@ -538,12 +546,12 @@ html
             div(id="Demo1" class="w3-hide w3-container")
               form(class="w3-container" action="/pesquisarCat" method="post" enctype="multipart/form-data")
                 p
-                select(class="" name="pesquisa" id="tipoEvento")
+                select(style="width:100%" name="pesquisa" id="tipoEvento")
                     option(selected disabled) Tipo de Evento
                     each x in OpTipos
                       option= x
                 p
-                input(type="text" name="key" pattern="#[a-zA-Z0-9]+" placeholder="hashtag")
+                input(style="width:100%" type="text" name="key" pattern="#[a-zA-Z0-9]+" placeholder="hashtag")
                 p
                 input(type="submit" class="w3-btn w3-teal w3-round" value="Pesquisar")  
               

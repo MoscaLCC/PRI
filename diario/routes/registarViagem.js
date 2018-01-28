@@ -36,7 +36,7 @@ router.post('/',function(req,res,next) {
                 var lista = Object.keys(fields)
                 var opcoes = lista.filter( x => x.startsWith("opcao"))
 
-                var hashtags = fields.keys.split(" ")
+                var hashtags = fields.keys.split(" ").filter(x => x!="")
 
                 var viagem = new Via({
                     userId : userID,

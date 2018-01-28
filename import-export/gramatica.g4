@@ -218,7 +218,11 @@ ontologia returns[String name,Conceitos cncts ,HashSet<String> indvds , HashSet<
             }
      
        if(erros.size()==0){
-            
+            for(Triplo t : $ontologia.tripsM){
+                if(t.c2.nome.equals("utilizador")){
+                    System.out.println("->> "+t.c2.atributos.get("username"));
+                }
+            }
            
         }
        else for(String err : erros)

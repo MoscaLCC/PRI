@@ -20,7 +20,7 @@ router.post('/',function(req,res,next) {
     if(!err){
       console.log(JSON.stringify(fields))
       console.log("Ficheiros" + JSON.stringify(files))
-        var hashtags = fields.keys.split(" ")
+        var hashtags = fields.keys.split(" ").filter(x => x!="")
       if(fields.privado === "on")
         fields.privado = true;
       else fields.privado = false;

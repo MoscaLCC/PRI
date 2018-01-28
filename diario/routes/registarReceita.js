@@ -24,7 +24,7 @@ router.post('/',function(req,res,next) {
 
             var lista = Object.keys(fields)
             var opcoes = lista.filter( x => x.startsWith("opcao"))
-            var hashtags = fields.keys.split(" ")
+            var hashtags = fields.keys.split(" ").filter(x => x!="")
             var currentUser = req.cookies.online;
             User.find({'username':req.cookies.online }).exec((err1,docs)=>{
                 if(!err1){

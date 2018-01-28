@@ -24,22 +24,22 @@ router.post('/',function(req,res,next) {
       if(fields.privado === "on")
         fields.privado = true;
       else fields.privado = false;
-        var hashtags = fields.keys.split(" ")
-            var currentUser = req.cookies.online;
-            User.find({'username':req.cookies.online }).exec((err1,docs)=>{
-                if(!err1){
-                userID = docs[0]._id
-                var ativDesp = new Ad({
-                    userId : userID,
-                    titulo:fields.titulo,
-                    descricao: fields.descricao,
-                    data: new Date(),
-                    local: fields.local,
-                    keys: hashtags,
-                    privado: fields.privado,
-                    duracao: fields.duracao,
-                    desporto: fields.desporto,
-                })
+      var hashtags = fields.keys.split(" ").filter(x => x!="")
+      var currentUser = req.cookies.online;
+      User.find({'username':req.cookies.online }).exec((err1,docs)=>{
+          if(!err1){
+          userID = docs[0]._id
+          var ativDesp = new Ad({
+              userId : userID,
+              titulo:fields.titulo,
+              descricao: fields.descricao,
+              data: new Date(),
+              local: fields.local,
+              keys: hashtags,
+              privado: fields.privado,
+              duracao: fields.duracao,
+              desporto: fields.desporto,
+          })
           ativDesp.save(function(err1, doc){
             if(!err1){
               if(files.fotografia.name != ""){

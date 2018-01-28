@@ -107,7 +107,7 @@ function atividadeDesportiva(){
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -162,7 +162,7 @@ function trabalhoAcademico(){
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado
@@ -218,7 +218,7 @@ function aCultural(){
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -253,7 +253,7 @@ function aIdeia(){
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -288,7 +288,7 @@ function aPensamento(){
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -331,7 +331,7 @@ function aCronica(){
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -371,7 +371,7 @@ function receitaCulinaria(){
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -407,7 +407,7 @@ function aEvento(){
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -454,7 +454,7 @@ function transacaoMonetaria(){
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -515,7 +515,7 @@ function albumFotografico(){
     <input type="button" onclick="rmFoto()" value="Remover fotografia"/>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>
@@ -577,7 +577,7 @@ function aViagem(){
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>
-        <textarea style="width:100%" name="keys" pattern="#[a-zA-Z0-9]+' '?" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"></textarea>
+        <input type="text" style="width:100%" name="keys" pattern="#[\\w-]+(?:\\s+#[\\w-]+)*\\s*" placeholder=" Insira separado por espaço com no exemplo => #desporto #Futebol"/>
     </p>
     <p>
         <label class="w3-text-grey">Privado     <input class="w3-check w3-text-white" type="checkbox" id="privado" name="privado" placeholder="Privado"/>

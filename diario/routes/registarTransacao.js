@@ -22,7 +22,7 @@ router.post('/',function(req,res,next) {
                 fields.privado = true;
             else fields.privado = false;
 
-            var hashtags = fields.keys.split(" ")
+            var hashtags = fields.keys.split(" ").filter(x => x!="")
             var currentUser = req.cookies.online;
             User.find({'username':req.cookies.online }).exec((err1,docs)=>{
                 if(!err1){

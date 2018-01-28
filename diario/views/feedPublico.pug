@@ -81,7 +81,7 @@ html
                 table(style="width:100%")
                   tr
                     td(style="width:80%")
-                      button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento
+                      button(class="w3-button" onclick="showAct('"+ idDiv +"')")=evento.tipoEvento+"  : "+( (evento.titulo.length>30)?(evento.titulo.substring(0,30)+"..."):evento.titulo)
                     if evento.user==user.username
                       td
                         button(class="w3-button" onclick="editarEvento('"+evento.tipoEvento+"','"+evento._id+"')") Editar
@@ -100,8 +100,9 @@ html
                     if evento.local
                         label(class="w3-text-grey") Local
                         p=evento.local
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     label(class="w3-text-grey") Duração
                     p=evento.duracao
                     label(class="w3-text-grey") Desporto
@@ -124,15 +125,15 @@ html
                         p
                     table(class="w3-panel w3-border w3-light-grey w3-round-large" style="width:100%")
                         td
-                            form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
-                                input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
-                                input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
-                                font(face="arial" size="3" color="#0057AE")
-                                    b Comente aqui:
-                                br
-                                textarea(name="comentario" id="comentario" style="width:100%")
-                                br
-                                input(type="submit" value="Comentar")
+                          form(class="w3-container" action="/comentario" method="post" enctype="multipart/form-data")
+                              input(type="hidden" name="_id" value=evento._id onlyread="onlyread")
+                              input(type="hidden" name="tipo" value=evento.tipoEvento onlyread="onlyread")
+                              font(face="arial" size="3" color="#0057AE")
+                                  b Comente aqui:
+                              br
+                              textarea(name="comentario" id="comentario" style="width:100%")
+                              br
+                              input(type="submit" value="Comentar")
                 else if evento.tipoEvento == "Trabalho Académico"
                     h4="Título: " + evento.titulo
                     label(class="w3-text-grey") Descrição
@@ -142,8 +143,9 @@ html
                     if evento.local
                         label(class="w3-text-grey") Local
                         p=evento.local
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     label(class="w3-text-grey") UC
                     p=evento.uc
                     if evento.docente
@@ -186,8 +188,9 @@ html
                     if evento.local
                         label(class="w3-text-grey") Local
                         p=evento.local
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     label(class="w3-text-grey") Tipo
                     p=evento.tipo
                     
@@ -229,8 +232,9 @@ html
                     if evento.local
                         label(class="w3-text-grey") Local
                         p=evento.local
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     div(class="w3-container w3-blue-light")
                         h1 Comentarios
 
@@ -262,8 +266,9 @@ html
                     if evento.local
                         label(class="w3-text-grey") Local
                         p=evento.local
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     div(class="w3-container w3-blue-light")
                         h1 Comentarios
 
@@ -295,8 +300,9 @@ html
                     if evento.local
                         label(class="w3-text-grey") Local
                         p=evento.local
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     if evento.ficheiros
                     label(class="w3-text-grey") Ficheiros
                         each ficheiro in evento.ficheiros
@@ -334,8 +340,9 @@ html
                           p(class="w3-text-black")=ingrediente
                     label(class="w3-text-grey") Data
                     p=evento.data
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     div(class="w3-container w3-blue-light")
                         h1 Comentarios
 
@@ -367,8 +374,9 @@ html
                     if evento.local
                         label(class="w3-text-grey") Local
                         p=evento.local
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     div(class="w3-container w3-blue-light")
                         h1 Comentarios
 
@@ -397,8 +405,9 @@ html
                     p=evento.descricao
                     label(class="w3-text-grey") Data
                     p=evento.data
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     label(class="w3-text-grey") Tipo
                         p=evento.tipo
                     label(class="w3-text-grey") Montante
@@ -436,8 +445,9 @@ html
                     if evento.local
                         label(class="w3-text-grey") Local
                         p=evento.local
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     if evento.fotografias
                       label(class="w3-text-grey") Fotografias
                       each fotografia in evento.fotografias
@@ -487,8 +497,9 @@ html
                     if evento.local
                         label(class="w3-text-grey") Local
                         p=evento.local
-                    label(class="w3-text-grey") Privado
-                    p=evento.privado
+                    if evento.user==user.username
+                      label(class="w3-text-grey") Privado
+                      p=evento.privado
                     if evento.acompanhantes
                       label(class="w3-text-grey") Acompanhantes
                       each pessoa in evento.acompanhantes

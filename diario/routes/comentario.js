@@ -26,6 +26,7 @@ router.post('/', function(req, res, next) {
             console.log(fields._id)
             var tipo = fields.tipo
             var id = fields._id
+            fields.comentario ="<b>"+ req.cookies.online + " : " + fields.comentario
 
             if(tipo === "Cultural"){
                 Cultural.update({'_id': id},

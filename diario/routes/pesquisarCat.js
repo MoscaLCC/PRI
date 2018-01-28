@@ -18,7 +18,7 @@ var Evento= require("../models/evento")
 var Ideia= require("../models/ideia")
 var Cronica = require("../models/cronica")
 var TrabalhoAcademico = require("../models/trabalho_academico")
-
+var sync = require("synchronize")
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.redirect('feed')
@@ -34,514 +34,561 @@ router.post('/',function(req,res,next) {
             var currentUser = req.cookies.online;
             var categoria = fields.pesquisa;
             var key = fields.key;
-            TiposEventos.find().sort({data:-1}).exec((err2 , docs2)=>{
-                if(!err2 ){
+            sync.fiber(function(){
+                try{
+                    docs2 = sync.await(TiposEventos.find().exec(sync.defer()))
                     for(var i=0;i<docs2.length;i++){
                         OpTipos.push(docs2[i].nome)
                     }
+                }catch(err){
+                    console.log("Occoreu um erro ao obter Tipos eventos da base de dados: \r\n"+err+"\r\n\r\n");
+                    res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                    return
                 }
-                else{
-                console.log("Occoreu um erro ao obter Tipos eventos da base de dados: \r\n"+err2+"\r\n\r\n");
-                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                
-                }
-            })
 
-            User.find({'username': currentUser}).exec((err1,docs1)=>{
-            if(!err1){
-                if(docs1.length>0){
-                    var userDoc = docs1[0]
-                    //Calculo da Idade//
-                    var ageDifMs = Date.now() - userDoc.dataNascimento.getTime();
-                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
-                    userDoc.idade=Math.abs(ageDate.getUTCFullYear() - 1970);
-                    var userID = userDoc._id
-                        if(categoria == "Cultural"|| key!=""){
-                            console.log("entrou 1")
-                            var tipos=[];
-                            var eventos=[];
-                            var status="";
-                            var opcoes = []
-                            tipos.push("Cultural");
-                            Cultural.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    console.log("conteudo do "+ x);
-                                    x.tipoEvento="Cultural"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                console.log("Occoreu um erro ao obter Pensamentos da base de dados: \r\n"+err2+"\r\n\r\n");
-                                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                
-                                }
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },
-                                    status:status,
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })    
-                            })
-                        }
-                        if(categoria == "Pensamento"|| key!=""){
-                            console.log("entrou 2")
-                            var tipos=[];
-                            var eventos=[];
-                            var status="";
-                            var opcoes = []
-                            tipos.push("Pensamento");
-                            Pensamento.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    console.log("conteudo do "+ x);
-                                    x.tipoEvento="Pensamento"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                console.log("Occoreu um erro ao obter Pensamentos da base de dados: \r\n"+err2+"\r\n\r\n");
-                                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                
-                                }
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },
-                                    status:status,
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })   
-                            })
-                        }
-                        
-                        if(categoria == "Atividade Desportiva"|| key!=""){
-                            console.log("entrou 3")
-                            var tipos=[];
-                            var eventos=[];
-                            var status="";
-                            var opcoes = []
-                            tipos.push("Atividade Desportiva");
-                            AtividadeDesportiva.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    console.log("conteudo do "+ x);
-                                    x.tipoEvento="Atividade Desportiva"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                console.log("Occoreu um erro ao obter Pensamentos da base de dados: \r\n"+err2+"\r\n\r\n");
-                                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                
-                                }
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },
-                                    status:status,
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })   
-                            })
-                        }
-                        if(categoria == "Receita Culinária"|| key!=""){
-                            console.log("entrou 4")
-                            var tipos=[];
-                            var eventos=[];
-                            var status="";
-                            var opcoes = []
-                            tipos.push("Receita Culinária");
-                            ReceitaCulinaria.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    console.log("conteudo do "+ x);
-                                    x.tipoEvento="Receita Culinária"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                console.log("Occoreu um erro ao obter Receita Culinaria da base de dados: \r\n"+err2+"\r\n\r\n");
-                                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                
-                                }
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },
-                                    status:status,
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })     
-                            })
-                        }
-                        if(categoria == "Transação Monetária"|| key!=""){
-                            console.log("Entrou 5")
-                            var tipos=[];
-                            var eventos=[];
-                            var status="";
-                            var opcoes = []
-                            tipos.push("Transação Monetária");
-                            TransacaoMonetaria.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    console.log("conteudo do "+ x);
-                                    x.tipoEvento="Transação Monetária"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                console.log("Occoreu um erro ao obter Pensamentos da base de dados: \r\n"+err2+"\r\n\r\n");
-                                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                
-                                }
-                            
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },   
-                                    status:status,                             
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })
-                            
-                            
-                            })
-                        }
-                        if(categoria == "Viagem"|| key!=""){
-
-                            Viagem.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                var tipos=[];
-                                var eventos=[];
-                                var status="";
-                                var opcoes = []
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    tipos.push("Viagem");
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    console.log("conteudo do "+ x);
-                                    x.tipoEvento="Viagem"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                console.log("Occoreu um erro ao obter Viagem da base de dados: \r\n"+err2+"\r\n\r\n");
-                                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                
-                                }
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },
-                                    status:status,
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })   
-                            })
-                        }
-
-                        if(categoria == "Álbum Fotográfico"|| key!=""){
-    
-                            var tipos=[];
-                            var eventos=[];
-                            var status="";
-                            var opcoes = []
-                            tipos.push("Álbum Fotográfico");
-                            AlbumFotografico.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    console.log("conteudo do "+ x);
-                                    x.tipoEvento="Álbum Fotográfico"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                console.log("Occoreu um erro ao obter Album Fotográfico da base de dados: \r\n"+err2+"\r\n\r\n");
-                                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                
-                                }
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },
-                                    status:status,
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })   
-                            })
-                        }
-
-                        if(categoria == "Evento"|| key!=""){
-
-                            var tipos=[];
-                            var eventos=[];
-                            var status="";
-                            var opcoes = []
-                            tipos.push("Evento");
-                            Evento.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    console.log("conteudo do "+ x);
-                                    x.tipoEvento="Evento"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                console.log("Occoreu um erro ao obter Evento da base de dados: \r\n"+err2+"\r\n\r\n");
-                                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                
-                                }
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },
-                                    status:status,
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })   
-                            })
-                        }
-
-                        if(categoria == "Ideia"|| key!=""){
-                            
-                            var tipos=[];
-                            var eventos=[];
-                            var status="";
-                            var opcoes = []
-                            tipos.push("Ideia");
-                            Ideia.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    console.log("conteudo do "+ x);
-                                    x.tipoEvento="Ideia"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                console.log("Occoreu um erro ao obter Ideia da base de dados: \r\n"+err2+"\r\n\r\n");
-                                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                
-                                }
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },
-                                    status:status,
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })   
-                            })
-                        }
-
-
-                        if(categoria == "Crónica"|| key!=""){
-                            
-                            var tipos=[];
-                            var eventos=[];
-                            var status="";
-                            var opcoes = []
-                            tipos.push("Cronica");
-                            Cronica.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    x.tipoEvento="Cronica"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                console.log("Occoreu um erro ao obter Cronica da base de dados: \r\n"+err2+"\r\n\r\n");
-                                res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                
-                                }
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },
-                                    status:status,
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })   
-                            })
-                        }
-                        if(categoria == "Trabalho Académico"|| key!=""){
-                            var tipos=[];
-                            var eventos=[];
-                            var status="";
-                            var opcoes = []
-                            tipos.push("Trabalho Academico");
-                            TrabalhoAcademico.find({'userId':userID }).sort({data:-1}).exec((err2 , docs2)=>{
-                                if(!err2 ){
-                                    if(docs2.length==0){status="Não foram encontrados resultados"}
-                                for(var i=0;i<docs2.length;i++){
-                                    var x=JSON.parse(JSON.stringify(docs2[i]));
-                                    x.tipoEvento="Trabalho Academico"
-                                    opcoes = x.keys.filter( y => y=== key)
-                                    if(categoria == "Pensamento" || opcoes.length>0 ) {
-                                        eventos.push(x)
-                                    }
-                                }
-                
-                                }
-                                else{
-                                    console.log("Occoreu um erro ao obter Trabalho Academico da base de dados: \r\n"+err2+"\r\n\r\n");
-                                    res.render('error', { error:err2 , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
-                                }
-
-                                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
-                                res.render('feed',{
-                                    user: {
-                                        username: currentUser ,
-                                        foto: userDoc.foto,
-                                        idade: userDoc.idade,
-                                        email:userDoc.email,
-                                        pnome:userDoc.pnome,
-                                        unome:userDoc.unome
-                                    },
-                                    status:status,
-                                    tipos:tipos,
-                                    eventos:eventos,
-                                    OpTipos:OpTipos
-                                })   
-                            })
-                        }                        
-                        
+                var userDoc
+                var userID
+                var status=""
+                try{
+                    docs1 = sync.await(User.find({'username': currentUser}).exec(sync.defer()))
+                    if(docs1.length > 0){
+                        userDoc = docs1[0]
+                        //Calculo da Idade//
+                        ageDifMs = Date.now() - userDoc.dataNascimento.getTime();
+                        ageDate = new Date(ageDifMs); // miliseconds from epoch
+                        userDoc.idade=Math.abs(ageDate.getUTCFullYear() - 1970);
+                        userID = userDoc._id
                     }
-     
+                    else{
+                        console.log("Utilizador não existe")
+                        res.clearCookie("online")
+                        res.redirect("/login")
+                        return
+                    }
+
+                }catch(err){
+                    console.log("Occoreu um erro ao obter informações do utilizador da base de dados: \r\n"+err+"\r\n\r\n");
+                    res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                    return
                 }
-                else{
-                    console.log("Utilizador não existe")
+
+                var eventos=[]
+
+                if(categoria === "Cultural"|| key!=""){
+                    try{
+                        docs2 = sync.await(Cultural.find({'userId':userID }).sort({data:-1}).exec(sync.defer()))
+                        if(docs2.length> 0){
+                            for(var i=0;i<docs2.length;i++){
+                                var x=JSON.parse(JSON.stringify(docs2[i]));
+                                x.tipoEvento="Cultural"
+
+                                if(categoria === "Cultural" && key === ""){
+                                    eventos.push(x)
+                                }
+                                else if(key === ""){
+                                    eventos.push(x)
+                                }
+                                else{
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            status="Não foram encontrados resultados"
+                        }
+                        if(key === ""){
+                            eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                            res.render('feed',{
+                                user: {
+                                    username: currentUser ,
+                                    foto: userDoc.foto,
+                                    idade: userDoc.idade,
+                                    email:userDoc.email,
+                                    pnome:userDoc.pnome,
+                                    unome:userDoc.unome
+                                },
+                                status:status,
+                                eventos:eventos,
+                                OpTipos:OpTipos
+                            })
+                            return 
+                        }
+                    }
+                    catch(err){
+                        console.log("Occoreu um erro ao obter Pensamentos da base de dados: \r\n"+err+"\r\n\r\n");
+                        res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                        return
+                    }
                 }
+
+                if(categoria === "Pensamento"|| key!=""){
+                    try{
+                        docs2 = sync.await(Pensamento.find({'userId':userID }).sort({data:-1}).exec(sync.defer()))
+                        if(docs2.length> 0){
+                            for(var i=0;i<docs2.length;i++){
+                                var x=JSON.parse(JSON.stringify(docs2[i]));
+                                x.tipoEvento="Pensamento"
+
+                                if(categoria === "Pensamento" && key === ""){
+                                    eventos.push(x)
+                                }
+                                else if(key === ""){
+                                    eventos.push(x)
+                                }
+                                else{
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
+                                }
+                            }
+                        }
+                        if(key === ""){
+                            eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                            if(eventos.length === 0){
+                                status = "Não foram encontrados resultados"
+                            }
+                            res.render('feed',{
+                                user: {
+                                    username: currentUser ,
+                                    foto: userDoc.foto,
+                                    idade: userDoc.idade,
+                                    email:userDoc.email,
+                                    pnome:userDoc.pnome,
+                                    unome:userDoc.unome
+                                },
+                                status:status,
+                                eventos:eventos,
+                                OpTipos:OpTipos
+                            })
+                            return 
+                        }
+                    }
+                    catch(err){
+                        console.log("Occoreu um erro ao obter Pensamentos da base de dados: \r\n"+err+"\r\n\r\n");
+                        res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                        return
+                    }
+                }
+
+                if(categoria === "Atividade Desportiva"|| key!=""){
+                    try{
+                        docs2 = sync.await(AtividadeDesportiva.find({'userId':userID }).sort({data:-1}).exec(sync.defer()))
+                        if(docs2.length> 0){
+                            for(var i=0;i<docs2.length;i++){
+                                var x=JSON.parse(JSON.stringify(docs2[i]));
+                                x.tipoEvento="Atividade Desportiva"
+                                if(categoria === "Atividade Desportiva" && key === ""){
+                                    eventos.push(x)
+                                }
+                                else if(key === ""){
+                                    eventos.push(x)
+                                }
+                                else{
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
+                                }
+                            }
+                        }
+                        if(key === ""){
+                            eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                            if(eventos.length == 0){
+                                status = "Não foram encontrados resultados"
+                            }
+                            res.render('feed',{
+                                user: {
+                                    username: currentUser ,
+                                    foto: userDoc.foto,
+                                    idade: userDoc.idade,
+                                    email:userDoc.email,
+                                    pnome:userDoc.pnome,
+                                    unome:userDoc.unome
+                                },
+                                status:status,
+                                eventos:eventos,
+                                OpTipos:OpTipos
+                            })
+                            return 
+                        }
+                    }
+                    catch(err){
+                        console.log("Occoreu um erro ao obter Atividade Desportiva  da base de dados: \r\n"+err+"\r\n\r\n");
+                        res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                        return
+                    }
+                }
+
+                if(categoria === "Receita Culinária"|| key!=""){
+                    try{
+                        docs2 = sync.await(ReceitaCulinaria.find({'userId':userID }).sort({data:-1}).exec(sync.defer()))
+                        if(docs2.length> 0){
+                            for(var i=0;i<docs2.length;i++){
+                                var x=JSON.parse(JSON.stringify(docs2[i]));
+                                x.tipoEvento="Receita Culinária"
+
+                                if(categoria === "Receita Culinária" && key === ""){
+                                    eventos.push(x)
+                                }
+                                else if(key === ""){
+                                    eventos.push(x)
+                                }
+                                else{
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
+                                }
+                            }
+                        }
+                        if(key === ""){
+                            eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                            if(eventos.length === 0){
+                                status = "Não foram encontrados resultados"
+                            }
+                            res.render('feed',{
+                                user: {
+                                    username: currentUser ,
+                                    foto: userDoc.foto,
+                                    idade: userDoc.idade,
+                                    email:userDoc.email,
+                                    pnome:userDoc.pnome,
+                                    unome:userDoc.unome
+                                },
+                                status:status,
+                                eventos:eventos,
+                                OpTipos:OpTipos
+                            })
+                            return 
+                        }
+                    }
+                    catch(err){
+                        console.log("Occoreu um erro ao obter Receita Culinária da base de dados: \r\n"+err+"\r\n\r\n");
+                        res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                        return
+                    }
+                }
+
+                if(categoria === "Transação Monetária"|| key!=""){
+                    try{
+                        docs2 = sync.await(TransacaoMonetaria.find({'userId':userID }).sort({data:-1}).exec(sync.defer()))
+                        if(docs2.length> 0){
+                            for(var i=0;i<docs2.length;i++){
+                                var x=JSON.parse(JSON.stringify(docs2[i]));
+                                x.tipoEvento="Transação Monetária"
+
+                                if(categoria === "Transação Monetária" && key === ""){
+                                    eventos.push(x)
+                                }
+                                else if(key === ""){
+                                    eventos.push(x)
+                                }
+                                else{
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
+                                }
+                            }
+                        }
+                        if(key === ""){
+                            eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                            if(eventos.length === 0){
+                                status = "Não foram encontrados resultados"
+                            }
+                            res.render('feed',{
+                                user: {
+                                    username: currentUser ,
+                                    foto: userDoc.foto,
+                                    idade: userDoc.idade,
+                                    email:userDoc.email,
+                                    pnome:userDoc.pnome,
+                                    unome:userDoc.unome
+                                },
+                                status:status,
+                                eventos:eventos,
+                                OpTipos:OpTipos
+                            })
+                            return 
+                        }
+                    }
+                    catch(err){
+                        console.log("Occoreu um erro ao obter Transação Monetária da base de dados: \r\n"+err+"\r\n\r\n");
+                        res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                        return
+                    }
+                }
+
+                if(categoria === "Viagem"|| key!=""){
+                    try{
+                        docs2 = sync.await(Viagem.find({'userId':userID }).sort({data:-1}).exec(sync.defer()))
+                        if(docs2.length> 0){
+                            for(var i=0;i<docs2.length;i++){
+                                var x=JSON.parse(JSON.stringify(docs2[i]));
+                                x.tipoEvento="Viagem"
+
+                                if(categoria === "Viagem" && key === ""){
+                                    eventos.push(x)
+                                }
+                                else if(key === ""){
+                                    eventos.push(x)
+                                }
+                                else{
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
+                                }
+                            }
+                        }
+                        if(key === ""){
+                            eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                            if(eventos.length === 0){
+                                status = "Não foram encontrados resultados"
+                            }
+                            res.render('feed',{
+                                user: {
+                                    username: currentUser ,
+                                    foto: userDoc.foto,
+                                    idade: userDoc.idade,
+                                    email:userDoc.email,
+                                    pnome:userDoc.pnome,
+                                    unome:userDoc.unome
+                                },
+                                status:status,
+                                eventos:eventos,
+                                OpTipos:OpTipos
+                            })
+                            return 
+                        }
+                    }
+                    catch(err){
+                        console.log("Occoreu um erro ao obter Viagem da base de dados: \r\n"+err+"\r\n\r\n");
+                        res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                        return
+                    }
+                }
+
+                if(categoria === "Pensamento"|| key!=""){
+                    try{
+                        docs2 = sync.await(AlbumFotografico.find({'userId':userID }).sort({data:-1}).exec(sync.defer()))
+                        if(docs2.length> 0){
+                            for(var i=0;i<docs2.length;i++){
+                                var x=JSON.parse(JSON.stringify(docs2[i]));
+                                x.tipoEvento="Álbum Fotográfico"
+
+                                if(categoria === "Álbum Fotográfico" && key === ""){
+                                    eventos.push(x)
+                                }
+                                else if(key === ""){
+                                    eventos.push(x)
+                                }
+                                else{
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
+                                }
+                            }
+                        }
+                        if(key === ""){
+                            eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                            if(eventos.length === 0){
+                                status = "Não foram encontrados resultados"
+                            }
+                            res.render('feed',{
+                                user: {
+                                    username: currentUser ,
+                                    foto: userDoc.foto,
+                                    idade: userDoc.idade,
+                                    email:userDoc.email,
+                                    pnome:userDoc.pnome,
+                                    unome:userDoc.unome
+                                },
+                                status:status,
+                                eventos:eventos,
+                                OpTipos:OpTipos
+                            })
+                            return 
+                        }
+                    }
+                    catch(err){
+                        console.log("Occoreu um erro ao obter Álbum Fotográfico da base de dados: \r\n"+err+"\r\n\r\n");
+                        res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                        return
+                    }
+                }
+
+                if(categoria === "Evento"|| key!=""){
+                    try{
+                        docs2 = sync.await(Evento.find({'userId':userID }).sort({data:-1}).exec(sync.defer()))
+                        if(docs2.length> 0){
+                            for(var i=0;i<docs2.length;i++){
+                                var x=JSON.parse(JSON.stringify(docs2[i]));
+                                x.tipoEvento="Evento"
+
+                                if(categoria === "Evento" && key === ""){
+                                    eventos.push(x)
+                                }
+                                else if(key === ""){
+                                    eventos.push(x)
+                                }
+                                else{
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
+                                }
+                            }
+                        }
+                        if(key === ""){
+                            eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                            if(eventos.length === 0){
+                                status = "Não foram encontrados resultados"
+                            }
+                            res.render('feed',{
+                                user: {
+                                    username: currentUser ,
+                                    foto: userDoc.foto,
+                                    idade: userDoc.idade,
+                                    email:userDoc.email,
+                                    pnome:userDoc.pnome,
+                                    unome:userDoc.unome
+                                },
+                                status:status,
+                                eventos:eventos,
+                                OpTipos:OpTipos
+                            })
+                            return 
+                        }
+                    }
+                    catch(err){
+                        console.log("Occoreu um erro ao obter Evento da base de dados: \r\n"+err+"\r\n\r\n");
+                        res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                        return
+                    }
+                }
+
+                if(categoria === "Ideia"|| key!=""){
+                    try{
+                        docs2 = sync.await(Ideia.find({'userId':userID }).sort({data:-1}).exec(sync.defer()))
+                        if(docs2.length> 0){
+                            for(var i=0;i<docs2.length;i++){
+                                var x=JSON.parse(JSON.stringify(docs2[i]));
+                                x.tipoEvento="Ideia"
+
+                                if(categoria === "Ideia" && key === ""){
+                                    eventos.push(x)
+                                }
+                                else if(key === ""){
+                                    eventos.push(x)
+                                }
+                                else{
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
+                                }
+                            }
+                        }
+                        if(key === ""){
+                            eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                            if(eventos.length === 0){
+                                status = "Não foram encontrados resultados"
+                            }
+                            res.render('feed',{
+                                user: {
+                                    username: currentUser ,
+                                    foto: userDoc.foto,
+                                    idade: userDoc.idade,
+                                    email:userDoc.email,
+                                    pnome:userDoc.pnome,
+                                    unome:userDoc.unome
+                                },
+                                status:status,
+                                eventos:eventos,
+                                OpTipos:OpTipos
+                            })
+                            return 
+                        }
+                    }
+                    catch(err){
+                        console.log("Occoreu um erro ao obter Ideia da base de dados: \r\n"+err+"\r\n\r\n");
+                        res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                        return
+                    }
+                }
+
+                if(categoria === "Trabalho Académico"|| key!=""){
+                    try{
+                        docs2 = sync.await(TrabalhoAcademico.find({'userId':userID }).sort({data:-1}).exec(sync.defer()))
+                        if(docs2.length> 0){
+                            for(var i=0;i<docs2.length;i++){
+                                var x=JSON.parse(JSON.stringify(docs2[i]));
+                                x.tipoEvento="Trabalho Académico"
+
+                                if(categoria === "Trabalho Académico" && key === ""){
+                                    eventos.push(x)
+                                }
+                                else if(key === ""){
+                                    eventos.push(x)
+                                }
+                                else{
+                                    opcoes = x.keys.filter( y => y === key)
+                                    if(opcoes.length>0 ) {
+                                        eventos.push(x)
+                                    }
+                                }
+                            }
+                        }
+                        if(key === ""){
+                            eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                            if(eventos.length === 0){
+                                status = "Não foram encontrados resultados"
+                            }
+                            res.render('feed',{
+                                user: {
+                                    username: currentUser ,
+                                    foto: userDoc.foto,
+                                    idade: userDoc.idade,
+                                    email:userDoc.email,
+                                    pnome:userDoc.pnome,
+                                    unome:userDoc.unome
+                                },
+                                status:status,
+                                eventos:eventos,
+                                OpTipos:OpTipos
+                            })
+                            return 
+                        }
+                    }
+                    catch(err){
+                        console.log("Occoreu um erro ao obter Trabalho Académico da base de dados: \r\n"+err+"\r\n\r\n");
+                        res.render('error', { error:err , message:'Ocorreu um erro ao carregar a página de feed, por favor tente novamente'});
+                        return
+                    }
+                }
+                if(eventos.length === 0){
+                    status = "Não foram encontrados resultados"
+                }
+                eventos = eventos.sort(function(a,b) {return (a.data > b.data) ? -1 : ((b.data > a.data) ? 1 : 0);} )
+                res.render('feed',{
+                    user: {
+                        username: currentUser ,
+                        foto: userDoc.foto,
+                        idade: userDoc.idade,
+                        email:userDoc.email,
+                        pnome:userDoc.pnome,
+                        unome:userDoc.unome
+                    },
+                    status:status,
+                    eventos:eventos,
+                    OpTipos:OpTipos
+                })
             })
         }
         else{

@@ -11,6 +11,7 @@ html
     link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     script(type='text/javascript' src='/javascripts/forms.js')
     script(src='/javascripts/jquery-3.2.1.js')
+    script(src="/javascripts/share.min.js")
     style html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   body(class="w3-theme-l5")
     // Navbar 
@@ -531,7 +532,7 @@ html
                                 textarea(name="comentario" id="comentario" style="width:100%")
                                 br
                                 input(type="submit" value="Comentar")
-              -count++ 
+              -count++
           else
             div(class="w3-container")
               h1 Nao existem eventos!
@@ -695,3 +696,4 @@ html
               window.location.replace("/editar/" + tipo + "/" + id)
           }
       }
+      

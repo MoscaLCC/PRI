@@ -97,8 +97,19 @@ function atividadeDesportiva(){
     <p>
         <label class="w3-text-grey">Desporto</label>
         <select class="w3-input w3-border" id="desporto" name="desporto" placeholder="Desporto">
-            <option name="desporto" id="Futebol" value="Futebol">Futebol</option>
-            <option name="desporto" id="Natação" value="Natação">Natação</option>
+        <option name="desporto" id="Andebol" value="Andebol">Andebol</option>
+        <option name="desporto" id="Basket" value="Basket">Basket</option>
+        <option name="desporto" id="Ciclismo" value="Ciclismo">Ciclismo</option>
+        <option name="desporto" id="Corrida" value="Corrida">Corrida</option>
+        <option name="desporto" id="Futebol" value="Futebol">Futebol</option>
+        <option name="desporto" id="Ginásio" value="Ginásio">Ginásio</option>
+        <option name="desporto" id="Golfe" value="Golfe">Golfe</option>
+        <option name="desporto" id="Hóquei" value="Hóquei">Hóquei</option>
+        <option name="desporto" id="Natação" value="Natação">Natação</option>
+        <option name="desporto" id="Outro" value="Outro">Outro</option>
+        <option name="desporto" id="Surf" value="Surf">Surf</option>
+        <option name="desporto" id="Ténis" value="Ténis">Ténis</option>
+        <option name="desporto" id="Voleibol" value="Voleibol">Voleibol</option>
         </select>
     </p>
     <p>

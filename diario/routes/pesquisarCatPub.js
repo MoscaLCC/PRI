@@ -81,7 +81,7 @@ router.post('/',function(req,res,next) {
 
                 if(categoria === "Cultural"|| key!=""){
                     try{
-                        docs2 = sync.await(Cultural.find().exec(sync.defer()))
+                        docs2 = sync.await(Cultural.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
@@ -136,7 +136,7 @@ router.post('/',function(req,res,next) {
 
                 if(categoria === "Pensamento"|| key!=""){
                     try{
-                        docs2 = sync.await(Pensamento.find().exec(sync.defer()))
+                        docs2 = sync.await(Pensamento.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
@@ -191,7 +191,7 @@ router.post('/',function(req,res,next) {
 
                 if(categoria === "Atividade Desportiva"|| key!=""){
                     try{
-                        docs2 = sync.await(AtividadeDesportiva.find().exec(sync.defer()))
+                        docs2 = sync.await(AtividadeDesportiva.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
@@ -246,7 +246,7 @@ router.post('/',function(req,res,next) {
 
                 if(categoria === "Receita Culinária"|| key!=""){
                     try{
-                        docs2 = sync.await(ReceitaCulinaria.find().exec(sync.defer()))
+                        docs2 = sync.await(ReceitaCulinaria.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
@@ -301,7 +301,7 @@ router.post('/',function(req,res,next) {
 
                 if(categoria === "Transação Monetária"|| key!=""){
                     try{
-                        docs2 = sync.await(TransacaoMonetaria.find().exec(sync.defer()))
+                        docs2 = sync.await(TransacaoMonetaria.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
@@ -356,7 +356,7 @@ router.post('/',function(req,res,next) {
 
                 if(categoria === "Viagem"|| key!=""){
                     try{
-                        docs2 = sync.await(Viagem.find().exec(sync.defer()))
+                        docs2 = sync.await(Viagem.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
@@ -411,7 +411,7 @@ router.post('/',function(req,res,next) {
 
                 if(categoria === "Pensamento"|| key!=""){
                     try{
-                        docs2 = sync.await(AlbumFotografico.find().exec(sync.defer()))
+                        docs2 = sync.await(AlbumFotografico.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
@@ -466,7 +466,7 @@ router.post('/',function(req,res,next) {
 
                 if(categoria === "Evento"|| key!=""){
                     try{
-                        docs2 = sync.await(Evento.find().exec(sync.defer()))
+                        docs2 = sync.await(Evento.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
@@ -521,7 +521,7 @@ router.post('/',function(req,res,next) {
 
                 if(categoria === "Ideia"|| key!=""){
                     try{
-                        docs2 = sync.await(Ideia.find().exec(sync.defer()))
+                        docs2 = sync.await(Ideia.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));
@@ -576,7 +576,7 @@ router.post('/',function(req,res,next) {
 
                 if(categoria === "Trabalho Académico"|| key!=""){
                     try{
-                        docs2 = sync.await(TrabalhoAcademico.find().exec(sync.defer()))
+                        docs2 = sync.await(TrabalhoAcademico.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){
                             for(var i=0;i<docs2.length;i++){
                                 var x=JSON.parse(JSON.stringify(docs2[i]));

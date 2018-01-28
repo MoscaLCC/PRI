@@ -1,0 +1,3 @@
+"Atividade Desportiva":
+	(titulo:"Fui jogar à bola",	descricao:"lesionei-me", data:"28-01-2018",privado:false, duracao:60, desporto:"Futebol", fotografia:"")
+;

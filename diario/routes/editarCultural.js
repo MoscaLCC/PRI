@@ -27,8 +27,10 @@ router.post('/',function(req,res,next) {
             console.log("remocoes => " + remocoes)
 
                 for (var rm in remocoes) {
-                    curPath = images_dir + remocoes[rm]
-                    fs.unlinkSync(curPath);
+                    try {
+                        curPath = images_dir + remocoes[rm]
+                        fs.unlinkSync(curPath);
+                    }catch(err){console.log("ERRO:" + err)}
                 }
         }
         else { console.log("erro ao encontrar a pasta das imagens") }

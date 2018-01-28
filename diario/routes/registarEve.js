@@ -31,6 +31,7 @@ router.post('/',function(req,res,next) {
                     titulo:fields.titulo,
                     keys: hashtags,
                     descricao: fields.descricao,
+                    dataevento: fields.dataevento,
                     data: new Date(),
                     local: fields.local,
                     privado: fields.privado

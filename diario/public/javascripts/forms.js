@@ -402,8 +402,8 @@ function aEvento(){
         <input class="w3-input w3-border" type="text" id="descricao" name="descricao" placeholder="Descrição"/>
     </p>
     <p>
-        <label class="w3-text-grey">Local</label>
-        <input class="w3-input w3-border" type="text" id="local" name="local" placeholder="Local"/>
+        <label class="w3-text-grey">Data do Evento</label>
+        <input class="w3-input w3-border" type="date" id="dataevento" name="dataevento" placeholder="Data"/>
     </p>
     <p>
         <label class="w3-text-grey">HashTags '#'</label>

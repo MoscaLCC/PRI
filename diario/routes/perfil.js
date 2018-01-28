@@ -96,8 +96,10 @@ router.post('/',function(req,res,next) {
             }
 
             if(fields.removido!=""){
-                var curPath = images_dir + fields.removido
-                fs.unlinkSync(curPath);
+                try {
+                    curPath = images_dir + removido
+                    fs.unlinkSync(curPath);
+                }catch(err){console.log("ERRO:" + err)}
             }
 
             User.update(

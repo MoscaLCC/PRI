@@ -20,7 +20,6 @@ var fs = require('fs')
 /* GET home page. */
 router.get('/:tipo/:id', function(req, res, next) {
     var tipo = req.params.tipo
-    console.log("tipo: "+tipo + "; id: " + req.params.id)
     if(tipo === "Cultural"){
         Cultural.find({'_id':req.params.id},(function(err,docs){
             if(!err){
@@ -112,17 +111,16 @@ router.get('/:tipo/:id', function(req, res, next) {
             }
         })
         )}else if(tipo === "Álbum Fotográfico") {
-        AlbumFotografico.find({'_id':req.params.id}).remove().exec(function(err,docs){
-            if(!err){
-                var status = "Evento removido com sucesso!"
-                res.redirect('/feed')
-            }
-            else{
-                var status = "Ocorreu um erro ao editar o evento!"
-                res.redirect('/feed')
-            }
-        })
-    }else if(tipo === "Viagem") {
+        AlbumFotografico.find({'_id':req.params.id},(function(err,docs){
+                if(!err){
+                    res.render('editarAlbum',{valores:docs[0]})
+                }
+                else{
+                    var status = "Ocorreu um erro ao editar o evento!"
+                    res.redirect('/feed')
+                }
+            })
+        )}else if(tipo === "Viagem") {
         Viagem.find({'_id':req.params.id},(function(err,docs){
             if(!err){
                 res.render('editarViagem', {valores:docs[0]})

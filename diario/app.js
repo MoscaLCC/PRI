@@ -44,6 +44,7 @@ var editar = require('./routes/editar')
 var feedPublico= require('./routes/feedPublico')
 var comentario = require('./routes/comentario')
 var importar = require('./routes/importar')
+var editarAlbDsp = require('./routes/editarAlbum')
 var app = express();
 
 // view engine setup
@@ -101,7 +102,6 @@ app.use('/registarAlbum', album)
 app.use('/eliminar', eliminar)
 app.use('/editar',editar)
 app.use('/feedPublico',feedPublico)
-app.use('/importar',importar)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

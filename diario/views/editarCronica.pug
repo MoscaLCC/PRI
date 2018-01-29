@@ -76,9 +76,7 @@ html
                 }
             }
             function readURL(input1, input2, input3) {
-                alert(input1)
-                alert(input2)
-                alert(input3)
+
                 if (input3.files && input3.files[0]) {
                     var reader = new FileReader();
 
@@ -92,11 +90,9 @@ html
                 }
             }
             function removeImg(input1, input2, input3) {
-                alert(input1)
-                alert(input2)
-                alert(input3)
+
                 var numFiles = $('#ficheiros').children().length
-                alert(numFiles)
+
                 if (numFiles <= 1) {
                     $('#' + input1).attr('src', "/images/addimg.png")
                     listRem(input2)
@@ -104,25 +100,24 @@ html
                 }
                 else {
                     listRem(input2)
-                    alert("faze")
+
                     $('#' + input3).remove()
                     //renomear()
                 }
             }
             function listRem(idname) {
-                alert("Chega listRem")
+
                 var numFiles = $('#removidos').children().length + 1
-                alert(numFiles)
-                alert(idname)
+
                 var valor = $('#' + idname).val()
-                alert(valor)
+
                 if (valor != "") {
                     $('#removidos').append(`<input type="hidden" id="removido` + numFiles + `" name="removido` + numFiles + `" value=` + valor + ` readonly="readonly"/>`)
                 }
 
             }
             function addfile() {
-                alert("chega")
+
                 var numFiles = $('#ficheiros').children().length + 1
                 if (numFiles > 6) {
                     alert("Impossível adicionar, é impossível carregar mais que 6 ficheiros!!");

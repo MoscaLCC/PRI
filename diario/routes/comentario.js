@@ -22,8 +22,6 @@ router.post('/', function(req, res, next) {
     form.parse(req,function(err,fields,files){
         if(!err){
 
-            console.log(fields.tipo)
-            console.log(fields._id)
             var tipo = fields.tipo
             var id = fields._id
             fields.comentario =req.cookies.online + " : " + fields.comentario
@@ -65,7 +63,6 @@ router.post('/', function(req, res, next) {
                     }
                 })
             }else if(tipo === "Atividade Desportiva"){
-                console.log("Chega e comenta =>" + fields.comentario)
                 AtividadeDesportiva.update({'_id': id},
                     {$push:{'comentarios':fields.comentario}}).exec(function(err,docs){
                     if(!err){

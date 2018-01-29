@@ -67,7 +67,7 @@ html
               p
                 i(class="fa fa-envelope w3-text-theme")="   "+ user.email
               p
-                i(class="fa fa-birthday-cake w3-text-theme")= user.idade + "   anos"
+                i(class="fa fa-birthday-cake w3-text-theme")="   "+ user.idade + "   anos"
               p
                 i(class="fa fa-address-card w3-text-theme")="   "+user.pnome +" "+ user.unome
           br
@@ -170,8 +170,9 @@ html
                       each ficheiro in evento.ficheiros
                         a(href="/images/upload/"+ ficheiro)
                             p=ficheiro
-                  label(class="w3-text-grey") Nota
-                  p=evento.resultado
+                  if evento.resultado!=""
+                    label(class="w3-text-grey") Nota
+                    p=evento.resultado
                   div(class="w3-container w3-blue-light")
                       h1 Comentários
 
@@ -562,19 +563,7 @@ html
               
             div(id="Demo3" class="w3-hide w3-container")
               div(class="w3-row-padding")
-                br
-                div(class="w3-half")
-                  img(class="w3-margin-bottom" src="/w3images/lights.jpg" style="width:100%")
-                div(class="w3-half")
-                  img(class="w3-margin-bottom" src="/w3images/nature.jpg" style="width:100%")
-                div(class="w3-half")
-                  img(class="w3-margin-bottom" src="/w3images/mountains.jpg" style="width:100%")
-                div(class="w3-half")
-                  img(class="w3-margin-bottom" src="/w3images/forest.jpg" style="width:100%")
-                div(class="w3-half")
-                  img(class="w3-margin-bottom" src="/w3images/nature.jpg" style="width:100%")
-                div(class="w3-half")
-                  img(class="w3-margin-bottom" src="/w3images/fjords.jpg" style="width:100%")
+                
       
           br
 

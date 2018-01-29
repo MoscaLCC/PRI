@@ -20,11 +20,11 @@ router.post('/',function(req,res,next) {
 
             if (fs.existsSync(images_dir)) {
                 var removidos = Object.keys(fields)
-                console.log("removidos => " + removidos)
+
                 var soremovidos = removidos.filter(x => x.startsWith("removido"))
-                console.log("soremovidos => " + soremovidos)
+
                 var remocoes = soremovidos.map(x => fields[x])
-                console.log("remocoes => " + remocoes)
+
 
                 for (var rm in remocoes) {
                     try {
@@ -50,10 +50,10 @@ router.post('/',function(req,res,next) {
             var lista = Object.keys(fields)
             var opcoes = lista.filter( x => x.startsWith("namefoto"))
             var listaopcoes = opcoes.map(x => fields[x])
-            console.log(listaopcoes)
+
 
             for(var ft in listaopcoes){
-                console.log(listaopcoes[ft])
+
                 if(listaopcoes[ft] != "") {
                     Viagem.update({'_id': fields._id}, {$push: {fotografias: listaopcoes[ft]}}).exec(function(err,docs){
                         if(!err){
@@ -70,12 +70,11 @@ router.post('/',function(req,res,next) {
             for(x in files){
                 i++
                 if(x.startsWith("foto")){
-                    console.log("nome da foto: " + files[x].name)
-                    console.log("caminho da foto: " + files[x].path)
+
                     if(files[x].name != ""){
                         var extension = files[x].name.split(".")
                         extension = extension[extension.length-1]
-                        console.log("valor = " + i)
+
                         var data = new Date()
                         var novadata = data.toISOString().split(':').join('-')
                         novadata = novadata.split('.').join('-')

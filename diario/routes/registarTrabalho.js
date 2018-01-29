@@ -18,8 +18,7 @@ router.post('/',function(req,res,next) {
     var status=""
     form.parse(req,function(err,fields,files){
         if(!err){
-            console.log(JSON.stringify(fields))
-            console.log("Ficheiros" + JSON.stringify(files))
+
 
             if(fields.privado === "on")
                 fields.privado = true;

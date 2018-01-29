@@ -18,7 +18,7 @@ router.post('/',function(req,res,next) {
     // verificar se todos os campos obrigatorios foram preenchidos
     var requiredFields = Object.keys(user.schema.tree).filter(x => user.schema.tree[x].required ===true)
     var emptyField = false
-    console.log(fields)
+
     var data_partida=fields.dataNascimento.split('-');
     var dataAux=new Date(data_partida[0], data_partida[1]-1, data_partida[2]); 
     fields.dataNascimento=dataAux
@@ -62,7 +62,7 @@ router.post('/',function(req,res,next) {
                 fs.rename(fenviado,fnovo,function(err3){
                   if(!err3){
                       status="Ficheiro Recebido e guardado com sucesso"
-                      console.log(status);
+
                     }
                   else{
                       status="Ocorreram erros na gravação do ficheiro enviado";

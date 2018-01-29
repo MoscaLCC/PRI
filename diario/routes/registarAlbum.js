@@ -84,7 +84,7 @@ router.post('/',function(req,res,next) {
                 }
               })
 
-              console.log(album)
+
               album.save(function(err4,docs2){
                 if(err4){
                   status = "Ocorreram erros na gravação das fotografias na base de dados!"

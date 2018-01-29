@@ -107,7 +107,7 @@ router.get('/', function(req, res, next) {
           for(var i=0;i<docsDesportivas.length;i++){
             var x=JSON.parse(JSON.stringify(docsDesportivas[i]));
             x.tipoEvento="Atividade Desportiva"
-            console.log(x)
+
             eventos.push(x)
           }
         }

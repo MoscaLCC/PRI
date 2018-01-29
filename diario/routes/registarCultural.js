@@ -18,8 +18,7 @@ router.post('/',function(req,res,next) {
   var status=""
   form.parse(req,function(err,fields,files){
     if(!err){
-      console.log(JSON.stringify(fields))
-      console.log("Ficheiros" + JSON.stringify(files))
+
         var hashtags = fields.keys.split(" ").filter(x => x!="")
       if(fields.privado === "on")
         fields.privado = true;
@@ -51,8 +50,7 @@ router.post('/',function(req,res,next) {
               for(x in files){
                 i++
                 if(x.startsWith("ficheiro")){
-                  console.log("nome da foto: " + files[x].name)
-                  console.log("caminho da foto: " + files[x].path)
+
                   if(files[x].name != ""){
                     var extension = files[x].name.split(".")
                     extension = extension[extension.length-1]
@@ -63,7 +61,7 @@ router.post('/',function(req,res,next) {
                       evento_cultural.fotografias.push(novoNome)
                     var fenviado=files[x].path
                     var fnovo=images_dir+novoNome
-                      console.log(fnovo)
+
                     fs.rename(files[x].path, fnovo, function(err3){
                       if(!err3){
                         console.log("Ficheiro recebido e guardado com sucesso")

@@ -45,7 +45,7 @@ html
                                             p Mudar Imagem
                                 input(type="hidden" class="namefoto" id="namefoto" + i name="namefoto" + i value=foto readonly="readonly")
                                 p Descrição
-                                input(type="text" class="descricao" id="foto" + i + "descricao" name="foto" + i + "descricao" value=foto.descricao )
+                                input(type="text" class="descricao" id="descricaofoto" + i  name="descricaofoto" + i  value=foto.descricao )
                                 p Acompanhantes
                                 div(id= "foto" + i +"opcoes")
                                     - var j=0
@@ -106,7 +106,7 @@ html
                     $('#'+input1).attr('src', "/images/addimg.png")
                     listRem(input2)
                     $('#'+input2).attr('value',"")
-                    $('#'+input3+"descricao").attr('value',"")
+                    $('#descricao'+input3).attr('value',"")
                     var numOps = $('#' + input3 + 'opcoes').children().length
                     for (y=numOps; y>0; y--){
 
@@ -177,7 +177,7 @@ html
                             </figure>
                             <input type = "hidden" id ="`+ nomeador4 +`" name ="`+ nomeador4 +`" value ="" readonly = "readonly" />
                             <label class="w3-text-grey">Descricao</label>
-                            <input type="text" id="`+nomeador3 + `descricao" name="`+nomeador3 + `descricao">
+                            <input type="text" id="`+nomeador3 + `descricao" name="descricao`+nomeador3 +`">
                             <label class="w3-text-grey">Acompanhantes</label>
                             <div id="`+nomeador3+`opcoes">
                             <input class="w3-input w3-border" type="text" id="`+ nomeador3 + `opcao1" name="`+nomeador3+`opcao1" accept=".jpg, .jpeg, .png"/>

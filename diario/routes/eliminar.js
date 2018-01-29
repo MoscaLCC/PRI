@@ -21,7 +21,7 @@ var fs = require('fs')
 router.get('/:tipo/:id', function(req, res, next) {
     var images_dir = './public/images/upload/'
   var tipo = req.params.tipo
-  console.log("tipo: "+tipo + "; id: " + req.params.id)
+
   if(tipo === "Cultural"){
       Cultural.find({'_id':req.params.id},function(err,docs) {
           if (!err) {

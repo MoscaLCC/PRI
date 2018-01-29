@@ -18,8 +18,7 @@ router.post('/',function(req,res,next) {
     var status=""
     form.parse(req,function(err,fields,files){
         if(!err){
-            console.log(JSON.stringify(fields))
-            console.log("Ficheiros" + JSON.stringify(files))
+
 
             if(fields.privado === "on")
                 fields.privado = true;
@@ -59,8 +58,7 @@ router.post('/',function(req,res,next) {
                         for(x in files){
                             i++
                             if(x.startsWith("ficheiro")){
-                                console.log("nome da foto: " + files[x].name)
-                                console.log("caminho da foto: " + files[x].path)
+
                                 if(files[x].name != ""){
                                     var extension = files[x].name.split(".")
                                     extension = extension[extension.length-1]

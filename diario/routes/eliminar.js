@@ -108,7 +108,7 @@ router.get('/:tipo/:id', function(req, res, next) {
                       var status = "Ocorreu um erro ao remover o evento!"
                       res.redirect('/feed')
                     }
-                })
+                  })
                       
               }
               else {
@@ -149,7 +149,7 @@ router.get('/:tipo/:id', function(req, res, next) {
                       var status = "Ocorreu um erro ao remover o evento!"
                       res.redirect('/feed')
                     }
-                })
+                  })
               }
               else {
                   var status = "Ocorreu um erro ao remover o evento!"
@@ -230,8 +230,7 @@ router.get('/:tipo/:id', function(req, res, next) {
               }
           })
       )
-
-      
+    
   }
   else{
     var status = "Ocorreu um erro ao remover o evento!"

@@ -500,16 +500,8 @@ function albumFotografico(){
             <label class='w3-text-grey'>Foto</label>
             <input type="file" name='foto1' id='foto1' class='w3-input w3-border' accept=".jpg, .jpeg, .png"/>
             <p>
-                <label class='w3-text-grey'>Nome</label>
-                <input class='w3-input w3-border' type='text' id='nomefoto1' name='nomefoto1' placeholder='Nome'/>
-            </p>
-            <p>
                 <label class='w3-text-grey'>*Descricao</label>
                 <input class='w3-input w3-border' type='text' id='descricaofoto1'name='descricaofoto1' placeholder='Descrição'/>
-            </p>
-            <p>
-                <label class='w3-text-grey'>Local</label>
-                <input class='w3-input w3-border' type='text' id='localfoto1'name='localfoto1' placeholder='Local'/>
             </p>
             <p>
                 <label class='w3-text-grey'>Pessoas</label>

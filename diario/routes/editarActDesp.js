@@ -17,7 +17,7 @@ router.post('/',function(req,res,next) {
             fields.privado = true;
         else fields.privado = false;
 
-        console.log(files)
+
             if(files.foto1.name != "" && fields.namefoto != "" ){
                 var extension = files.foto1.name.split(".")
                 extension = extension[extension.length-1]

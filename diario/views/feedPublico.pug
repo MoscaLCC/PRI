@@ -160,12 +160,14 @@ html
                     p=evento.uc
                     if evento.docente
                     label(class="w3-text-grey") Docente
-                      p=evento.docente
+                    p=evento.docente
                     if evento.ficheiros
                     label(class="w3-text-grey") Ficheiros
                         each ficheiro in evento.ficheiros
                           a(href="/images/upload/"+ ficheiro)
                               p=ficheiro
+                    if evento.nota
+                    label(class="w3-text-grey") Nota
                     p=evento.resultado
                     div(class="w3-container w3-blue-light")
                         h1 Comentários

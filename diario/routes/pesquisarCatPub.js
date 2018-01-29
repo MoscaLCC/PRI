@@ -409,7 +409,7 @@ router.post('/',function(req,res,next) {
                     }
                 }
 
-                if(categoria === "Pensamento"|| key!=""){
+                if(categoria === "Álbum Fotográfico"|| key!=""){
                     try{
                         docs2 = sync.await(AlbumFotografico.find({'privado':false}).exec(sync.defer()))
                         if(docs2.length> 0){

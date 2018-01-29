@@ -32,6 +32,16 @@ router.get('/:tipo/:id', function(req, res, next) {
                       fs.unlinkSync(curPath);
                   } catch (err) {console.log("ERRO AO REMOVER A IMAGEM:" + err)}
               }
+              Cultural.find({'_id':req.params.id}).remove().exec(function(err,docs){
+                if(!err){
+                  var status = "Evento removido com sucesso!"
+                  res.redirect('/feed')
+                }
+                else{
+                  var status = "Ocorreu um erro ao remover o evento!"
+                  res.redirect('/feed')
+                }
+            })
           }
           else {
               var status = "Ocorreu um erro ao remover o evento!"
@@ -39,16 +49,7 @@ router.get('/:tipo/:id', function(req, res, next) {
           }
       })
 
-    Cultural.find({'_id':req.params.id}).remove().exec(function(err,docs){
-        if(!err){
-          var status = "Evento removido com sucesso!"
-          res.redirect('/feed')
-        }
-        else{
-          var status = "Ocorreu um erro ao remover o evento!"
-          res.redirect('/feed')
-        }
-    })
+   
   }else if(tipo === "Ideia"){
     Ideia.find({'_id':req.params.id}).remove().exec(function(err,docs){
         if(!err){
@@ -70,7 +71,6 @@ router.get('/:tipo/:id', function(req, res, next) {
                           fs.unlinkSync(curPath);
                       } catch (err) {console.log("ERRO AO REMOVER A IMAGEM:" + err)}
                   }
-                  
                   TrabalhoAcademico.find({'_id':req.params.id}).remove().exec(function(err,docs){
                     if(!err){
                       var status = "Evento removido com sucesso!"
@@ -92,7 +92,7 @@ router.get('/:tipo/:id', function(req, res, next) {
       
   }else if(tipo === "Atividade Desportiva"){
 
-      AtividadeDesportiva.find({'_id':req.params.id},(function(err,docs) {
+      AtividadeDesportiva.find({'_id':req.params.id},function(err,docs) {
               if (!err) {
                   var fotos = docs[0].fotografia
                   try{
@@ -116,7 +116,7 @@ router.get('/:tipo/:id', function(req, res, next) {
                   res.redirect('/feed')
               }
           })
-      )
+      
       
   }else if(tipo === "Pensamento"){
     Pensamento.find({'_id':req.params.id}).remove().exec(function(err,docs){

@@ -135,7 +135,7 @@ router.get('/', function(req, res, next) {
           var docsCronicas = sync.await(Cronica.find({'userId':userID }).exec(sync.defer()))
           for(var i=0;i<docsCronicas.length;i++){
             var x=JSON.parse(JSON.stringify(docsCronicas[i]));
-            x.tipoEvento="Cronica"
+            x.tipoEvento="Crónica"
             eventos.push(x)
           }
         }

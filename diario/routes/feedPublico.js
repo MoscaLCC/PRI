@@ -149,7 +149,7 @@ router.get('/', function(req, res, next) {
             var docsCronicas = sync.await(Cronica.find({'userId':usersID[j],'privado':false}).exec(sync.defer()))
             for(var i=0;i<docsCronicas.length;i++){
                 var x=JSON.parse(JSON.stringify(docsCronicas[i]));
-                x.tipoEvento="Cronica"
+                x.tipoEvento="Crónica"
                 x.user=usersID[j].user
                 eventos.push(x)
             }

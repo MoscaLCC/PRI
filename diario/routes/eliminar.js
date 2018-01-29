@@ -23,7 +23,7 @@ router.get('/:tipo/:id', function(req, res, next) {
   var tipo = req.params.tipo
   console.log("tipo: "+tipo + "; id: " + req.params.id)
   if(tipo === "Cultural"){
-      Cultural.find({'_id':req.params.id},(function(err,docs) {
+      Cultural.find({'_id':req.params.id},function(err,docs) {
           if (!err) {
               var fotos = docs[0].fotografias
               for(foto in fotos){
@@ -38,7 +38,6 @@ router.get('/:tipo/:id', function(req, res, next) {
               res.redirect('/feed')
           }
       })
-      )
 
     Cultural.find({'_id':req.params.id}).remove().exec(function(err,docs){
         if(!err){
@@ -71,6 +70,17 @@ router.get('/:tipo/:id', function(req, res, next) {
                           fs.unlinkSync(curPath);
                       } catch (err) {console.log("ERRO AO REMOVER A IMAGEM:" + err)}
                   }
+                  
+                  TrabalhoAcademico.find({'_id':req.params.id}).remove().exec(function(err,docs){
+                    if(!err){
+                      var status = "Evento removido com sucesso!"
+                      res.redirect('/feed')
+                    }
+                    else{
+                      var status = "Ocorreu um erro ao remover o evento!"
+                      res.redirect('/feed')
+                    }
+                  })
               }
               else {
                   var status = "Ocorreu um erro ao remover o evento!"
@@ -79,42 +89,35 @@ router.get('/:tipo/:id', function(req, res, next) {
           })
       )
 
-      TrabalhoAcademico.find({'_id':req.params.id}).remove().exec(function(err,docs){
-        if(!err){
-          var status = "Evento removido com sucesso!"
-          res.redirect('/feed')
-        }
-        else{
-          var status = "Ocorreu um erro ao remover o evento!"
-          res.redirect('/feed')
-        }
-    })
+      
   }else if(tipo === "Atividade Desportiva"){
 
       AtividadeDesportiva.find({'_id':req.params.id},(function(err,docs) {
               if (!err) {
                   var fotos = docs[0].fotografia
                   try{
-                          curPath = images_dir + fotos
-                          fs.unlinkSync(curPath);
-                      } catch (err) {console.log("ERRO AO REMOVER A IMAGEM:" + err)}
-                  }
+                    curPath = images_dir + fotos
+                    fs.unlinkSync(curPath);
+                  } catch (err) {console.log("ERRO AO REMOVER A IMAGEM:" + err)}
+                  AtividadeDesportiva.find({'_id':req.params.id}).remove().exec(function(err,docs){
+                    if(!err){
+                      var status = "Evento removido com sucesso!"
+                      res.redirect('/feed')
+                    }
+                    else{
+                      var status = "Ocorreu um erro ao remover o evento!"
+                      res.redirect('/feed')
+                    }
+                })
+                      
+              }
               else {
                   var status = "Ocorreu um erro ao remover o evento!"
                   res.redirect('/feed')
               }
           })
       )
-      AtividadeDesportiva.find({'_id':req.params.id}).remove().exec(function(err,docs){
-      if(!err){
-        var status = "Evento removido com sucesso!"
-        res.redirect('/feed')
-      }
-      else{
-        var status = "Ocorreu um erro ao remover o evento!"
-        res.redirect('/feed')
-      }
-  })
+      
   }else if(tipo === "Pensamento"){
     Pensamento.find({'_id':req.params.id}).remove().exec(function(err,docs){
       if(!err){
@@ -126,7 +129,7 @@ router.get('/:tipo/:id', function(req, res, next) {
         res.redirect('/feed')
       }
   })
-  }else if(tipo === "Cronica") {
+  }else if(tipo === "Crónica") {
 
       Cronica.find({'_id':req.params.id},(function(err,docs) {
               if (!err) {
@@ -137,6 +140,16 @@ router.get('/:tipo/:id', function(req, res, next) {
                           fs.unlinkSync(curPath);
                       } catch (err) {console.log("ERRO AO REMOVER A IMAGEM:" + err)}
                   }
+                  Cronica.find({'_id':req.params.id}).remove().exec(function(err,docs){
+                    if(!err){
+                      var status = "Evento removido com sucesso!"
+                      res.redirect('/feed')
+                    }
+                    else{
+                      var status = "Ocorreu um erro ao remover o evento!"
+                      res.redirect('/feed')
+                    }
+                })
               }
               else {
                   var status = "Ocorreu um erro ao remover o evento!"
@@ -144,16 +157,7 @@ router.get('/:tipo/:id', function(req, res, next) {
               }
           })
       )
-    Cronica.find({'_id':req.params.id}).remove().exec(function(err,docs){
-      if(!err){
-        var status = "Evento removido com sucesso!"
-        res.redirect('/feed')
-      }
-      else{
-        var status = "Ocorreu um erro ao remover o evento!"
-        res.redirect('/feed')
-      }
-  })
+    
   }else if(tipo === "Receita Culinária") {
     ReceitaCulinaria.find({'_id':req.params.id}).remove().exec(function(err,docs){
       if(!err){
@@ -209,6 +213,16 @@ router.get('/:tipo/:id', function(req, res, next) {
                           fs.unlinkSync(curPath);
                       } catch (err) {console.log("ERRO AO REMOVER A IMAGEM:" + err)}
                   }
+                  Viagem.find({'_id':req.params.id}).remove().exec(function(err,docs){
+                    if(!err){
+                      var status = "Evento removido com sucesso!"
+                      res.redirect('/feed')
+                    }
+                    else{
+                      var status = "Ocorreu um erro ao remover o evento!"
+                      res.redirect('/feed')
+                    }
+                  })
               }
               else {
                   var status = "Ocorreu um erro ao remover o evento!"
@@ -217,16 +231,7 @@ router.get('/:tipo/:id', function(req, res, next) {
           })
       )
 
-      Viagem.find({'_id':req.params.id}).remove().exec(function(err,docs){
-      if(!err){
-        var status = "Evento removido com sucesso!"
-        res.redirect('/feed')
-      }
-      else{
-        var status = "Ocorreu um erro ao remover o evento!"
-        res.redirect('/feed')
-      }
-    })
+      
   }
   else{
     var status = "Ocorreu um erro ao remover o evento!"

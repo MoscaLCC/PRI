@@ -13,7 +13,7 @@ grammar importacao;
 importacao
 @after{
        System.out.println(output);
-}   : (tipoEvento ':' eventos ';' {output+=";";})+
+}   : (tipoEvento ':' {output+="[";} eventos {output+="]";}';' {output+=";";})+
        ;
 
 tipoEvento : t='"Atividade Desportiva"' {output+=$t.text;}
@@ -25,16 +25,16 @@ tipoEvento : t='"Atividade Desportiva"' {output+=$t.text;}
             | t='"Cultural"' {output+=$t.text;} | t='Cultural' {output+=$t.text;}
             | t='"Ideia"' {output+=$t.text;} | t='Ideia' {output+=$t.text;}
             | t='"Pensamento"' {output+=$t.text;} | t='Pensamento' {output+=$t.text;}
-            | t='"Cronica"' {output+=$t.text;} | t='Cronica' {output+=$t.text;}
+            | t='"Crónica"' {output+=$t.text;} | t='Crónica' {output+=$t.text;}
             | t='"Evento"' {output+=$t.text;} | t='Evento' {output+=$t.text;}
 
            ;
 
-eventos : evento (','evento )*;
+eventos : evento (',' {output+=",";}evento )*;
 
 evento: '(' {output+="{";} atributo (','{output+=",";} atributo)*  ')' {output+="\n}";} ;
 
-atributo: nomeAtributo {output+="\n\t"+$nomeAtributo.text;} ':' {output+=":";} valorAtributo {output+=$valorAtributo.text;} ;
+atributo: nomeAtributo {output+="\n\t\""+$nomeAtributo.text+"\"";} ':' {output+=":";} valorAtributo {output+=$valorAtributo.text;} ;
 
 nomeAtributo: IDENT;
 

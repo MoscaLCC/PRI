@@ -71,7 +71,7 @@ router.get('/:tipo/:id', function(req, res, next) {
                 res.redirect('/feed')
             }
         })
-        )}else if(tipo === "Cronica") {
+        )}else if(tipo === "Crónica") {
         Cronica.find({'_id':req.params.id},(function(err,docs){
             if(!err){
                 res.render('editarCronica', {valores:docs[0]})

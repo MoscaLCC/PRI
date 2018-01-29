@@ -2,7 +2,7 @@
 doctype html
 html
     head
-        title Perfil
+        title Importar
         meta(charset='UTF-8')
         meta(name='viewport' content='width=device-width, initial-scale=1')
         link(rel='stylesheet', href='/stylesheets/style.css')
@@ -18,6 +18,8 @@ html
         div(class="w3-content w3-margin-top w3-center" style="max-width:1400px;")
         // The Grid
         div(class="w3-row-padding")
+            if status
+                p=status
             // Left Column
             form(class="w3-container" action="/importar" method="post" enctype="multipart/form-data" id="forms")
                 div(class="w3-third.w3-center")
@@ -27,7 +29,7 @@ html
                             input(type="file" id="ficheiro" name="ficheiro" readonly="readonly")
                         
                         p(class="w3-text-white")
-                            input(class="w3-btn w3-teal w3-round" type="submit" value="Guardar Alterações")
+                            input(class="w3-btn w3-teal w3-round" type="submit" value="Importar do ficheiro")
         center
             a(class="w3-button w3-large w3-theme-d4 w3-center" href="/feed" title="voltar")
                 i(class="fa fa-home")

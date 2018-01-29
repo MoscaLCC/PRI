@@ -89,7 +89,7 @@ router.post('/', function(req, res, next) {
                         res.redirect('/feed')
                     }
                 })
-            }else if(tipo === "Cronica") {
+            }else if(tipo === "Crónica") {
                 Cronica.update({'_id': id},
                     {$push:{'comentarios':fields.comentario}}).exec(function(err,docs){
                     if(!err){
